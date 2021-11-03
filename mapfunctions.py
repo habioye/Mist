@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+#-----------------------------------------------------------------------
+# mapfunctions.py
+# Author: Benjamin Nadon
+#-----------------------------------------------------------------------
+
+from sys import stderr
+from flask import Flask, request, make_response
+from flask import render_template
+from mistdb import add_event_proto, map_query
+
+#-----------------------------------------------------------------------
+
+app = Flask(__name__, template_folder='.')
+
+
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
+def index():
+
+    long = request.args.get('Longitude')
+    lat = request.args.get('Latitude')
+    text = request.args.get('Text')
+    map_query("")
+
+    if long is not None:
+        add_event_proto(long, lat, text)
+
+    html = render_template("testmap.html", long = long, lat = lat, text = text)
+
+
+    response = make_response(html)
+
+    return response

@@ -30,7 +30,7 @@ def main():
 
 
     try:
-        app.run(host='0.0.0.0', port=port, debug=True)
+        system('gunicorn -b 0.0.0.0:' + str(port) + ' --access-logfile - Mist:app')
     except Exception as ex:
         print(ex, file=stderr)
         exit(1)

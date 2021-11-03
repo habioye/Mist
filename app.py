@@ -21,10 +21,9 @@ def index():
     long = request.args.get('Long')
     lat = request.args.get('Lat')
     text = request.args.get('Text')
-    #package = map_query("")
-    if(package[0] == False){
+    package = map_query("00:00:00-05:00", "23:59:59-05:00")
+    if(package[0] == False):
         print("error")
-    }
 
     # if long is not None:
     #     add_event_proto(long, lat, text)

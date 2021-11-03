@@ -21,16 +21,21 @@ def index():
     long = request.args.get('Long')
     lat = request.args.get('Lat')
     text = request.args.get('Text')
-    package = map_query("")
+    #package = map_query("")
     if(package[0] == False){
         print("error")
     }
-    
-    if long is not None:
-        add_event_proto(long, lat, text)
+
+    # if long is not None:
+    #     add_event_proto(long, lat, text)
 
     html = render_template("testmap.html", long = long, lat = lat, text = text)
 
     response = make_response(html)
 
     return response
+
+if __name__ == "__main__":
+    app.debug = False
+    port = int(os.environ.get("PORT", 33507))
+    

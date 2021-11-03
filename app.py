@@ -22,14 +22,14 @@ def index():
     lat = request.args.get('Lat')
     text = request.args.get('Text')
     package = map_query("")
-    if(package[0] == False)
-
+    if(package[0] == False){
+        print("error")
+    }
+    
     if long is not None:
         add_event_proto(long, lat, text)
 
     html = render_template("testmap.html", long = long, lat = lat, text = text)
-
-    html = render_template(testmap.html, long = long, lat = lat, text = text)
 
     response = make_response(html)
 

@@ -679,4 +679,3 @@ def tags_query(tag):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
-}

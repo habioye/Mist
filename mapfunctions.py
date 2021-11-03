@@ -18,9 +18,8 @@ app = Flask(__name__, template_folder='.')
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-
-    long = request.args.get('Longitude')
-    lat = request.args.get('Latitude')
+    long = request.args.get('Long')
+    lat = request.args.get('Lat')
     text = request.args.get('Text')
     package = map_query("")
     if(package[0] == False)
@@ -30,6 +29,7 @@ def index():
 
     html = render_template("testmap.html", long = long, lat = lat, text = text)
 
+    html = render_template(testmap.html, long = long, lat = lat, text = text)
 
     response = make_response(html)
 

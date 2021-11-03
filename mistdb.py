@@ -17,7 +17,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 #---------------------------------------------------------------------
 
-def pair (num1, num2) {
+def pair (num1, num2):
     return (((num1 + num2) * (num1 + num2 + 1))/2) + num2
 }
 #---------------------------------------------------------------------

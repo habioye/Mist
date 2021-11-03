@@ -22,7 +22,8 @@ def index():
     long = request.args.get('Longitude')
     lat = request.args.get('Latitude')
     text = request.args.get('Text')
-    map_query("")
+    package = map_query("")
+    if(package[0] == False)
 
     if long is not None:
         add_event_proto(long, lat, text)

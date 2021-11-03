@@ -7,7 +7,7 @@
 
 from sys import exit, stderr
 import argparse
-from reg import app
+from mapfunctions import app
 
 def make_parser():
     parser = argparse.ArgumentParser(description =

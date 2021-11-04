@@ -115,6 +115,7 @@
                 {
                     let author = $('#authorInput').val();
                     author = encodeURIComponent(author);
+                    // look at how you retrieve information
                     let url = '/searchresults?author=' + author;
 
                     if (request != null)

@@ -81,8 +81,8 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (?, ?, ?, ?::time with time zone, ?::time with time zone,
-                    ?::date, ?, ?, (?, ?), ?)'''
+                    roomNumber) VALUES (?, ?, ?, CAST('?' AS TIME WITH TIME ZONE), 
+                    CAST('?' AS TIME WITH TIME ZONE), CAST('?' AS DATE), ?, ?, (?, ?), ?)'''
                 cursor.execute(stmt_str, (event_id, title, location, start + 'EST',
                     end + 'EST', date, details, planner, x_coord, y_coord, number))
 
@@ -173,8 +173,8 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   startTime >= ?::time with time zone
-                                AND     startTime <= ?::time with time zone
+                                WHERE   startTime >= CAST('?' AS TIME WITH TIME ZONE)
+                                AND     startTime <= CAST('?' AS TIME WITH TIME ZONE)
                                 ORDER BY    eventLocation,
                                             eventName'''
 
@@ -563,7 +563,7 @@ def remove_particpant(event_id, participant):
 # Return True and a list of participants that are the user's friends
 # and their names on Success, False and error message on failure.
 
-def friends_query(event_id, netID):
+def particpants_query(event_id, netID):
     try:
         with conn:
             cursor = conn.cursor()

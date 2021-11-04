@@ -174,11 +174,11 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   startTime BETWEEN CAST('?' AS TIME WITH TIME ZONE) AND CAST('?' AS TIME WITH TIME ZONE)
+                                WHERE   startTime BETWEEN CAST(? AS TIME WITH TIME ZONE) AND CAST(? AS TIME WITH TIME ZONE)
                                 ORDER BY    eventLocation,
                                             eventName'''
 
-                cursor.execute(stmt_str, (start + ' EST', end + ' EST'))
+                cursor.execute(stmt_str, (start, end))
                 data = cursor.fetchall()
 
                 return [True, data]

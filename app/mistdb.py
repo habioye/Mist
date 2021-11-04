@@ -174,7 +174,7 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   startTime BETWEEN 00:00:00-05:00 AND 23:59:59-05:00
+                                WHERE   startTime BETWEEN '00:00:00-05:00' AND '23:59:59-05:00'
                                 ORDER BY    eventLocation,
                                             eventName'''
 

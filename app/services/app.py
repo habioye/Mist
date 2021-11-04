@@ -28,7 +28,7 @@ def index():
     # if long is not None:
     #     add_event_proto(long, lat, text)
 
-    html = render_template("testmap.html")
+    html = render_template("app/templates/testmap.html")
 
     response = make_response(html)
 

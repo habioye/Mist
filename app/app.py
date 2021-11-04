@@ -28,7 +28,7 @@ def index():
     if long is not None:
         mistdb.add_event_proto(long, lat, text)
 
-    html = render_template("testmap.html")
+    html = render_template("testmap.html", long = long, lat = lat, text = text)
 
     response = make_response(html)
 

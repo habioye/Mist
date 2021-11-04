@@ -6,29 +6,12 @@
 #-----------------------------------------------------------------------
 
 from sys import exit, stderr
-import argparse
 from app import app
 from os import system, environ
 
-def make_parser():
-    parser = argparse.ArgumentParser(description =
-    'Server for the registrar application',
-        allow_abbrev = False)
-    parser.add_argument("port", type = int, help =
-    "the port at which the server should listen")
 
-    return parser
 
 def main():
-    try:
-        parser = make_parser()
-        args = parser.parse_args()
-        port = args.port
-
-    except Exception as ex:
-        print(ex, file=stderr)
-        exit(2)
-
 
     try:
         port = int(environ.get("PORT", 33507))

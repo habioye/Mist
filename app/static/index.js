@@ -17,5 +17,4 @@ function initMap() {
       infoWindow.setContent(marker.getTitle());
       infoWindow.open(marker.getMap(), marker);
     });
-
 }

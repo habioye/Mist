@@ -56,6 +56,8 @@ def calendar():
             print(details[2])
     
     html = render_template("calendar.html", eventData = data)
+    response = make_response(html)
+    return response
 
 # if __name__ == "__main__":
 #     app.debug = False

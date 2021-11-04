@@ -33,9 +33,7 @@
 
 
       <div id = "map"></div>
-      <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
 
-      </script>
       <script>
       "use strict"
 
@@ -47,18 +45,34 @@
           center: { lat: 40.34657, lng: -74.65631 },
           zoom: 16,
         });
-        const infoWindow = new google.maps.InfoWindow();
+        var counts = JSON.parse("{{ eventData }}");
+        counts.forEach(function(element){
+          const marker = new google.maps.Marker({
+           position: { lat: element[0], lng: element[1] },
+           map: map,
+         });
+         marker.addListener("click", () => {
+              infoWindow.close();
+              infoWindow.setContent(marker.getTitle());
+              infoWindow.open(marker.getMap(), marker);
+            });
+        }
+        })
+        // const infoWindow = new google.maps.InfoWindow();
 
-        // const marker = new google.maps.Marker({
-        //  position: { lat: 40.34657, lng: -74.65631 },
-        //  map: map,
-       // });
-       // marker.addListener("click", () => {
-       //      infoWindow.close();
-       //      infoWindow.setContent(marker.getTitle());
-       //      infoWindow.open(marker.getMap(), marker);
-       //    });
-      }
+
+
+
+      //   const marker = new google.maps.Marker({
+      //    position: { lat: 40.34657, lng: -74.65631 },
+      //    map: map,
+      //  });
+      //  marker.addListener("click", () => {
+      //       infoWindow.close();
+      //       infoWindow.setContent(marker.getTitle());
+      //       infoWindow.open(marker.getMap(), marker);
+      //     });
+      // }
 
 
       function addPoint()
@@ -76,6 +90,10 @@
 
   }
   document.getElementById("submit").onclick =  addPoint;
+
+  </script>
+
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
 
   </script>
 

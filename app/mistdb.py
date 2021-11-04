@@ -39,6 +39,9 @@ def add_event_proto(title, x_coord, y_coord):
     try:
         with conn:
             cursor = conn.cursor()
+            print(title)
+            print(x_coord)
+            print(y_coord)
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
@@ -49,11 +52,11 @@ def add_event_proto(title, x_coord, y_coord):
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (?, ?, 'Princeton Campus', ?::time with time zone,
-                    ?::time with time zone, ?::date, 'Sample Details', 'Example ID',
+                    roomNumber) VALUES (?, ?, 'Princeton Campus', ?,
+                    ?, ?, 'Sample Details', 'Example ID',
                     (?, ?), 'Example Room')'''
                 cursor.execute(stmt_str, (event_id, title,
-                    date_time.time().isoformat() + 'EST', offset.time().isoformat() + 'EST',
+                    date_time.time().isoformat(), offset.time().isoformat(),
                     date_time.date().isoformat(), x_coord, y_coord))
 
                 return True

@@ -178,7 +178,7 @@ def map_query(start, end):
                                 ORDER BY    eventLocation,
                                             eventName'''
 
-                cursor.execute(stmt_str, (start + 'EST', end + 'EST'))
+                cursor.execute(stmt_str, (start + ' EST', end + ' EST'))
                 data = cursor.fetchall()
 
                 return [True, data]

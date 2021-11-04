@@ -174,7 +174,7 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   startTime BETWEEN ? AND ?
+                                WHERE   startTime BETWEEN CAST('?' AS TIME WITH TIME ZONE) AND CAST('?' AS TIME WITH TIME ZONE)
                                 ORDER BY    eventLocation,
                                             eventName'''
 
@@ -186,6 +186,7 @@ def map_query(start, end):
     except Exception as ex:
         error_msg = "A server error occurred. "
         error_msg +="Please contact the system administrator."
+        error_msg +=" start: " + start + " end: " + end
         print(ex, file=stderr, end=" ")
         print(error_msg, file=stderr)
         result = [False, error_msg]

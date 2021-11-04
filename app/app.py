@@ -8,7 +8,7 @@
 from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template
-from json import dump
+from json import dumps
 from app import mistdb, templates
 
 #-----------------------------------------------------------------------
@@ -27,7 +27,7 @@ def index():
     if package[0] == False:
         print(package[1])
     else:
-        package = dump(package[1])
+        package = dumps(package[1])
 
     html = render_template("testmap.html", eventData = package)
 

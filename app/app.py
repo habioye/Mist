@@ -18,9 +18,9 @@ app = Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    long = request.args.get('Long')
-    lat = request.args.get('Lat')
-    text = request.args.get('Text')
+    long = request.args.get('long')
+    lat = request.args.get('lat')
+    text = request.args.get('text')
     package = map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print("error")

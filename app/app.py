@@ -29,11 +29,7 @@ def index():
     else:
         package = dump(package[1])
 
-
-    if long is not None:
-        mistdb.add_event_proto(long, lat, text)
-
-    html = render_template("testmap.html", long = long, lat = lat, text = text, eventData = package)
+    html = render_template("testmap.html", eventData = package)
 
     response = make_response(html)
 
@@ -47,14 +43,14 @@ def calendar():
     else:
         package = package[1]
     data = []
-    
+
     for event in package:
         details = mistdb.details_query(event[0])
         if details[0]:
             data.push(details[1])
         else:
             print(details[2])
-    
+
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)
     return response

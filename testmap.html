@@ -4,8 +4,31 @@
      <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
       <title>Test Google Maps</title>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-      <link rel="stylesheet" type="text/css" href="./style.css" />
-      <script src="./index.js"></script>
+      <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+      <!-- <script src="./index.js"> -->
+      <script>
+      let map;
+
+      function initMap() {
+
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 40.34657, lng: -74.65631 },
+          zoom: 16,
+        });
+        const infoWindow = new google.maps.InfoWindow();
+
+        const marker = new google.maps.Marker({
+         position: { lat: 40.34657, lng: -74.65631 },
+         map: map,
+         // title: "title",
+       });
+       marker.addListener("click", () => {
+            infoWindow.close();
+            infoWindow.setContent(marker.getTitle());
+            infoWindow.open(marker.getMap(), marker);
+          });
+      }
+      </script>
    </head>
    <body>
       <h1>Map</h1>

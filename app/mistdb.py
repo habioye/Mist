@@ -56,9 +56,9 @@ def add_event_proto(title, x_coord, y_coord):
                     roomNumber) VALUES (?, ?, 'Princeton Campus', ?,
                     ?, ?, 'Sample Details', 'Example ID',
                     ?, 'Example Room')'''
-                cursor.execute(stmt_str, (event_id, title,
-                    date_time.time().isoformat(), offset.time().isoformat(),
-                    date_time.date().isoformat(), coords))
+                cursor.execute(stmt_str, (str(event_id), str(title),
+                    str(date_time.time().isoformat()), str(offset.time().isoformat()),
+                    str(date_time.date().isoformat()), str(coords)))
 
                 return True
     except Exception as ex:

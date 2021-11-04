@@ -47,15 +47,15 @@
         });
         const infoWindow = new google.maps.InfoWindow();
 
-        const marker = new google.maps.Marker({
-         position: { lat: 40.34657, lng: -74.65631 },
-         map: map,
-       });
-       marker.addListener("click", () => {
-            infoWindow.close();
-            infoWindow.setContent(marker.getTitle());
-            infoWindow.open(marker.getMap(), marker);
-          });
+        // const marker = new google.maps.Marker({
+        //  position: { lat: 40.34657, lng: -74.65631 },
+        //  map: map,
+       // });
+       // marker.addListener("click", () => {
+       //      infoWindow.close();
+       //      infoWindow.setContent(marker.getTitle());
+       //      infoWindow.open(marker.getMap(), marker);
+       //    });
       }
 
 

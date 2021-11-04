@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
    <head>
+      <head>
+      <title></title>
+      <link rel="stylesheet" href="static/style.css">
+   </head>
+   <body>
         <div>
-        <div class="col-3"><strong>Calender Info</strong></div>
+        <div class="col-3"><strong>Test Cal</strong></div>
         <div class="col-9 grayborder" id="eventinfo"></div>
         </div>
+
+        <div class="header">
+        <h2>Calender</h2>
+        <h3>Good <span id="ampmSpan"></span> and welcome to
+            Heroku.com</h3>
+        </div>
+
+
         <table border="1">
         <tr>
         <th colspan="7">November 2021</th>
@@ -64,39 +77,41 @@
         <td>30</td>
         <td>31</td>
         </tr>
-
+        
         </table>
+        <div class="footer">
+         Date and time: <span id="datetimeSpan"></span><br>
+         Created by Hassan Abioye, Anthony Gartner, Benjamin Nadon, Nicholas Cabrera
+        </div>
         <script src=
             "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-            </script>
+        </script>
 
-            <script>
+        <script>
 
-                'use strict';
+            'use strict';
 
-                function getAmPm(){
-                    let dateTime = new Date();
-                    let hours = dateTime.getHours();
-                    let amPm = 'morning';
-                    if (hours >= 12)
-                    amPm = 'afternoon';
-                    $('#ampmSpan').html(amPm);
-                }
+            function getAmPm(){
+                let dateTime = new Date();
+                let hours = dateTime.getHours();
+                let amPm = 'morning';
+                if (hours >= 12)
+                amPm = 'afternoon';
+                $('#ampmSpan').html(amPm);
+            }
 
-                function getDateTime()
-                {
-                    let dateTime = new Date();
-                    $('#datetimeSpan').html(dateTime.toLocaleString());
-                }
+            function getDateTime(){
+                let dateTime = new Date();
+                $('#datetimeSpan').html(dateTime.toLocaleString());
+            }
 
-                function handleResponse(response)
-                {
-                    $('#eventinfo').html(response);
-                }
+            function handleResponse(response){
+                $('#eventinfo').html(response);
+            }
 
-                let request = null;
+            let request = null;
 
-                function getResults()
+                function getCalinfo()
                 {
                     let author = $('#authorInput').val();
                     author = encodeURIComponent(author);
@@ -120,9 +135,12 @@
                     window.setInterval(getAmPm, 1000);
                     getDateTime();
                     window.setInterval(getDateTime, 1000);
-                    $('#authorInput').on('input', getResults);
+                    getCalinfo();
+                    window.setInterval(getCalinfo, 1000);
                 }
 
                 $('document').ready(setup);
 
-            </script>
+        </script>
+    </body>
+</html>

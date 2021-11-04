@@ -49,21 +49,21 @@ def add_event_proto(title, x_coord, y_coord):
                 # Create a the current date in EST and a one hour offset
                 date_time = datetime.now(timezone(timedelta(-5)))
                 offset = date_time + timedelta(hours=1)
+                coords = '(' + str(x_coord) + ', ' + str(y_coord) +')'
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
                     roomNumber) VALUES (?, ?, 'Princeton Campus', ?,
                     ?, ?, 'Sample Details', 'Example ID',
-                    (?, ?), 'Example Room')'''
+                    ?, 'Example Room')'''
                 cursor.execute(stmt_str, (event_id, title,
                     date_time.time().isoformat(), offset.time().isoformat(),
-                    date_time.date().isoformat(), x_coord, y_coord))
+                    date_time.date().isoformat(), coords))
 
                 return True
     except Exception as ex:
         error_msg = "A server error occurred in add_event_proto."
         error_msg +="Please contact the system administrator."
-        error_msg +="title: " + title + "x_ccord: " + x_coord + "y_coord: " + y_coord
         print(ex, file=stderr, end=" ")
         print(error_msg, file=stderr)
         result = [False, error_msg]

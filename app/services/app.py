@@ -8,7 +8,7 @@
 from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template
-from app import mistdb
+from app import mistdb, templates
 
 #-----------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ def index():
     # if long is not None:
     #     add_event_proto(long, lat, text)
 
-    html = render_template("app/templates/testmap.html")
+    html = render_template("testmap.html")
 
     response = make_response(html)
 

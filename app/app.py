@@ -12,7 +12,7 @@ from app import mistdb, templates
 
 #-----------------------------------------------------------------------
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='templates')
 
 
 @app.route('/', methods=['GET'])

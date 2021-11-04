@@ -58,8 +58,9 @@ def add_event_proto(title, x_coord, y_coord):
 
                 return True
     except Exception as ex:
-        error_msg = "A server error occurred. "
+        error_msg = "A server error occurred in add_event_proto."
         error_msg +="Please contact the system administrator."
+        error_msg +="title: " + title + "x_ccord: " + x_coord + "y_coord: " + y_coord
         print(ex, file=stderr, end=" ")
         print(error_msg, file=stderr)
         result = [False, error_msg]

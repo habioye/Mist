@@ -7,7 +7,7 @@
 
 from sys import exit, stderr
 import argparse
-from mapfunctions import app
+from app import app
 import os
 
 def make_parser():

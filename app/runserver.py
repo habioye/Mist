@@ -8,7 +8,7 @@
 from sys import exit, stderr
 import argparse
 from app import app
-import os
+from os import system, environ
 
 def make_parser():
     parser = argparse.ArgumentParser(description =
@@ -31,7 +31,7 @@ def main():
 
 
     try:
-        port = int(os.environ.get("PORT", 33507))
+        port = int(environ.get("PORT", 33507))
         system('gunicorn -b 0.0.0.0:' + port + ' --access-logfile - mist-princeton:app')
         #app.run(host = "0.0.0.0", port = port, debug = True)
     except Exception as ex:

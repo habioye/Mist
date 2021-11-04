@@ -9,6 +9,7 @@ from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template
 from app import mistdb, templates
+from mistdb import map_query, add_event_proto
 
 #-----------------------------------------------------------------------
 

@@ -173,8 +173,8 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   startTime >= CAST('?' AS TIME WITH TIME ZONE)
-                                AND     startTime <= CAST('?' AS TIME WITH TIME ZONE)
+                                WHERE   startTime >= CAST(? AS TIME WITH TIME ZONE)
+                                AND     startTime <= CAST(? AS TIME WITH TIME ZONE)
                                 ORDER BY    eventLocation,
                                             eventName'''
 

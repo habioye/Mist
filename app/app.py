@@ -18,9 +18,9 @@ app = Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    long = request.args.get('long')
-    lat = request.args.get('lat')
-    text = request.args.get('text')
+    long = request.args.get('Longitude')
+    lat = request.args.get('Latitude')
+    text = request.args.get('Text')
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print("error")

@@ -8,6 +8,7 @@
 from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template
+from json import dump
 from app import mistdb, templates
 
 #-----------------------------------------------------------------------
@@ -21,18 +22,40 @@ def index():
     long = request.args.get('Longitude')
     lat = request.args.get('Latitude')
     text = request.args.get('Text')
+    mistdb.add_event_proto(text, long, lat)
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    if(package[0] == False):
-        print("error")
+    if package[0] == False:
+        print(package[1])
+    else:
+        package = dump(package[1])
+
 
     if long is not None:
         mistdb.add_event_proto(long, lat, text)
 
-    html = render_template("testmap.html", long = long, lat = lat, text = text)
+    html = render_template("testmap.html", long = long, lat = lat, text = text, eventData = package)
 
     response = make_response(html)
 
     return response
+
+@app.route('/calendar', methods=['GET'])
+def calendar():
+    package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
+    if(package[0] == False):
+        print(package[1])
+    else:
+        package = package[1]
+    data = []
+    
+    for event in package:
+        details = mistdb.details_query(event[0])
+        if details[0]:
+            data.push(details[1])
+        else:
+            print(details[2])
+    
+    html = render_template("calendar.html", eventData = data)
 
 # if __name__ == "__main__":
 #     app.debug = False

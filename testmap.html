@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
+     <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
       <title>Test Google Maps</title>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
       <link rel="stylesheet" type="text/css" href="./style.css" />
@@ -13,19 +14,19 @@
       <table>
       <tr>
       <td align colspan= "right"> <label for="Longitude"> Longitude: </label> </td>
-      <td> <input type="text" name="Longitude" value = "{{long}}"></td>
+      <td> <input type="text" id = "long" value = "{{long}}"></td>
       </tr>
       <tr>
       <td align = "right"><label for="Latitude"> Latitude:</label></td>
-      <td><Input type="text", name = "Latitude" value = "{{lat}}"></td>
+      <td><Input type="text", id = "lat" value = "{{lat}}"></td>
       </tr>
       <tr>
       <td align = "right"><label for="Text"> Text:</label></td>
-      <td><Input type = "text", name = "Text" value = "{{text}}"></td>
+      <td><Input type = "text", id = "text" value = "{{text}}"></td>
       </tr>
       <tr>
       <td></td>
-      <td><input type="submit" value = "Create"></td>
+      <td><input type="submit", id = "submit" value = "Create"></td>
       </tr>
       </table>
       </form>
@@ -37,6 +38,17 @@
       <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
 
       </script>
+
+      <!-- <script>
+      'use strict';
+
+      // function addPoint{
+      //
+      // }
+      function setup(){
+      $('#submit').on('input', addPoint;)
+    }
+      </script> -->
       <hr>
       Created by Benjamin Nadon</a>.
       <hr>

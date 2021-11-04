@@ -30,7 +30,7 @@ def index():
 
     html = render_template("testmap.html")
 
-    response = make_response(html)
+    response = make_response("testmap.html")
 
     return response
 

@@ -30,7 +30,8 @@ def main():
 
 
     try:
-        system('gunicorn -b 0.0.0.0:' + str(port) + ' --access-logfile - mist-princeton:app')
+        #system('gunicorn -b 0.0.0.0:' + str(port) + ' --access-logfile - mist-princeton:app')
+        app.run(host = "0.0.0.0", port = port, debug = True)
     except Exception as ex:
         print(ex, file=stderr)
         exit(1)

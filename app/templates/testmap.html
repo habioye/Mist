@@ -106,7 +106,7 @@
     });
 
   }
-  document.getElementById("submit").onclick =  addPoint;
+  // document.getElementById("submit").onclick =  addPoint;
 
   </script>
 
@@ -136,8 +136,10 @@
           <th align="left">Coordinates</th>
         </tr>
         {% for event in eventData %}
+          <script>
+          let data = {{event|tojson}}
+          addPoint({{data[1]}}, {{data[3]}})</script>
         <tr>
-          <script>addPoint("{{event[1]}}", "{{event[3]}}")</script>
           <td>{{event[0]}}</td>
           <td>{{event[1]}}</td>
           <td>{{event[2]}}</td>

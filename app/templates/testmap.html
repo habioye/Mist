@@ -38,6 +38,7 @@
       "use strict"
 
       let map;
+      let events;
 
       function initMap() {
 
@@ -58,6 +59,18 @@
         //     });
         // })
         }
+      function initMap(events) {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 40.34657, lng: -74.65631 },
+          zoom: 16,
+        });
+        for (let event in events) {
+          const marker = new google.maps.Marker({
+          position: { lat: parseFloat(nums[1]), lng: parseFloat(nums[0]) },
+          map: map,
+          });
+        }
+      }
         // const infoWindow = new google.maps.InfoWindow();
 
 
@@ -84,6 +97,8 @@
       // let text = document.getElementById("text").value;
 
       // let map = document.getElementById("map");
+      events.push([title, parseFloat(nums[1]), parseFloat(nums[0])])
+      initMap(events)
 
       const marker = new google.maps.Marker({
        position: { lat: parseFloat(nums[1]), lng: parseFloat(nums[0]) },

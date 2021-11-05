@@ -61,7 +61,7 @@ def add_event_proto(title, x_coord, y_coord):
                 #     str(date_time.date().isoformat()), str(coords)))
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (1, test, princeton, '00:00:00-05:00', '01:00:00-05:00', '2021-11-4', details, name, '(-74.659355243864, 40.34876915320406)', room);'''
+                    roomNumber) VALUES (1, 'test', 'princeton', '00:00:00-05:00', '01:00:00-05:00', '2021-11-4', 'details', 'name', '(-74.659355243864, 40.34876915320406)', 'room');'''
                 cursor.execute(stmt_str)
                 return True
     except Exception as ex:

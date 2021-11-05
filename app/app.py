@@ -32,7 +32,8 @@ def index():
         print(package[1])
     else:
         print(package[1])
-        package = dumps(package[1])
+        # package = dumps(package[1])
+        package = package[1]
 
     html = render_template("testmap.html", eventData = package)
 

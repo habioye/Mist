@@ -110,6 +110,24 @@
       $('#submit').on('input', addPoint;)
     }
       </script> -->
+      {% if eventData != None %}
+      <table>
+        <tr>
+          <th align="left">Event ID</th>
+          <th align="left">Title</th>
+          <th align="left">Location</th>
+          <th align="left">Coordinates</th>
+        </tr>
+        {% for event in eventData %}
+        <tr>
+          <td>{{event[0]}}</td>
+          <td>{{event[1]}}</td>
+          <td>{{event[2]}}</td>
+          <td>{{event[3]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
       <hr>
       Created by Benjamin Nadon</a>.
       <hr>

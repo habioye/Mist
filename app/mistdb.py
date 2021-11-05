@@ -45,7 +45,7 @@ def add_event_proto(title, x_coord, y_coord):
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                event_id = str(hash(pair(x_coord, y_coord)))
+                event_id = str(pair(x_coord, y_coord))
                 # Create a the current date in EST and a one hour offset
                 date_time = datetime.now(timezone(timedelta(hours=-5)))
                 offset = date_time + timedelta(hours=1)

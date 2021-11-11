@@ -46,10 +46,12 @@
           center: { lat: 40.34657, lng: -74.65631 },
           zoom: 16,
         });
+        let regex = /\d+/
         var counts = {{ eventData|tojson }}
         counts.forEach(function(element){
+          let nums = element[3].match(regex)
           const marker = new google.maps.Marker({
-           position: { lat: element[0], lng: element[1] },
+           position: { lat: parseFloat(nums[1]), lng: parseFloat(nums[0]) },
            map: map,
          });
          marker.addListener("click", () => {

@@ -59,10 +59,7 @@ def add_event_proto(title, x_coord, y_coord):
                 cursor.execute(stmt_str, (str(event_id),str(title),
                     str(date_time.time().isoformat()), str(offset.time().isoformat()),
                     str(date_time.date().isoformat()), str(coords)))
-                # stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
-                #     startTime, endTime, eventDate, details, plannerID, coordinates,
-                #     roomNumber) VALUES (1, 'test', 'princeton', '00:00:00-05:00', '01:00:00-05:00', '2021-11-4', 'details', 'name', '(-74.659355243864, 40.34876915320406)', 'room');'''
-                # cursor.execute(stmt_str)
+                
                 return True
     except Exception as ex:
         error_msg = "A server error occurred in add_event_proto."
@@ -88,8 +85,7 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (?, ?, ?, CAST('?' AS TIME WITH TIME ZONE), 
-                    CAST('?' AS TIME WITH TIME ZONE), CAST('?' AS DATE), ?, ?, (?, ?), ?)'''
+                    roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, (%s, %s), %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start + 'EST',
                     end + 'EST', date, details, planner, x_coord, y_coord, number))
 
@@ -114,7 +110,7 @@ def remove_by_id(event_id):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM details
-                                WHERE       eventID = ?'''
+                                WHERE       eventID = %s'''
 
                 cursor.execute(stmt_str, (event_id))
 
@@ -141,8 +137,8 @@ def remove_by_datetime(date, time):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM details
-                                WHERE       eventDate = ?::date
-                                AND         endTime < ?::time with time zone'''
+                                WHERE       eventDate = %s
+                                AND         endTime < %s'''
 
                 cursor.execute(stmt_str, (date, time + 'EST'))
 
@@ -211,7 +207,7 @@ def details_query(event):
 
                 stmt_str = '''  SELECT  *
                                 FROM    details
-                                WHERE   eventID = ?
+                                WHERE   eventID = %s
                                 ORDER BY    eventLocation,
                                             eventName'''
 
@@ -250,7 +246,7 @@ def add_user(netID, name):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''INSERT INTO userNames (userID, userName)
-                    VALUES (?, ?)'''
+                    VALUES (%s, %s)'''
 
                 cursor.execute(stmt_str, (netID, name))
 
@@ -275,8 +271,8 @@ def edit_name(netID, name):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  UPDATE  userNames
-                                SET     userName = ?
-                                WHERE   userID = ?'''
+                                SET     userName = %s
+                                WHERE   userID = %s'''
 
                 cursor.execute(stmt_str, (name, netID))
 
@@ -304,7 +300,7 @@ def add_friendship(user_a, user_b):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''INSERT INTO friends (userID, friendID)
-                    VALUES (?, ?)'''
+                    VALUES (%s, %s)'''
 
                 cursor.execute(stmt_str, (user_a, user_b))
                 cursor.execute(stmt_str, (user_b, user_a))
@@ -331,8 +327,8 @@ def remove_friendship(user_a, user_b):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM friends
-                                WHERE       userID = ?
-                                AND         friendID = ?'''
+                                WHERE       userID = %s
+                                AND         friendID = %s'''
 
                 cursor.execute(stmt_str, (user_a, user_b))
                 cursor.execute(stmt_str, (user_b, user_a))
@@ -364,7 +360,7 @@ def friends_query(netID):
                                 FROM    friends,
                                         userNames
                                 WHERE   friends.friendID = userNames.userID
-                                AND     friends.userID = ?
+                                AND     friends.userID = %s
                                 ORDER BY    userName'''
 
                 cursor.execute(stmt_str, (netID))
@@ -392,7 +388,7 @@ def add_permission(netID, perm):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''INSERT INTO permissions (userID, permissions)
-                    VALUES (?, ?)'''
+                    VALUES (%s, %s)'''
 
                 cursor.execute(stmt_str, (netID, perm))
 
@@ -418,8 +414,8 @@ def remove_permission(netID, perm):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM permissions
-                                WHERE       userID = ?
-                                AND         permissions = ?'''
+                                WHERE       userID = %s
+                                AND         permissions = %s'''
 
                 cursor.execute(stmt_str, (netID, perm))
 
@@ -447,7 +443,7 @@ def permissions_query(netID):
 
                 stmt_str = '''  SELECT  permissions
                                 FROM    permissions
-                                WHERE   userID = ?
+                                WHERE   userID = %s
                                 ORDER BY    permissions'''
 
                 cursor.execute(stmt_str, (netID))
@@ -477,7 +473,7 @@ def user_query(netID):
 
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
-                                WHERE   userID = ?'''
+                                WHERE   userID = %s'''
 
                 cursor.execute(stmt_str, (netID))
                 name = cursor.fetchall()
@@ -524,7 +520,7 @@ def add_participant(event_id, participant):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''INSERT INTO participants (eventID, userID)
-                    VALUES (?, ?)'''
+                    VALUES (%s, %s)'''
 
                 cursor.execute(stmt_str, (event_id, participant))
 
@@ -550,8 +546,8 @@ def remove_particpant(event_id, participant):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM participants
-                                WHERE       eventID = ?
-                                AND         userID = ?'''
+                                WHERE       eventID = %s
+                                AND         userID = %s'''
 
                 cursor.execute(stmt_str, (event_id, participant))
                 return True
@@ -581,8 +577,8 @@ def particpants_query(event_id, netID):
                                 FROM    participants,
                                         friends,
                                         userNames
-                                WHERE   friends.userID = ?
-                                AND     participants.eventID = ?
+                                WHERE   friends.userID = %s
+                                AND     participants.eventID = %s
                                 AND     friends.friendID = participants.userID
                                 AND     participants.userID = userNames.userName
                                 ORDER BY    userName'''
@@ -616,7 +612,7 @@ def add_tag(event_id, tag):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''INSERT INTO tags (eventID, tag)
-                    VALUES (?, ?)'''
+                    VALUES (%s, %s)'''
 
                 cursor.execute(stmt_str, (event_id, tag))
 
@@ -642,8 +638,8 @@ def remove_tag(event_id, tag):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM tags
-                                WHERE       eventID = ?
-                                AND         tag = ?'''
+                                WHERE       eventID = %s
+                                AND         tag = %s'''
 
                 cursor.execute(stmt_str, (event_id, tag))
 
@@ -670,7 +666,7 @@ def tags_query(tag):
 
                 stmt_str = '''  SELECT  tag
                                 FROM    tags
-                                WHERE   eventID = ?
+                                WHERE   eventID = %s
                                 ORDER BY    tag'''
 
                 cursor.execute(stmt_str, (tag))

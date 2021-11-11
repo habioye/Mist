@@ -45,7 +45,7 @@ def add_event_proto(title, x_coord, y_coord):
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                event_id = str(pair(x_coord, y_coord))
+                event_id = str(int(hash(title)))
                 # Create a the current date in EST and a one hour offset
                 date_time = datetime.now(timezone(timedelta(hours=-5)))
                 offset = date_time + timedelta(hours=1)
@@ -81,7 +81,7 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                event_id = hash(pair(x_coord, y_coord))
+                event_id = str(int(hash(title + planner)))
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,

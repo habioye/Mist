@@ -28,10 +28,10 @@ def index():
     # if long is not None and lat is not None and text is not None:
     #     mistdb.add_event_proto(text, long, lat)
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    if package[0] == False:
-        print(package[1])
+    # if package[0] == False:
+        # print(package[1])
     else:
-        print(package[1])
+        # print(package[1])
         # package = dumps(package[1])
         package = package[1]
 
@@ -60,6 +60,14 @@ def addinput():
     print(loc)
     print(title)
     return index()
+@app.route('/friendscreen', method = ['GET'])
+def friendscreen():
+    userid = 'getuserid'
+    html = render_template('friendscreen.html', userid = userid)
+    response = make_response(html)
+    return response
+
+
 
 @app.route('/calendar', methods=['GET'])
 def calendar():

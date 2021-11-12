@@ -22,9 +22,9 @@ def index():
     long = request.args.get('long')
     lat = request.args.get('lat')
     text = request.args.get('text')
-    print(long)
-    print(lat)
-    print(text)
+    # print(long)
+    # print(lat)
+    # print(text)
     if long is not None and lat is not None and text is not None:
         mistdb.add_event_proto(text, long, lat)
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
@@ -35,12 +35,23 @@ def index():
         # package = dumps(package[1])
         package = package[1]
 
-    # html = render_template("testmap.html", eventData = package)
+    html = render_template("testmap.html", eventData = package)
+
+    response = make_response(html)
+
+    return response
+
+@app.route('/inputpage', methods = ['GET'])
+def input():
     html = render_template("input.html")
 
     response = make_response(html)
 
     return response
+
+@app.route('/addinput')
+def addinput():
+    return index()
 
 @app.route('/calendar', methods=['GET'])
 def calendar():

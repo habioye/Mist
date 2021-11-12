@@ -52,7 +52,7 @@
           let nums = element[3].match(regex)
           console.log(nums)
           const marker = new google.maps.Marker({
-           position: { lat:float(nums[1]), lng:float(nums[0]) },
+           position: { lat: parseFloat(nums[1]), lng:parseFloat(nums[0]) },
            map: map,
          });
         })

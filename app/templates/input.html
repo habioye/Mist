@@ -33,9 +33,10 @@
       <td><Input type = "text", name = "date"></td>
       </tr>
       <tr>
-      <td align = "right"><label for="Coords" onclick = "initMap()"> <b>Select Location from Map:<b></label></td>
+      <td align = "right"><label for="Coords"> <b>Coordinates:<b></label></td>
       <td><Input type = "text" id = "coords" name = "coords" value = '{  "lat":LATITUDE,  "lng":LONGITUDE }'></td>
       </tr>
+      <td><input type="button", id = "submit" onclick = "initMap()" value = "Add coordinates from map"></td>
       <tr>
       <td></td>
       <td><input type="submit", id = "submit" value = "Create"></td>

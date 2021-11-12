@@ -50,15 +50,13 @@
         let regex = /\d+/
         var counts = {{ eventData|tojson }}
         counts.forEach(function(element){
-          console.log(element[3]);
           let str = String(element[3]);
           str = str.slice(1, str.length - 1);
           let coords = str.split(',');
-          // let nums = element[3].match(regex);
-          console.log(coords);
           const marker = new google.maps.Marker({
            position: { lat: parseFloat(coords[1]), lng:parseFloat(coords[0]) },
            map: map,
+           title:String(element[1]),
          });
           marker.addListener("click", () => {
                infoWindow.close();

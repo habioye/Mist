@@ -9,6 +9,8 @@
    </head>
    <body>
       <h1>Input</h1>
+      <form  action = "index" method = "get">
+      <input type="submit", id = "back" value = "back">
 
       <form  action = "addinput" method = "get">
       <table>
@@ -33,10 +35,13 @@
       <td><Input type = "text", name = "date"></td>
       </tr>
       <tr>
-      <td align = "right"><label for="Coords"> <b>Coordinates:<b></label></td>
+      <td align = "right"><label for="Coords">Coordinates:</label></td>
       <td><Input type = "text" id = "coords" name = "coords" value = '{  "lat":LATITUDE,  "lng":LONGITUDE }'></td>
       </tr>
+      <tr>
+      <td></td>
       <td><input type="button", id = "submit" onclick = "initMap()" value = "Add coordinates from map"></td>
+      </tr>
       <tr>
       <td></td>
       <td><input type="submit", id = "submit" value = "Create"></td>

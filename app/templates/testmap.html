@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
+      <title>Test Google Maps</title>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
+       <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+   </head>
+   <body>
+      <h1>Map</h1>
+
+      <form action = "inputpage" method = "get">
+      <table>
+      <tr>
+      <td></td>
+      <td><input type="submit", id = "submit" value = "Add Event"></td>
+      </tr>
+      </table>
+      </form>
+
+      <form  action = "friendscreen" method = "get">
+      <input type="submit", id = "friend" value = "View Friends">
+      </form>
+
+
+      <div id = "map"></div>
+
+      <script>
+      "use strict"
+
+      let map;
+      let events;
+
+      function initMap() {
+
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat:40.34657, lng: -74.65631 },
+          zoom: 16,
+        });
+        const infoWindow = new google.maps.InfoWindow();
+        let regex = /\d+/
+        var counts = {{ eventData|tojson }}
+        counts.forEach(function(element){
+          let str = String(element[3]);
+          str = str.slice(1, str.length - 1);
+          let coords = str.split(',');
+          const marker = new google.maps.Marker({
+           position: { lat: parseFloat(coords[1]), lng:parseFloat(coords[0]) },
+           map: map,
+           title:String(element[1]),
+         });
+         str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
+          marker.addListener("click", () => {
+               infoWindow.close();
+               infoWindow.setContent(str);
+               infoWindow.open(marker.getMap(), marker);
+             });
+        })
+      }
+
+  document.getElementById("submit").onclick =  initMap;
+
+  </script>
+
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
+
+  </script>
+
+<!--
+      {% if eventData != None %}
+      <table>
+        <tr>
+          <th align="left">Event ID</th>
+          <th align="left">Title</th>
+          <th align="left">Location</th>
+          <th align="left">Coordinates</th>
+        </tr>
+        {% for event in eventData %}
+        <tr>
+          <td>{{event[0]}}</td>
+          <td>{{event[1]}}</td>
+          <td>{{event[2]}}</td>
+          <td>{{event[3]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %} -->
+      <hr>
+      Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
+      <hr>
+
+   </body>
+</html>

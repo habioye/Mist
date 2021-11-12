@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Registrar's Office Class Search</title>
+
+      <meta name="viewport"
+         content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+   </head>
+
+
+   <body>
+     <div class="container-fluid"
+        style="background-color:#295078; color:white">
+
+        <center>
+          <h1>FriendScreen</h1>
+          <div class = "container-fluid">
+                <p id = 'Friendresults'></p>
+        </div>
+
+
+            <div class = "col-sm-3"greyborder>
+                <input class = "form-control" type="text" id="searchBar" placeholder = "search friends">
+            </div>
+         </center>
+         <br>
+          </div>
+
+    <div class = "container-fluid">
+          <p id = 'searchresults'></p>
+  </div>
+
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
+    <script>
+
+      'use strict';
+
+      function handleResponse(response)
+      {
+        $('#searchresults').html(response);
+      }
+
+      let request = null;
+
+
+      function getResults()
+         {
+
+            let Search = $('#titleInput').val();
+            Search =  encodeURIComponent(Search);
+
+            let url = '/searchfriends?search=' + Search
+
+            if (request != null)
+               request.abort();
+
+            request = $.ajax(
+               {
+                  type: 'GET',
+                  url: url,
+                  success: handleResponse
+               }
+            );
+         }
+         function getFriends()
+            {
+
+               let Search = String({{userid}})
+               Search =  encodeURIComponent(Search);
+
+               let url = '/getfriends?search=' + Search
+
+               if (request != null)
+                  request.abort();
+
+               request = $.ajax(
+                  {
+                     type: 'GET',
+                     url: url,
+                     success: handleResponse
+                  }
+               );
+            }
+         function setup()
+         {
+            $('#titleInput').on('input', getResults);
+            getFriends()
+         }
+
+         $('document').ready(setup);
+         </script>
+   </body>
+   <div class="container-fluid"
+      style="background-color:#295078; color:white">
+
+      <center>
+    Created by Benjamin Nadon and Hassan Abioye.
+  </div>
+</html>

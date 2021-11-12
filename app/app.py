@@ -30,10 +30,10 @@ def index():
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])
-    else:
+    # else:
         # print(package[1])
         # package = dumps(package[1])
-        package = package[1]
+    package = package[1]
 
     html = render_template("testmap.html", eventData = package)
 

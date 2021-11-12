@@ -34,7 +34,7 @@
       </tr>
       <tr>
       <td align = "right"><label for="Coords"> Map Location:</label></td>
-      <td><Input type = "text" onselect = "initMap()" id = "coords" name = "coords"></td>
+      <td><Input type = "text" onclick = "initMap()" id = "coords" name = "coords" value = "Select from Map"></td>
       </tr>
       <tr>
       <td></td>
@@ -46,8 +46,10 @@
 
       <div id = "map"></div>
 
+      <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI">
+      </script>
 
-      <script>
+      <script type = "text/javascript">
       "use strict"
 
 
@@ -85,9 +87,9 @@
 
   </script>
 
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
+  <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
 
-  </script>
+  </script> -->
 
       <hr>
       Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera.

@@ -19,14 +19,14 @@ app = Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    long = request.args.get('long')
-    lat = request.args.get('lat')
-    text = request.args.get('text')
-    # print(long)
-    # print(lat)
-    # print(text)
-    if long is not None and lat is not None and text is not None:
-        mistdb.add_event_proto(text, long, lat)
+    # long = request.args.get('long')
+    # lat = request.args.get('lat')
+    # text = request.args.get('text')
+    # # print(long)
+    # # print(lat)
+    # # print(text)
+    # if long is not None and lat is not None and text is not None:
+    #     mistdb.add_event_proto(text, long, lat)
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if package[0] == False:
         print(package[1])

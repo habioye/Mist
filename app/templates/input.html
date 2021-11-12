@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
+      <title>Test Google Maps</title>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+       <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" /> -->
+       <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+   </head>
+   <body>
+      <h1>Map</h1>
+
+      <form  method = "get">
+      <table>
+      <tr>
+      <td align colspan= "right"> <label for="Location"> Location: </label> </td>
+      <td> <input type="text" name = "loc" ></td>
+      </tr>
+      <tr>
+      <td align = "right"><label for="Title"> Event Title:</label></td>
+      <td><Input type="text", name = "title" ></td>
+      </tr>
+      <tr>
+      <td align = "right"><label for="startTime"> Start Time:</label></td>
+      <td><Input type = "text", name = "start"></td>
+      </tr>
+      <tr>
+      <td align = "right"><label for="endTime"> End Time:</label></td>
+      <td><Input type = "text", name = "end"></td>
+      </tr>
+      <tr>
+      <td align = "right"><label for="Date"> Date:</label></td>
+      <td><Input type = "text", name = "date"></td>
+      </tr>
+      <tr>
+      <td align = "right"><label for="Coords"> Map Location:</label></td>
+      <td><Input type = "text" onselect = "initMap()" id = "coords" name = "coords"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="submit", id = "submit" value = "Create"></td>
+      </tr>
+      </table>
+      </form>
+
+
+      <div id = "map"></div>
+
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI">
+      "use strict"
+
+
+      function initMap() {
+        console.log("initmap");
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat:40.34657, lng: -74.65631 },
+  });
+
+
+
+  map.addListener("click", (mapsMouseEvent) => {
+    // Close the current InfoWindow.
+    infoWindow.close();
+    // Create a new InfoWindow.
+    infoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+    });
+    infoWindow.setContent(
+      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    );
+    document.getElementById("coords").value = JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    infoWindow.open(map);
+  });
+}
+
+
+
+  </script>
+
+  <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
+
+  </script> -->
+
+      <hr>
+      Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera.
+      <hr>
+
+   </body>
+</html>

@@ -35,7 +35,8 @@ def index():
         # package = dumps(package[1])
         package = package[1]
 
-    html = render_template("testmap.html", eventData = package)
+    # html = render_template("testmap.html", eventData = package)
+    html = render_template("input.html")
 
     response = make_response(html)
 
@@ -64,4 +65,3 @@ def calendar():
 if __name__ == "__main__":
     app.debug = False
     port = int(os.environ.get("PORT", 33507))
-

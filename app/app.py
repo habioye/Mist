@@ -60,7 +60,8 @@ def addinput():
     print(loc)
     print(title)
     return index()
-@app.route('/friendscreen', method = ['GET'])
+
+@app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
     userid = 'getuserid'
     html = render_template('friendscreen.html', userid = userid)

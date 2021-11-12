@@ -55,7 +55,7 @@ def calendar():
         if details[0]:
             data.push(details[1])
         else:
-            print(details[2])
+            print(details[1])
 
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)

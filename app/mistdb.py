@@ -193,6 +193,40 @@ def map_query(start, end):
         result = [False, error_msg]
         return result
 
+# Queries the database for all a user's subscribed events to be displayed on the 
+# calendar. Returns True and a list of events on success, returns False and an 
+# error message on failure.
+
+def cal_query(userID):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+                stmt_str = '''  SELECT  eventID,
+                                        eventName,
+                                        eventLocation,
+                                        startTime,
+                                        endTime,
+                                        eventDate
+                                FROM    details
+                                WHERE   details.eventID = participants.eventID
+                                AND     participants.userID = %s
+                                ORDER BY    eventDate,
+                                            startTime,
+                                            eventName'''
+                cursor.execute(stmt_str, (userID))
+                data = cursor.fetchall()
+
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
 
 # Details query. Returns true and a list of event details in a list if successful.
 # The indexes are in the order displayed in the google sheets about the database.

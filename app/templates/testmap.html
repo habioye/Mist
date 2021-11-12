@@ -51,7 +51,7 @@
         counts.forEach(function(element){
           console.log(element[3]);
           let str = String(element[3]);
-          str = element[3].slice(1, element[3].length() - 1);
+          str = str.slice(1, str.length - 1);
           let coords = str.split(',');
           // let nums = element[3].match(regex);
           console.log(coords);

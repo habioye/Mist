@@ -58,7 +58,7 @@
            map: map,
            title:String(element[1]),
          });
-         str += " " + element[0] + " " + element[1] + " " + element[2];
+         str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
           marker.addListener("click", () => {
                infoWindow.close();
                infoWindow.setContent(str);

@@ -12,12 +12,14 @@ from datetime import date
 class Calender:
     # months are represented [0:12]
     def __init__(self):
-        today = date.today
+        today = date.today()
         # today.month something
         self.month = today.month
         self.day = today.day
         self.year = today.year
         self.first_day = date(self.year,self.month,1).isoweekday
+
+
         
     
     def get_month(self):
@@ -49,7 +51,6 @@ class Calender:
         if(self.month == 0):
             self.year -= 1
             self.month = 0
-            
         self.first_day = date(self.year, self.month, 1)
         return self.month
     def next_year(self):
@@ -63,6 +64,17 @@ class Calender:
 
 def _test():
     cal = Calender()
+    print(cal.get_day())
+    print(cal.get_month())
+    print(cal.get_year())
+    cal.next_month()
+    print(cal.get_month())
+    cal.next_month()
+    print(cal.get_month())
+    print(cal.get_year())
+    cal.previous_year()
+    print(cal.get_year())
+    
 
 if __name__ == '__main__':
     _test()

@@ -51,6 +51,14 @@ def input():
 
 @app.route('/addinput')
 def addinput():
+    loc = request.args.get('loc')
+    title = request.args.get('title')
+    start = request.args.get('start')
+    end = request.args.get('end')
+    date = request.args.get('date')
+    coords = request.args.get('coords')
+    print(loc)
+    print(total)
     return index()
 
 @app.route('/calendar', methods=['GET'])

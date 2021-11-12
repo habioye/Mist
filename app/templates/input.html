@@ -4,11 +4,11 @@
      <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
       <title>Test Google Maps</title>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-       <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" /> -->
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
        <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
    </head>
    <body>
-      <h1>Map</h1>
+      <h1>Input</h1>
 
       <form  method = "get">
       <table>
@@ -53,8 +53,8 @@
       function initMap() {
         console.log("initmap");
   const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
     center: { lat:40.34657, lng: -74.65631 },
+    zoom: 16,
   });
 
 

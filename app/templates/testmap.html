@@ -48,19 +48,14 @@
         });
         let regex = /\d+/
         var counts = {{ eventData|tojson }}
-        counts.forEach(function(element){
-          let nums = element[3].match(regex)
-          console.log(nums)
-          const marker = new google.maps.Marker({
-           position: { lat:float(nums[1]), lng:float(nums[0]) },
-           map: map,
-         });
-         // marker.addListener("click", () => {
-         //      infoWindow.close();
-         //      infoWindow.setContent(marker.getTitle());
-         //      infoWindow.open(marker.getMap(), marker);
-         //    });
-        })
+        // counts.forEach(function(element){
+        //   let nums = element[3].match(regex)
+        //   console.log(nums)
+        //   const marker = new google.maps.Marker({
+        //    position: { lat:float(nums[1]), lng:float(nums[0]) },
+        //    map: map,
+        //  });
+        // })
         }
       // function initMap(events) {
       //   map = new google.maps.Map(document.getElementById("map"), {

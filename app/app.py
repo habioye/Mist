@@ -33,8 +33,9 @@ def index():
     # else:
         # print(package[1])
         # package = dumps(package[1])
+    # There should be an exception thrown for the package data.
     package = package[1]
-
+    
     html = render_template("testmap.html", eventData = package)
 
     response = make_response(html)

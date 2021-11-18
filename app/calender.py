@@ -44,9 +44,8 @@ class Calender:
         if(self.month == 0):
             self.year += 1 
             self.month = 1
-
         self.first_day = date(self.year,self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.month
     
     def previous_month(self):
@@ -55,17 +54,17 @@ class Calender:
             self.year -= 1
             self.month = 0
         self.first_day = date(self.year, self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.month
         
     def next_year(self):
         self.year += 1
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.year
     
     def previous_year(self):
         self.year -= 1
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.year
 #-----------------------------------------------------------------------
 

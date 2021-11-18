@@ -4,6 +4,7 @@
 # Author: Hassan Abioye
 #-----------------------------------------------------------------------
 from datetime import date
+from datetime import datetime
 from calendar import monthrange
 
 # this calender class initializes to the current day. When ever you want to 
@@ -16,14 +17,14 @@ class Calender:
         today = date.today()
         # today.month something
 
-        if month is 'None':
+        if month == 'None':
             self.month = today.month
         self.day = today.day
-        if year is 'None':
+        if year == 'None':
             self.year = today.year
 
         
-        self.first_day = date(self.year,self.month,1).isoweekday
+        self.first_day = date(self.year,self.month,1).isoweekday()
         self.monthlength = monthrange(self.year, self.month)[1]
 
 
@@ -42,14 +43,16 @@ class Calender:
         return self.first_day
     
     
-        
+    def get_monthlength(self):
+        return self.monthlength
+    
     def next_month(self):
         self.month += 1
         self.month = self.month% 13
         if(self.month == 0):
             self.year += 1 
             self.month = 1
-        self.first_day = date(self.year,self.month, 1)
+        self.first_day = date(self.year,self.month,1).isoweekday()
         self.monthlength = monthrange(self.year, self.month)[1]
         return self.month
     
@@ -58,27 +61,33 @@ class Calender:
         if(self.month == 0):
             self.year -= 1
             self.month = 0
-        self.first_day = date(self.year, self.month, 1)
+        self.first_day = date(self.year,self.month,1).isoweekday()
         self.monthlength = monthrange(self.year, self.month)[1]
         return self.month
         
     def next_year(self):
         self.year += 1
+        self.first_day = date(self.year,self.month,1).isoweekday()
         self.monthlength = monthrange(self.year, self.month)[1]
         return self.year
     
     def previous_year(self):
         self.year -= 1
+        self.first_day = date(self.year,self.month,1).isoweekday()
         self.monthlength = monthrange(self.year, self.month)[1]
         return self.year
     
     def to_dict(self):
-        return {'month': self.month, 'year': self.year, 'firstday': self.first_day}
+        return {'month': self.month, 'year': self.year, 'firstday': self.first_day, 'monthlength':self.monthlength}
+    
 #-----------------------------------------------------------------------
 
 def _test():
     cal = Calender('None','None')
+    print(cal.get_first_day)
+    print("play")
     print(cal.get_day())
+    
     print(cal.get_month())
     print(cal.get_year())
     cal.next_month()

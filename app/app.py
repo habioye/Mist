@@ -58,7 +58,7 @@ def addinput():
     end = request.args.get('end')
     date = request.args.get('date')
     coords = str(request.args.get('coords'))
-    details = "details"
+    details = request.args.get('details')
     coords = coords.strip('{ }')
     coords = coords.split(',')
     x = coords[0].strip('"lat":')

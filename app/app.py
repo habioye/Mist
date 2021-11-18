@@ -61,6 +61,7 @@ def addinput():
     details = request.args.get('details')
     coords = coords.strip('{ }')
     coords = coords.split(',')
+    print(coords)
     x = coords[0].strip('"lat":')
     y = coords[1].strip('"lng":')
     print(x)

@@ -10,7 +10,8 @@ from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template, session, abort
 from json import dumps
-from calender import Calender
+# It seems this might break everything
+# from calender import Calender
 from werkzeug.utils import redirect
 from app import mistdb, templates
 from re import sub

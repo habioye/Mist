@@ -83,7 +83,7 @@ class mistCalender:
 #-----------------------------------------------------------------------
 
 def _test():
-    cal = Calender('None','None')
+    cal = mistCalender('None','None')
     print(cal.get_first_day)
     print("play")
     print(cal.get_day())

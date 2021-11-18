@@ -17,7 +17,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
-from app import mistCalender
+from app import mistcalender
 
 #-----------------------------------------------------------------------
 
@@ -192,7 +192,7 @@ def calendar(month, year):
         else:
             print(details[1])
     
-    currcal = mistCalender(month,year)
+    currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.monthlength
     firstday = currcal.get_first_day()
     firstday = firstday % 7

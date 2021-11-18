@@ -63,7 +63,7 @@ def addinput():
     coords = coords.split(',')
     print(coords)
     x = coords[0].strip('"lat":')
-    y = coords[1].strip('"lng":')
+    y = coords[1].strip(' ' "lng":')
     print(x)
     print(y)
     mistdb.add_event(title, loc, start, end, date, details, "netid", x, y)

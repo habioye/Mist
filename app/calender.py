@@ -4,6 +4,7 @@
 # Author: Hassan Abioye
 #-----------------------------------------------------------------------
 from datetime import date
+from calendar import monthrange
 
 # this calender class initializes to the current day. When ever you want to 
 # switch between months it always start you at the first day of each month. 
@@ -18,6 +19,7 @@ class Calender:
         self.day = today.day
         self.year = today.year
         self.first_day = date(self.year,self.month,1).isoweekday
+        self.monthlength = monthrange(self.year, self.day)[1]
 
 
         
@@ -34,6 +36,7 @@ class Calender:
     def get_first_day(self):
         return self.first_day
     
+    
         
     def next_month(self):
         self.month += 1
@@ -43,7 +46,7 @@ class Calender:
             self.month = 1
 
         self.first_day = date(self.year,self.month, 1)
-        
+        self.monthlength = monthrange(self.year, self.day)[1
         return self.month
     
     def previous_month(self):
@@ -52,13 +55,17 @@ class Calender:
             self.year -= 1
             self.month = 0
         self.first_day = date(self.year, self.month, 1)
+        self.monthlength = monthrange(self.year, self.day)[1
         return self.month
+        
     def next_year(self):
         self.year += 1
+        self.monthlength = monthrange(self.year, self.day)[1
         return self.year
     
     def previous_year(self):
         self.year -= 1
+        self.monthlength = monthrange(self.year, self.day)[1
         return self.year
 #-----------------------------------------------------------------------
 

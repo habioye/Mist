@@ -17,7 +17,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
-from calender import Calender
+from mistcalender import mistCalender
 
 #-----------------------------------------------------------------------
 
@@ -192,7 +192,7 @@ def calendar(month, year):
         else:
             print(details[1])
     
-    currcal = Calender(month,year)
+    currcal = mistCalender(month,year)
     daycount = currcal.monthlength
     firstday = currcal.get_first_day()
     firstday = firstday % 7
@@ -217,22 +217,27 @@ def calendar(month, year):
     calstring += "<th>Fr</th>"
     calstring += "<th>Sa</th>"
     calstring += "</tr>"
-    calstring += "<tr>"
     calstring += ""
     calstring += ""
     calstring += ""
     currcount = -1 * firstday
-    # while currcount <= daycount:
-        
+    weekcount = 0
+    while currcount <= daycount:
+   
+        if weekcount == 0:
+            calstring += "<tr>"
     
-        
+        if weekcount == 7:
+            calstring += "</tr>"
+            weekcount = 0
+
         
         
        
        
     
 
-    html = render_template("calendar.html", eventData = data, calenderinfo = caldata)
+    html = render_template("calendar.html", eventData = data)
     response = make_response(html)
     return response
 

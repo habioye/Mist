@@ -519,7 +519,7 @@ def user_query(netID):
                     error_msg = "Error fetching friend data."
                     return [False, error_msg]
 
-                permissions = permissions_query[netID]
+                permissions = permissions_query(netID)
                 if permissions[0]:
                     permissions = permissions[1]
                 else:

@@ -2,23 +2,118 @@
 
 #-----------------------------------------------------------------------
 # mapfunctions.py
-# Author: Benjamin Nadon
+# Authors: Benjamin Nadon, Nick Cabrera, Anthony Gartner, 
+#          and Hassan Abioye
 #-----------------------------------------------------------------------
 
 from sys import stderr
 from flask import Flask, request, make_response
-from flask import render_template
+from flask import render_template, session, abort
 from json import dumps
+
+from werkzeug.utils import redirect
 from app import mistdb, templates
+from re import sub
+from urllib.parse import quote
+from urllib.request import urlopen
 
 #-----------------------------------------------------------------------
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = b',\xc0d\xdfj\x7f\x827u{\x15\xd3\x07\xe1O\x08'
+CAS_URL = 'https://fed.princeton.edu/cas/'
 
+#-----------------------------------------------------------------------
+#-----------------------------------------------------------------------
+# from PennyCas by Alex Halderman, Scott Karlin, Brian Kernighan,
+# and Bob Dondero
+# with small edits by Anthony Gartner
+
+# Return url after stripping out the ticket parameter that was added
+# by the CAS server
+
+def strip_ticket(url):
+    if url is None:
+        return "No URL in Strip Ticket"
+    url = sub(r'ticket=[^&]*&?', '', url)
+    url = sub(r'\?&?$|&$', '', url)
+    return url
+
+# Validate a login ticket by contacting the CAS server. If valid, return
+# the user's username; otherwise, return None
+
+def validate(ticket):
+    val_url = (CAS_URL + "validate" + '?service' 
+        + quote(strip_ticket(request.url)) + '&ticket=' +
+        quote(ticket))
+    lines = []
+    with urlopen(val_url) as flo:
+        lines = flo.readlines()
+    if len(lines) != 2:
+        return None
+    first_line = lines[0].decode('utf-8')
+    second_line = lines[1].decode('utf-8')
+    if not first_line.startswith('yes'):
+        return None
+    return second_line
+
+# Authenticate the remote user, and return the user's username. Do not
+# return unless the user is successfully authenticated.
+
+def authenticate():
+
+    # If the username is in the session, then the user was authenticated
+    # previously, return the username
+    if 'username' in session:
+        username = session.get('username')
+        name = mistdb.user_query(username)
+        if name[0]:
+            if name[1][0] is None:
+                abort(redirect('https://mist-princeton.herokuapp.com/firstimeuser'))
+        return username
+
+    # If the request does not contain a login ticket, then redirect the
+    # browser to the login page to get one.
+    ticket = request.args.get('ticket')
+    if ticket is None:
+        login_url = (CAS_URL + 'login?service=' 
+            + quote(strip_ticket(request.url)))
+        abort(redirect(login_url))
+
+    # If the login ticket is invalid, then redirect the browser to the 
+    # login page to get a new one.
+    username = validate(ticket)
+    if username is None:
+        login_url = (CAS_URL + 'login?service=' 
+            + quote(strip_ticket(request.url)))
+        abort(redirect(login_url))
+
+    # The user is authenticated, so store the username in the session.
+    session['username'] = username
+    name = mistdb.user_query(username)
+    if name[0]:
+        if name[1][0] is None:
+            abort(redirect('https://mist-princeton.herokuapp.com/firsttimeuser'))
+    return username
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    authenticate()
+
+    # Delete the user's username from the session
+    session.pop('username')
+
+    # Logout, and redirect the browser to the index page
+    logout_url = (CAS_URL + 'logout?service='
+        + quote(sub('logout', 'index', request.url)))
+    abort(redirect(logout_url))
+#-----------------------------------------------------------------------
+#-----------------------------------------------------------------------
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
+    username = authenticate()
     # long = request.args.get('long')
     # lat = request.args.get('lat')
     # text = request.args.get('text')
@@ -44,6 +139,7 @@ def index():
 
 @app.route('/inputpage', methods = ['GET'])
 def input():
+    username = authenticate()
     html = render_template("input.html")
 
     response = make_response(html)
@@ -52,6 +148,7 @@ def input():
 
 @app.route('/addinput')
 def addinput():
+    username = authenticate()
     loc = request.args.get('loc')
     title = request.args.get('title')
     start = request.args.get('start')
@@ -64,15 +161,15 @@ def addinput():
 
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
+    username = authenticate()
     userid = 'getuserid'
     html = render_template('friendscreen.html', userid = userid)
     response = make_response(html)
     return response
 
-
-
 @app.route('/calendar', methods=['GET'])
 def calendar():
+    username = authenticate()
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print(package[1])
@@ -88,6 +185,21 @@ def calendar():
             print(details[1])
 
     html = render_template("calendar.html", eventData = data)
+    response = make_response(html)
+    return response
+
+@app.route('/firsttimeuser', methods=['GET'])
+def firsttimeuser():
+    netid = session.get('username')
+    firstname = request.args.get('firstname')
+    lastname = request.args.get('lastname')
+    user_data = mistdb.user_query(netid)
+    if user_data[0]:
+        if user_data[1][0] is None and firstname is not None and lastname is not None:
+            mistdb.add_user(netid, firstname + ' ' + lastname)
+            abort(redirect('https://mist-princeton.herokuapp.com/'))
+    
+    html = render_template("firsttimeuser.html", netid = netid)
     response = make_response(html)
     return response
 

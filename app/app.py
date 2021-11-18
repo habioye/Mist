@@ -10,7 +10,8 @@ from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template, session, abort
 from json import dumps
-
+# It seems this might break everything
+# from calender import Calender
 from werkzeug.utils import redirect
 from app import mistdb, templates
 from re import sub
@@ -176,7 +177,7 @@ def friendscreen():
 
 @app.route('/calendar', methods=['GET'])
 def calendar(month, year):
-    username = authenticate()
+    # username = authenticate()
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print(package[1])

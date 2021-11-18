@@ -17,7 +17,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
-from app import mistCalender
+from app import mistcalender
 
 #-----------------------------------------------------------------------
 

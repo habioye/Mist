@@ -190,7 +190,7 @@ def calendar(month, year):
         else:
             print(details[1])
     
-    currcal = calendar(month,year)
+    currcal = Calender(month,year)
     caldata = currcal.to_dict()
     calstring = " <table class=\"table table-bordered table-hover\">"
     calstring += "<tr style=\"background-color:black;color:white;\">"

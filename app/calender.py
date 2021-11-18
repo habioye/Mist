@@ -12,17 +12,19 @@ from calendar import monthrange
 # about the month and the year. The data will be iso format.
 class Calender:
     # months are represented [0:12]
-        def __init__(self,month,year):
+    def __init__(self,month,year):
         today = date.today()
         # today.month something
-        if month == 'None':
+
+        if month is 'None':
             self.month = today.month
         self.day = today.day
-        if year == 'None':
+        if year is 'None':
             self.year = today.year
+
         
         self.first_day = date(self.year,self.month,1).isoweekday
-        self.monthlength = monthrange(self.year, self.day)[1]
+        self.monthlength = monthrange(self.year, self.month)[1]
 
 
         
@@ -48,7 +50,7 @@ class Calender:
             self.year += 1 
             self.month = 1
         self.first_day = date(self.year,self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1]
+        self.monthlength = monthrange(self.year, self.month)[1]
         return self.month
     
     def previous_month(self):
@@ -57,17 +59,17 @@ class Calender:
             self.year -= 1
             self.month = 0
         self.first_day = date(self.year, self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1]
+        self.monthlength = monthrange(self.year, self.month)[1]
         return self.month
         
     def next_year(self):
         self.year += 1
-        self.monthlength = monthrange(self.year, self.day)[1]
+        self.monthlength = monthrange(self.year, self.month)[1]
         return self.year
     
     def previous_year(self):
         self.year -= 1
-        self.monthlength = monthrange(self.year, self.day)[1]
+        self.monthlength = monthrange(self.year, self.month)[1]
         return self.year
     
     def to_dict(self):
@@ -75,7 +77,7 @@ class Calender:
 #-----------------------------------------------------------------------
 
 def _test():
-    cal = Calender()
+    cal = Calender('None','None')
     print(cal.get_day())
     print(cal.get_month())
     print(cal.get_year())

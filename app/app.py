@@ -17,7 +17,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
-from mistcalender import mistCalender
+from app import mistCalender
 
 #-----------------------------------------------------------------------
 
@@ -226,7 +226,7 @@ def calendar(month, year):
    
         if weekcount == 0:
             calstring += "<tr>"
-    
+            
         if weekcount == 7:
             calstring += "</tr>"
             weekcount = 0

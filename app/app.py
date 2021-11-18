@@ -35,7 +35,7 @@ def index():
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
     package = package[1]
-    
+
     html = render_template("testmap.html", eventData = package)
 
     response = make_response(html)
@@ -57,9 +57,13 @@ def addinput():
     start = request.args.get('start')
     end = request.args.get('end')
     date = request.args.get('date')
-    coords = request.args.get('coords')
-    print(loc)
-    print(title)
+    coords = str(request.args.get('coords'))
+    details = "details"
+    coords = coords.strip('{ }')
+    coords = coords.split(',')
+    x = coords[0].strip('"lat":')
+    y = coords[1].strip('"lng":')
+    mistdb.add_event(title, location, start, end, date, details, "netid", x, y)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])

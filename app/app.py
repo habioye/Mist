@@ -16,6 +16,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
+from calender import Calender
 
 #-----------------------------------------------------------------------
 
@@ -191,6 +192,12 @@ def calendar(month, year):
             print(details[1])
     
     currcal = Calender(month,year)
+    daycount = currcal.monthlength
+    firstday = currcal.get_first_day()
+    firstday = firstday % 7
+    
+
+    
     caldata = currcal.to_dict()
     calstring = " <table class=\"table table-bordered table-hover\">"
     calstring += "<tr style=\"background-color:black;color:white;\">"
@@ -209,10 +216,14 @@ def calendar(month, year):
     calstring += "<th>Fr</th>"
     calstring += "<th>Sa</th>"
     calstring += "</tr>"
+    calstring += "<tr>"
     calstring += ""
     calstring += ""
     calstring += ""
-    calstring += ""
+    currcount = -1 * firstday
+    # while currcount <= daycount:
+        
+    
         
         
         

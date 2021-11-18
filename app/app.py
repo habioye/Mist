@@ -174,23 +174,28 @@ def friendscreen():
     return response
 
 @app.route('/calendar', methods=['GET'])
-def calendar():
-    # username = authenticate()
+def calendar(month, year):
+    username = authenticate()
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print(package[1])
     else:
         package = package[1]
+    
     data = []
-
     for event in package:
         details = mistdb.details_query(event[0])
         if details[0]:
             data.push(details[1])
         else:
             print(details[1])
+    
+    currcal = calendar(month,year)
+    caldata = currcal.to_dict()
+    calstring = ""
+    
 
-    html = render_template("calendar.html", eventData = data)
+    html = render_template("calendar.html", eventData = data, calenderinfo = caldata)
     response = make_response(html)
     return response
 

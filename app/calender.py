@@ -12,12 +12,15 @@ from calendar import monthrange
 # about the month and the year. The data will be iso format.
 class Calender:
     # months are represented [0:12]
-    def __init__(self):
+        def __init__(self,month,year):
         today = date.today()
         # today.month something
-        self.month = today.month
+        if month == 'None':
+            self.month = today.month
         self.day = today.day
-        self.year = today.year
+        if year == 'None':
+            self.year = today.year
+        
         self.first_day = date(self.year,self.month,1).isoweekday
         self.monthlength = monthrange(self.year, self.day)[1]
 
@@ -44,9 +47,8 @@ class Calender:
         if(self.month == 0):
             self.year += 1 
             self.month = 1
-
         self.first_day = date(self.year,self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.month
     
     def previous_month(self):
@@ -55,18 +57,21 @@ class Calender:
             self.year -= 1
             self.month = 0
         self.first_day = date(self.year, self.month, 1)
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.month
         
     def next_year(self):
         self.year += 1
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.year
     
     def previous_year(self):
         self.year -= 1
-        self.monthlength = monthrange(self.year, self.day)[1
+        self.monthlength = monthrange(self.year, self.day)[1]
         return self.year
+    
+    def to_dict(self):
+        return {'month': self.month, 'year': self.year, 'firstday': self.first_day}
 #-----------------------------------------------------------------------
 
 def _test():

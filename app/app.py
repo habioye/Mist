@@ -192,7 +192,32 @@ def calendar(month, year):
     
     currcal = calendar(month,year)
     caldata = currcal.to_dict()
-    calstring = ""
+    calstring = " <table class=\"table table-bordered table-hover\">"
+    calstring += "<tr style=\"background-color:black;color:white;\">"
+    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+    calstring += month
+    calstring += " "
+    calstring += year
+    calstring += "</h3></th>"
+    calstring += "</tr>"
+    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+    calstring += "<th>Su</th>"
+    calstring += "<th>Mo</th>"
+    calstring += "<th>Tu</th>" 
+    calstring += "<th>We</th>"  
+    calstring += "<th>Th</th>" 
+    calstring += "<th>Fr</th>"
+    calstring += "<th>Sa</th>"
+    calstring += "</tr>"
+    calstring += ""
+    calstring += ""
+    calstring += ""
+    calstring += ""
+        
+        
+        
+       
+       
     
 
     html = render_template("calendar.html", eventData = data, calenderinfo = caldata)

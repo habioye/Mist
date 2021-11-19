@@ -176,22 +176,22 @@ def friendscreen():
     response = make_response(html)
     return response
 
-@app.route('/calendar', methods=['GET'])
-def calendar():
-    # username = authenticate()
-    package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    if(package[0] == False):
-        print(package[1])
-    else:
-        package = package[1]
-
-    data = []
-    for event in package:
-        details = mistdb.details_query(event[0])
-        if details[0]:
-            data.push(details[1])
-        else:
-            print(details[1])
+# @app.route('/calendar', methods=['GET'])
+# def calendar():
+#     # username = authenticate()
+#     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
+#     if(package[0] == False):
+#         print(package[1])
+#     else:
+#         package = package[1]
+#
+#     data = []
+#     for event in package:
+#         details = mistdb.details_query(event[0])
+#         if details[0]:
+#             data.push(details[1])
+#         else:
+#             print(details[1])
 
     # month = request.args.get('month')
     # year = request.args.get('year')
@@ -239,12 +239,12 @@ def calendar():
     #     if weekcount == 7:
     #         calstring += "</tr>"
     #         weekcount = 0
-    #    
+    #
 
-
-    html = render_template("calendar.html", eventData = data)
-    response = make_response(html)
-    return response
+    #
+    # html = render_template("calendar.html", eventData = data)
+    # response = make_response(html)
+    # return response
 
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():

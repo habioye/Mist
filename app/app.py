@@ -163,8 +163,9 @@ def addinput():
     x = coords[0].strip('"lat":')
     y = coords[1].strip("' '")
     y = y.strip(' "lng":')
-    
-    mistdb.add_event(title, loc, start, end, date, details, "netid", x, y)
+    roomNum = request.args.get('roomnum')
+
+    mistdb.add_event(title, loc, start, end, date, details, "netid", x, y, roomNum)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])

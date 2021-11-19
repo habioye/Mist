@@ -193,6 +193,8 @@ def calendar():
         else:
             print(details[1])
 
+    # month = request.args.get('month')
+    # year = request.args.get('year')
     # currcal = mistcalender.mistCalender(month,year)
     # daycount = currcal.monthlength
     # firstday = currcal.get_first_day()

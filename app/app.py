@@ -238,7 +238,7 @@ def calendar():
     #         weekcount = 0
 
 
-    html = render_template("calender.html", eventData = data)
+    html = render_template("calendar.html", eventData = data)
     response = make_response(html)
     return response
 

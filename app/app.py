@@ -185,7 +185,7 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    # data = []
+    data = []
     # for event in package:
     #     details = mistdb.details_query(event[0])
     #     if details[0]:
@@ -240,8 +240,6 @@ def calendar():
     #         calstring += "</tr>"
     #         weekcount = 0
     #
-
-
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)
     return response

@@ -193,7 +193,7 @@ def calendar(month, year):
         else:
             print(details[1])
     
-    currcal = mistCalender(month,year)
+    currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.monthlength
     firstday = currcal.get_first_day()
     firstday = firstday % 7

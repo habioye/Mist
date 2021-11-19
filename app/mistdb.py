@@ -84,7 +84,8 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
                 # Use a pairing algorithm and hashing to create an event ID
                 # event_id = str(int(hash(title + planner)))
                 ei = hashlib.new('sha512_256')
-                ei.update(title + planner)
+                event_string = title + planner
+                ei.update(event_string.encode('utf-8'))
                 ei.digest_size = 8
                 event_id = int.from_bytes(ei.digest)
 

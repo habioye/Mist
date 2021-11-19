@@ -10,6 +10,7 @@ from contextlib import closing
 from datetime import datetime, timezone, timedelta
 import os
 import psycopg2
+import hashlib
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
@@ -81,7 +82,10 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                event_id = str(int(hash(title + planner)) % 10 * 6)
+                # event_id = str(int(hash(title + planner)))
+                ei = hash.new(title + planner)
+                ei.digest_size = 8
+                event_id = int.from_bytes(ei.digest)
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,

@@ -196,6 +196,7 @@ def calendar(month, year):
     daycount = currcal.monthlength
     firstday = currcal.get_first_day()
     firstday = firstday % 7
+    firstday = firstday + 1
     
 
     
@@ -221,11 +222,15 @@ def calendar(month, year):
     calstring += ""
     calstring += ""
     currcount = -1 * firstday
+    currcount = currcount + 2
     weekcount = 0
     while currcount <= daycount:
    
         if weekcount == 0:
             calstring += "<tr>"
+        calstring += "<th>"
+        if currcount > 0:
+            
             
         if weekcount == 7:
             calstring += "</tr>"

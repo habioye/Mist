@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 # mapfunctions.py
-# Authors: Benjamin Nadon, Nick Cabrera, Anthony Gartner, 
+# Authors: Benjamin Nadon, Nick Cabrera, Anthony Gartner,
 #          and Hassan Abioye
 #-----------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ def strip_ticket(url):
 # the user's username; otherwise, return None
 
 def validate(ticket):
-    val_url = (CAS_URL + "validate" + '?service' 
+    val_url = (CAS_URL + "validate" + '?service'
         + quote(strip_ticket(request.url)) + '&ticket=' +
         quote(ticket))
     lines = []
@@ -78,15 +78,15 @@ def authenticate():
     # browser to the login page to get one.
     ticket = request.args.get('ticket')
     if ticket is None:
-        login_url = (CAS_URL + 'login?service=' 
+        login_url = (CAS_URL + 'login?service='
             + quote(strip_ticket(request.url)))
         abort(redirect(login_url))
 
-    # If the login ticket is invalid, then redirect the browser to the 
+    # If the login ticket is invalid, then redirect the browser to the
     # login page to get a new one.
     username = validate(ticket)
     if username is None:
-        login_url = (CAS_URL + 'login?service=' 
+        login_url = (CAS_URL + 'login?service='
             + quote(strip_ticket(request.url)))
         abort(redirect(login_url))
 
@@ -177,14 +177,14 @@ def friendscreen():
     return response
 
 @app.route('/calendar', methods=['GET'])
-def calendar(month, year):
+def calendar():
     # username = authenticate()
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     if(package[0] == False):
         print(package[1])
     else:
         package = package[1]
-    
+
     data = []
     for event in package:
         details = mistdb.details_query(event[0])
@@ -192,56 +192,51 @@ def calendar(month, year):
             data.push(details[1])
         else:
             print(details[1])
-    
-    currcal = mistcalender.mistCalender(month,year)
-    daycount = currcal.monthlength
-    firstday = currcal.get_first_day()
-    firstday = firstday % 7
-    firstday = firstday + 1
-    
 
-    
-    caldata = currcal.to_dict()
-    calstring = " <table class=\"table table-bordered table-hover\">"
-    calstring += "<tr style=\"background-color:black;color:white;\">"
-    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    calstring += month
-    calstring += " "
-    calstring += year
-    calstring += "</h3></th>"
-    calstring += "</tr>"
-    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-    calstring += "<th>Su</th>"
-    calstring += "<th>Mo</th>"
-    calstring += "<th>Tu</th>" 
-    calstring += "<th>We</th>"  
-    calstring += "<th>Th</th>" 
-    calstring += "<th>Fr</th>"
-    calstring += "<th>Sa</th>"
-    calstring += "</tr>"
-    calstring += ""
-    calstring += ""
-    calstring += ""
-    currcount = -1 * firstday
-    currcount = currcount + 2
-    weekcount = 0
-    while currcount <= daycount:
-   
-        if weekcount == 0:
-            calstring += "<tr>"
-        calstring += "<th>"
-        if currcount > 0:
-            
-            
-        if weekcount == 7:
-            calstring += "</tr>"
-            weekcount = 0
+    # currcal = mistcalender.mistCalender(month,year)
+    # daycount = currcal.monthlength
+    # firstday = currcal.get_first_day()
+    # firstday = firstday % 7
+    # firstday = firstday + 1
+    #
+    #
+    #
+    # caldata = currcal.to_dict()
+    # calstring = " <table class=\"table table-bordered table-hover\">"
+    # calstring += "<tr style=\"background-color:black;color:white;\">"
+    # calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+    # calstring += month
+    # calstring += " "
+    # calstring += year
+    # calstring += "</h3></th>"
+    # calstring += "</tr>"
+    # calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+    # calstring += "<th>Su</th>"
+    # calstring += "<th>Mo</th>"
+    # calstring += "<th>Tu</th>"
+    # calstring += "<th>We</th>"
+    # calstring += "<th>Th</th>"
+    # calstring += "<th>Fr</th>"
+    # calstring += "<th>Sa</th>"
+    # calstring += "</tr>"
+    # calstring += ""
+    # calstring += ""
+    # calstring += ""
+    # currcount = -1 * firstday
+    # currcount = currcount + 2
+    # weekcount = 0
+    # while currcount <= daycount:
+    #
+    #     if weekcount == 0:
+    #         calstring += "<tr>"
+    #     calstring += "<th>"
+    #     if currcount > 0:
+    #
+    #
+    #     if weekcount == 7:
+    #         calstring += "</tr>"
+    #         weekcount = 0
 
-        
-        
-       
-       
-    
 
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)
@@ -257,7 +252,7 @@ def firsttimeuser():
         if user_data[1][0] is None and firstname is not None and lastname is not None:
             mistdb.add_user(netid, firstname + ' ' + lastname)
             abort(redirect('https://mist-princeton.herokuapp.com/'))
-    
+
     html = render_template("firsttimeuser.html", netid = netid)
     response = make_response(html)
     return response

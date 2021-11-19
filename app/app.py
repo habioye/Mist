@@ -230,12 +230,12 @@ def calstringmaker(month, year):
 @app.route('/calendar', methods=['GET'])
 def calendar():
     # username = authenticate()
-    package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    if(package[0] == False):
-        print(package[1])
-    else:
-        package = package[1]
-
+    # package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
+    # if(package[0] == False):
+    #     print(package[1])
+    # else:
+    #     package = package[1]
+    #
     data = []
     for event in package:
         details = mistdb.details_query(event[0])

@@ -25,7 +25,7 @@
   </div>
       <center><h1>Event Creation</h1></center>
       <form  action = "index" method = "get">
-      <input type="submit", id = "back" value = "back">
+      <input type="submit", id = "back" value = "Return to Map">
       </form>
       <form  action = "addinput" method = "get">
       <table>
@@ -54,9 +54,14 @@
       <td><Input type = "text", name = "details"></td>
       </tr>
       <tr>
+        <td align = "right"><label for="roomnum">Room Number:</label></td>
+        <td><Input type = "text" id = "roomnum" name = "roomnum"></td>
+        </tr>
+      <tr>
       <td align = "right"><label for="Coords">Coordinates:</label></td>
       <td><Input type = "text" id = "coords" name = "coords" value = '{  "lat":LATITUDE,  "lng":LONGITUDE }' readonly></td>
       </tr>
+
       <tr>
       <td></td>
       <td><input type="button", id = "submit" onclick = "initMap()" value = "Add coordinates from map"></td>

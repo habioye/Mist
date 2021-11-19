@@ -81,13 +81,13 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                event_id = str(int(hash(title + planner)) % 10 * 8)
+                event_id = str(int(hash(title + planner)) % 10 * 4)
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, ( %s , %s )::point, %s)'''
+                    roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '( %s , %s )'::point, %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start,
-                    end, date, details, planner, x_coord, y_coord, number))
+                    end, date, details, planner, float(x_coord), float(y_coord), number))
 
                 return True
     except Exception as ex:

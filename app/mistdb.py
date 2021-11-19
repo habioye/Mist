@@ -87,7 +87,7 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
                     startTime, endTime, eventDate, details, plannerID, coordinates,
                     roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, ( %s , %s )::point, %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start,
-                    end, date, details, planner, x_coord, y_coord, number))
+                    end, date, details, planner, float(x_coord), float(y_coord), number))
 
                 return True
     except Exception as ex:

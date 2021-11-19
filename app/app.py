@@ -233,11 +233,13 @@ def calendar():
     #         calstring += "<tr>"
     #     calstring += "<th>"
     #     if currcount > 0:
-    #
-    #
+    #     calstring += currcount
+    #     calstring += "</th>"
+    #     currcount+=1
     #     if weekcount == 7:
     #         calstring += "</tr>"
     #         weekcount = 0
+    #    
 
 
     html = render_template("calendar.html", eventData = data)

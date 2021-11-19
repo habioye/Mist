@@ -165,7 +165,7 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, date, details, "netid", x, y, roomNum)
+    mistdb.add_event(title, loc, start, end, date, details, "netid", y, x, roomNum)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])
@@ -233,11 +233,13 @@ def calendar():
     #         calstring += "<tr>"
     #     calstring += "<th>"
     #     if currcount > 0:
-    #
-    #
+    #     calstring += currcount
+    #     calstring += "</th>"
+    #     currcount+=1
     #     if weekcount == 7:
     #         calstring += "</tr>"
     #         weekcount = 0
+    #    
 
 
     html = render_template("calendar.html", eventData = data)

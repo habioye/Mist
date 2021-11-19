@@ -85,7 +85,7 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, (%s, %s), %s)'''
+                    roomNumber) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, ( %s , %s )::point, %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start,
                     end, date, details, planner, x_coord, y_coord, number))
 

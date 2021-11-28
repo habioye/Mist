@@ -6,6 +6,7 @@
 from datetime import date
 from datetime import datetime
 from calendar import monthrange
+from sys import stderr
 
 # this calender class initializes to the current day. When ever you want to 
 # switch between months it always start you at the first day of each month. 
@@ -17,10 +18,17 @@ class mistCalender:
         today = date.today()
         # today.month something
 
-        if month == 'None':
+        if month is None:
             self.month = today.month
+        else:
+            if month < 1 or month > 12:
+                print("month is outside range", stderr)
+                raise ValueError('month must be between 1 and 12')
+            self.month = month
         self.day = today.day
-        if year == 'None':
+        if year is None:
+            self.year = today.year
+        else:
             self.year = today.year
 
         

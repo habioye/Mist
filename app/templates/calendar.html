@@ -11,12 +11,9 @@
         "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
    </head>
    <body>
-
-
         <div>
         <div class="col-9 grayborder" id="eventinfo"></div>
         </div>
-
         <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
             <div class="row" style="background-color:rgb(255, 143, 0);">
                 <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
@@ -33,8 +30,8 @@
         <h3>Good <span id="ampmSpan"></span> user.</h3>
         </div></center>
 
-
-        <table class="table table-bordered table-hover">
+        {{calenderinfo}}
+        {% comment %} <table class="table table-bordered table-hover">
         <tr style="background-color:black;color:white;">
         <th colspan="7"><h3 align="center">November 2021</h3></th>
         </tr>
@@ -94,7 +91,7 @@
         <td>30</td>
         </tr>
         
-        </table>
+        </table> {% endcomment %}
         <div class="footer">
          Date and time: <span id="datetimeSpan"></span><br>
          Created by Hassan Abioye, Anthony Gartner, Benjamin Nadon, Nicholas Cabrera
@@ -127,8 +124,8 @@
 
             let request = null;
 
-                function getCalinfo()
-                {
+            function getCalinfo()
+            {
                     let author = $('#authorInput').val();
                     author = encodeURIComponent(author);
                     // look at how you retrieve information
@@ -144,7 +141,7 @@
                         success: handleResponse
                     }
                     );
-                }
+            }
 
                 function setup()
                 {

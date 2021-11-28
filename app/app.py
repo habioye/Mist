@@ -260,7 +260,8 @@ def calendar():
     
     calstring = calstringmaker(11, 2021)
     
-    html = render_template("calendar.html", eventData = data, calenderinfo = calstring)
+    
+    html = render_template("calendar.html", calenderinfo = calstring)
     response = make_response(html)
     return response
 

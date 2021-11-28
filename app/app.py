@@ -235,20 +235,13 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    
-    
-    
-    # data = []
-    # for event in package:
-    #     details = mistdb.details_query(event[0])
-    #     if details[0]:
-    #         data.push(details[1])
-    #     else:
-    #         print(details[1])
-            
-            
-            
-            
+    data = []
+    for event in package:
+        details = mistdb.details_query(event[0])
+        if details[0]:
+            data.push(details[1])
+        else:
+            print(details[1])
     #month = request.args.get('month')
     #year = request.args.get('year')
     #calstring = calstringmaker(month, year)

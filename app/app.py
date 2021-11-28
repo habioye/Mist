@@ -189,7 +189,9 @@ def calstringmaker(month, year):
      calstring = " <table class=\"table table-bordered table-hover\">"
      calstring += "<tr style=\"background-color:black;color:white;\">"
      calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-     calstring += str(month)
+     datetime_object = datetime.datetime.strptime(str(month), "%m")
+     month_name = datetime_object.strftime("%B")
+     calstring += month_name
      calstring += " "
      calstring += str(year)
      calstring += "</h3></th>"
@@ -203,8 +205,6 @@ def calstringmaker(month, year):
      calstring += "<th>Fr</th>"
      calstring += "<th>Sa</th>"
      calstring += "</tr>"
-     calstring += ""
-     calstring += ""
      calstring += ""
      currcount = -1 * firstday
      currcount = currcount + 2

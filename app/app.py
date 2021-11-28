@@ -291,9 +291,9 @@ def calendar():
     #         calstring += "</tr>"
     #         weekcount = 0
     #
-    calstring = calstringmaker(12,2021)
+    #calstring = calstringmaker(12,2021)
     
-    html = render_template("calendar.html", eventData = data, calinfo = calstring)
+    html = render_template("calendar.html", eventData = data)
     response = make_response(html)
     return response
 

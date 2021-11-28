@@ -189,9 +189,9 @@ def calstringmaker(month, year):
      calstring = " <table class=\"table table-bordered table-hover\">"
      calstring += "<tr style=\"background-color:black;color:white;\">"
      calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-     calstring += month
+     calstring += str(month)
      calstring += " "
-     calstring += year
+     calstring += str(year)
      calstring += "</h3></th>"
      calstring += "</tr>"
      calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
@@ -303,9 +303,9 @@ def calendar():
     calstring = " <table class=\"table table-bordered table-hover\">"
     calstring += "<tr style=\"background-color:black;color:white;\">"
     calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    calstring += month
+    calstring += str(month)
     calstring += " "
-    calstring += year
+    calstring += str(year)
     calstring += "</h3></th>"
     calstring += "</tr>"
     calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"

@@ -180,12 +180,12 @@ def friendscreen():
 def calstringmaker(month, year):
 
      currcal = mistcalender.mistCalender(month,year)
-     daycount = currcal.monthlength
+     daycount = currcal.get_monthlength
      firstday = currcal.get_first_day()
      firstday = firstday % 7
      firstday = firstday + 1
     
-     caldata = currcal.to_dict()
+
      calstring = " <table class=\"table table-bordered table-hover\">"
      calstring += "<tr style=\"background-color:black;color:white;\">"
      calstring += "<th colspan=\"7\"><h3 align=\"center\">"
@@ -291,7 +291,8 @@ def calendar():
     #         calstring += "</tr>"
     #         weekcount = 0
     #
-    calstring = calstringmaker(12,2021)
+    #calstring = calstringmaker(12,2021)
+    currcal = mistcalender.mistCalender(10,2021)
     
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)

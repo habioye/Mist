@@ -292,7 +292,13 @@ def calendar():
     #         weekcount = 0
     #
     #calstring = calstringmaker(12,2021)
-    currcal = mistcalender.mistCalender(10,2021)
+    currcal = mistcalender.mistCalender(12,2021)
+    daycount = currcal.get_monthlength
+    firstday = currcal.get_first_day()
+    firstday = firstday % 7
+    firstday = firstday + 1
+    
+    
     
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)

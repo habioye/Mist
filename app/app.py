@@ -18,6 +18,7 @@ from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
 from app import mistcalender
+from app.testing import calstringmaker
 
 #-----------------------------------------------------------------------
 
@@ -293,7 +294,7 @@ def calendar():
     #calstring = calstringmaker(12,2021)
     month = 12
     year = 2021
-    currcal = mistcalender.mistCalender(12,2021)
+    currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.get_monthlength
     firstday = currcal.get_first_day()
     firstday = firstday % 7
@@ -322,20 +323,21 @@ def calendar():
     currcount = -1 * firstday
     currcount = currcount + 2
     weekcount = 0
-    # while currcount <= daycount:
-    #     if weekcount == 0:
-    #         calstring += "<tr>"
-    #     calstring += "<th>"
-    #     if currcount > 0:
-    #         calstring += str(currcount)
-    #     calstring += "</th>"
-    #     currcount+=1
-    #     if weekcount == 7:
-    #         calstring += "</tr>"
-    #         weekcount = 0
-    #     if weekcount != 0:
-    #         calstring += "</tr>"
-    #     calstring += "</table>"
+    
+    while currcount <= daycount:
+        if weekcount == 0:
+            calstring += "<tr>"
+        calstring += "<th>"
+        if currcount > 0:
+            calstring += str(currcount)
+        calstring += "</th>"
+        currcount+=1
+        if weekcount == 7:
+            calstring += "</tr>"
+            weekcount = 0
+        if weekcount != 0:
+            calstring += "</tr>"
+        calstring += "</table>"
    
     # while currcount <= daycount:
     #     if weekcount == 0:

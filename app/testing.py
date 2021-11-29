@@ -2,12 +2,14 @@ import mistcalender
 import datetime
 
 def calstringmaker(month, year):
+
+   month = 5
+   year = 2021
    currcal = mistcalender.mistCalender(month,year)
    daycount = currcal.get_monthlength()
    firstday = currcal.get_first_day()
    firstday = firstday % 7
    firstday = firstday + 1
-   
 
    calstring = " <table class=\"table table-bordered table-hover\">"
    calstring += "<tr style=\"background-color:black;color:white;\">"
@@ -40,7 +42,6 @@ def calstringmaker(month, year):
    print(currcount)
    print(daycount)
    while currcount <= daycount:
-      
       if weekcount == 0:
          calstring += "<tr>"
       calstring += "<th>"

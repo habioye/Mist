@@ -291,7 +291,7 @@ def calendar():
     month = 11
     year = 2021    
     
-    calstring = calstringmaker(month, year)
+    #calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -307,7 +307,7 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     
-    html = render_template(calstring)
+    html = render_template("calender.html")
     response = make_response(html)
     # response.set_cookie('monthq', 4)
     # response.set_cookie('yearq', 2021)

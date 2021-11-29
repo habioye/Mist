@@ -243,15 +243,14 @@ def calendar():
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-    month = request.args.get('month')
-    year = request.args.get('year')
+    month = request.cookies.get('month')
+    year = request.cookies.get('year')
     if month is None or year is None:
         today = date.today()
-        request.args.set('month',today.month)
-        request.args.set('year',today.year)
         month = today.month
         year = today.year
         
+    
     calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:
@@ -270,6 +269,8 @@ def calendar():
     
     html = render_template("calendar.html", eventData = data, calinfo = calstring)
     response = make_response(html)
+    response.set_cookie('month', month)
+    response.set_cookie('year', year)
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

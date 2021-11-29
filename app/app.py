@@ -272,8 +272,8 @@ def calendar():
     
     html = render_template("calendar.html", eventData = data, calinfo = calstring)
     response = make_response(html)
-    response.set_cookie('month', month)
-    response.set_cookie('year', year)
+    response.set_cookie('monthq', 1)
+    response.set_cookie('yearq', 43)
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

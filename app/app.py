@@ -245,10 +245,10 @@ def calendar():
     #         print(details[1])
     month = request.cookies.get('month')
     year = request.cookies.get('year')
-    # if month is None or year is None:
-    #     today = date.today()
-    #     month = today.month
-    #     year = today.year
+    if month is None or year is None:
+        today = date.today()
+        month = today.month
+        year = today.year
         
     
     calstring = calstringmaker(month, year)
@@ -269,8 +269,8 @@ def calendar():
     
     html = render_template("calendar.html", eventData = data, calinfo = calstring)
     response = make_response(html)
-    response.set_cookie('month', month)
-    response.set_cookie('year', year)
+    # response.set_cookie('month', month)
+    # response.set_cookie('year', year)
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

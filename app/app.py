@@ -326,6 +326,7 @@ def calendar():
     rangevalue = daycount + abs(currcount) + 1
     
     for i in range(3):
+        somthing = 0
         # if weekcount == 0:
         #     calstring += "<tr>"
         # calstring += "<th>"

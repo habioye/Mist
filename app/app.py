@@ -181,7 +181,7 @@ def friendscreen():
 # def calstringmaker(month, year):
 
 #      currcal = mistcalender.mistCalender(month,year)
-#      daycount = currcal.get_monthlength
+#      daycount = currcal.get_monthlength()
 #      firstday = currcal.get_first_day()
 #      firstday = firstday % 7
 #      firstday = firstday + 1
@@ -323,22 +323,21 @@ def calendar():
     currcount = -1 * firstday
     currcount = currcount + 2
     weekcount = 0
-    #rangevalue = daycount + abs(currcount) + 1
-    #for i in range(3):
-        #  somthing = 0
-        # if weekcount == 0:
-        #     calstring += "<tr>"
-        # calstring += "<th>"
-        # if currcount > 0:
-        #     calstring += str(currcount)
-        # calstring += "</th>"
-        # currcount+=1
-        # if weekcount == 7:
-        #     calstring += "</tr>"
-        #     weekcount = 0
-        # if weekcount != 0:
-        #     calstring += "</tr>"
-        # calstring += "</table>"
+    rangevalue = daycount + abs(currcount) + 1
+    for i in range(3):
+        if weekcount == 0:
+            calstring += "<tr>"
+        calstring += "<th>"
+        if currcount > 0:
+            calstring += str(currcount)
+        calstring += "</th>"
+        currcount+=1
+        if weekcount == 7:
+            calstring += "</tr>"
+            weekcount = 0
+        if weekcount != 0:
+            calstring += "</tr>"
+        calstring += "</table>"
    
     # while currcount <= daycount:
     #     if weekcount == 0:

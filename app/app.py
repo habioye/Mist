@@ -295,7 +295,7 @@ def calendar():
     month = 12
     year = 2021
     currcal = mistcalender.mistCalender(month,year)
-    daycount = currcal.get_monthlength
+    daycount = currcal.get_monthlength()
     firstday = currcal.get_first_day()
     firstday = firstday % 7
     firstday = firstday + 1
@@ -323,10 +323,7 @@ def calendar():
     currcount = -1 * firstday
     currcount = currcount + 2
     weekcount = 0
-    rangevalue = daycount + abs(currcount) + 1
-    fruits = ["apple", "banana", "cherry"]
-    for x in fruits:
-        print(x)
+    #rangevalue = daycount + abs(currcount) + 1
     #for i in range(3):
         #  somthing = 0
         # if weekcount == 0:

@@ -332,11 +332,11 @@ def calendar():
         #     calstring += str(currcount)
         # calstring += "</th>"
         currcount+=1
-        if weekcount == 7:
-            calstring += "</tr>"
-            weekcount = 0
-        if weekcount != 0:
-            calstring += "</tr>"
+        # if weekcount == 7:
+        #     calstring += "</tr>"
+        #     weekcount = 0
+        # if weekcount != 0:
+        #     calstring += "</tr>"
         calstring += "</table>"
    
     # while currcount <= daycount:

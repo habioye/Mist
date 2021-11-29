@@ -234,6 +234,43 @@ def cal_query(userID):
         result = [False, error_msg]
         return result
 
+# Queries the database for all events on a given date. Returns True and a list of events on success,
+# returns false and an error message on failure. 
+#
+# To change it to show all events a user has subscribed to, uncomment lines 244 and 261 ,
+# comment lines 245 and 260, and put the below AND statements beneath the WHERE statement
+# AND   details.eventID = participants.eventID
+# AND     participants.userID = %s
+#def date_query(date, userID):
+def date_query(date):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+                stmt_str = '''  SELECT  eventID,
+                                        eventName,
+                                        eventLocation,
+                                        startTime,
+                                        endTime
+                                FROM    details
+                                WHERE   details.eventDate = %s
+                                ORDER BY    startTime,
+                                            eventName'''
+                cursor.execute(stmt_str, (date))
+                # cursor.execute(stmt_str, (date, userID))
+                data = cursor.fetchall()
+
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
 # Details query. Returns true and a list of event details in a list if successful.
 # The indexes are in the order displayed in the google sheets about the database.
 # If unsuccessful, returns False and an error message.

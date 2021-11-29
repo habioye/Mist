@@ -18,6 +18,7 @@ from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
 from app import mistcalender
+from datetime import date
 
 
 #-----------------------------------------------------------------------
@@ -242,10 +243,15 @@ def calendar():
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-
-   
-    month = 12
-    year = 2021
+    month = request.args.get('month')
+    year = request.args.get('year')
+    if month is None or year is None:
+        today = date.today()
+        request.args.set('month',today.month)
+        request.args.set('year',today.year)
+        month = today.month
+        year = today.year
+        
     calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:

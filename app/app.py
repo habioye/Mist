@@ -337,7 +337,7 @@ def calendar():
         #     weekcount = 0
         # if weekcount != 0:
         #     calstring += "</tr>"
-        calstring += "</table>"
+        #calstring += "</table>"
    
     # while currcount <= daycount:
     #     if weekcount == 0:

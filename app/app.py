@@ -280,13 +280,14 @@ def calendar():
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-    month = request.cookies.get('month')
-    year = request.cookies.get('year')
-    if month is None or year is None:
-        today = date.today()
-        month = today.month
-        year = today.year
-        
+    # month = request.cookies.get('month')
+    # year = request.cookies.get('year')
+    # if month is None or year is None:
+    #     today = date.today()
+    #     month = today.month
+    #     year = today.year
+    month = 11
+    year = 2021    
     
     calstring = calstringmaker(month, year)
     # while currcount <= daycount:

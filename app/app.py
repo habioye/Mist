@@ -219,7 +219,6 @@ def calstringmaker(month, year):
     firstday = currcal.get_first_day()
     firstday = firstday % 7
     firstday = firstday + 1
-    
     calstring = headerstring()        
     calstring += "<table class=\"table table-bordered table-hover\">"
     calstring += "<tr style=\"background-color:black;color:white;\">"
@@ -247,20 +246,23 @@ def calstringmaker(month, year):
     currcount = currcount + 2
     weekcount = 0
     rangevalue = daycount + abs(currcount) + 1
-    for i in range(daycount + abs(currcount) + 1):
-        if weekcount == 0:
-            calstring += "<tr>"
-        calstring += "<th>"
-        if currcount > 0:
-            calstring += str(currcount)
-        calstring += "</th>"
-        currcount+=1
-        if weekcount == 7:
-                calstring += "</tr>"
-                weekcount = 0
+    for i in range(rangevalue):
+      if weekcount == 0:
+         calstring += "<tr>"
+      calstring += "<td>"
+      if currcount > 0:
+         calstring += str(currcount)
+      calstring += "</td>"
+      currcount+=1
+      weekcount += 1
+      if weekcount == 7:
+         calstring += "</tr>"
+         weekcount = 0
     if weekcount != 0:
-        calstring += "</tr>"
+      calstring += "</tr>"
     calstring += "</table>"
+    calstring += "</body>"
+    calstring += "</html>"
     return calstring
 
 

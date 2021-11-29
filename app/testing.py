@@ -11,7 +11,7 @@ def headerstring():
     calstring += " content=\"width=device-width, initial-scale=1\"> "
     calstring += "<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico\" /> "
     calstring += "<link rel=\"stylesheet\" href= "
-    calstring += "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css\"> "
+    calstring += "\"https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css\"> "
     calstring += "</head> "
     calstring += "<body>"
     calstring += "<div>"

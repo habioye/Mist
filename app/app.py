@@ -323,21 +323,22 @@ def calendar():
     currcount = -1 * firstday
     currcount = currcount + 2
     weekcount = 0
+    rangevalue = daycount + abs(currcount) + 1
     
-    for i in range(daycount + abs(currcount) + 1):
+    for i in range(rangevalue):
         # if weekcount == 0:
         #     calstring += "<tr>"
         # calstring += "<th>"
         # if currcount > 0:
         #     calstring += str(currcount)
         # calstring += "</th>"
-        currcount+=1
+        # currcount+=1
         # if weekcount == 7:
         #     calstring += "</tr>"
         #     weekcount = 0
         # if weekcount != 0:
         #     calstring += "</tr>"
-        #calstring += "</table>"
+        # calstring += "</table>"
    
     # while currcount <= daycount:
     #     if weekcount == 0:

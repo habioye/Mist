@@ -262,7 +262,7 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     
-    html = render_template("calendar.html", eventData = data)
+    html = render_template("calendar.html", eventData = data, calinfo = calstring)
     response = make_response(html)
     return response
 

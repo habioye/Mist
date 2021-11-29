@@ -41,7 +41,8 @@ def calstringmaker(month, year):
    print(firstday)
    print(currcount)
    print(daycount)
-   while currcount <= daycount:
+   for i in range(daycount + abs(currcount) + 1):
+      print(currcount)
       if weekcount == 0:
          calstring += "<tr>"
       calstring += "<th>"

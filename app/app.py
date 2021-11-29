@@ -324,10 +324,12 @@ def calendar():
     currcount = currcount + 2
     weekcount = 0
     
-    while currcount <= daycount:
+    for i in range(daycount + abs(currcount) + 1):
         if weekcount == 0:
             calstring += "<tr>"
         calstring += "<th>"
+        if currcount > 0:
+            calstring += str(currcount)
         calstring += "</th>"
         currcount+=1
         if weekcount == 7:

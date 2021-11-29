@@ -328,8 +328,6 @@ def calendar():
         if weekcount == 0:
             calstring += "<tr>"
         calstring += "<th>"
-        if currcount > 0:
-            calstring += str(currcount)
         calstring += "</th>"
         currcount+=1
         if weekcount == 7:

@@ -307,7 +307,7 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     
-    html = render_template("calendar.html")
+    html = render_template(calstring)
     response = make_response(html)
     # response.set_cookie('monthq', 4)
     # response.set_cookie('yearq', 2021)

@@ -210,20 +210,19 @@ def calstringmaker(month, year):
      currcount = currcount + 2
      weekcount = 0
      while currcount <= daycount:
-         if weekcount == 0:
+        if weekcount == 0:
             calstring += "<tr>"
-         calstring += "<th>"
-         if currcount > 0:
+        calstring += "<th>"
+        if currcount > 0:
             calstring += str(currcount)
-         calstring += "</th>"
-         currcount+=1
-         if weekcount == 7:
-             calstring += "</tr>"
-             weekcount = 0
-     if weekcount != 0:
-        calstring += "</tr>"
-     calstring += "</table>"
-     
+        calstring += "</th>"
+        currcount+=1
+        if weekcount == 7:
+            calstring += "</tr>"
+            weekcount = 0
+        if weekcount != 0:
+            calstring += "</tr>"
+        calstring += "</table>"
      return calstring
 
 
@@ -334,11 +333,24 @@ def calendar():
         if weekcount == 7:
             calstring += "</tr>"
             weekcount = 0
-    if weekcount != 0:
-        calstring += "</tr>"
-    calstring += "</table>"
-     
-    
+        if weekcount != 0:
+            calstring += "</tr>"
+        calstring += "</table>"
+   
+    # while currcount <= daycount:
+    #     if weekcount == 0:
+    #         calstring += "<tr>"
+    #     calstring += "<th>"
+    #     if currcount > 0:
+    #         calstring += str(currcount)
+    #     calstring += "</th>"
+    #     currcount+=1
+    #     if weekcount == 7:
+    #         calstring += "</tr>"
+    #         weekcount = 0
+    # if weekcount != 0:
+    #     calstring += "</tr>"
+    # calstring += "</table>"
     
     html = render_template("calendar.html", eventData = data)
     response = make_response(html)

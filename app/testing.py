@@ -3,7 +3,7 @@ import datetime
 
 def calstringmaker(month, year):
    currcal = mistcalender.mistCalender(month,year)
-   daycount = currcal.get_monthlength
+   daycount = currcal.get_monthlength()
    firstday = currcal.get_first_day()
    firstday = firstday % 7
    firstday = firstday + 1
@@ -23,7 +23,9 @@ def calstringmaker(month, year):
    calstring += "<th>Su</th>"
    calstring += "<th>Mo</th>"
    calstring += "<th>Tu</th>"
+
    calstring += "<th>We</th>"
+
    calstring += "<th>Th</th>"
    calstring += "<th>Fr</th>"
    calstring += "<th>Sa</th>"
@@ -32,7 +34,13 @@ def calstringmaker(month, year):
    currcount = -1 * firstday
    currcount = currcount + 2
    weekcount = 0
+   print(month)
+   print(year)
+   print(firstday)
+   print(currcount)
+   print(daycount)
    while currcount <= daycount:
+      
       if weekcount == 0:
          calstring += "<tr>"
       calstring += "<th>"
@@ -46,7 +54,8 @@ def calstringmaker(month, year):
    if weekcount != 0:
       calstring += "</tr>"
    calstring += "</table>"
-   
+   print("")
+   print("somewhere")
    return calstring
 
 

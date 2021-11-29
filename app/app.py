@@ -178,122 +178,7 @@ def friendscreen():
     return response
 
 
-# def calstringmaker(month, year):
-
-#      currcal = mistcalender.mistCalender(month,year)
-#      daycount = currcal.get_monthlength()
-#      firstday = currcal.get_first_day()
-#      firstday = firstday % 7
-#      firstday = firstday + 1
-    
-
-#      calstring = " <table class=\"table table-bordered table-hover\">"
-#      calstring += "<tr style=\"background-color:black;color:white;\">"
-#      calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-#      datetime_object = datetime.datetime.strptime(str(month), "%m")
-#      month_name = datetime_object.strftime("%B")
-#      calstring += month_name
-#      calstring += " "
-#      calstring += str(year)
-#      calstring += "</h3></th>"
-#      calstring += "</tr>"
-#      calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-#      calstring += "<th>Su</th>"
-#      calstring += "<th>Mo</th>"
-#      calstring += "<th>Tu</th>"
-#      calstring += "<th>We</th>"
-#      calstring += "<th>Th</th>"
-#      calstring += "<th>Fr</th>"
-#      calstring += "<th>Sa</th>"
-#      calstring += "</tr>"
-#      calstring += ""
-#      currcount = -1 * firstday
-#      currcount = currcount + 2
-#      weekcount = 0
-#      while currcount <= daycount:
-#         if weekcount == 0:
-#             calstring += "<tr>"
-#         calstring += "<th>"
-#         if currcount > 0:
-#             calstring += str(currcount)
-#         calstring += "</th>"
-#         currcount+=1
-#         if weekcount == 7:
-#             calstring += "</tr>"
-#             weekcount = 0
-#         if weekcount != 0:
-#             calstring += "</tr>"
-#         calstring += "</table>"
-#      return calstring
-
-
-@app.route('/calendar', methods=['GET'])
-def calendar():
-    # username = authenticate()
-    # package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    # if(package[0] == False):
-    #     print(package[1])
-    # else:
-    #     package = package[1]
-    #
-    data = []
-    # for event in package:
-    #     details = mistdb.details_query(event[0])
-    #     if details[0]:
-    #         data.push(details[1])
-    #     else:
-    #         print(details[1])
-
-    # month = request.args.get('month')
-    # year = request.args.get('year')
-    # currcal = mistcalender.mistCalender(month,year)
-    # daycount = currcal.monthlength
-    # firstday = currcal.get_first_day()
-    # firstday = firstday % 7
-    # firstday = firstday + 1
-    #
-    #
-    #
-    # caldata = currcal.to_dict()
-    # calstring = " <table class=\"table table-bordered table-hover\">"
-    # calstring += "<tr style=\"background-color:black;color:white;\">"
-    # calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    # calstring += month
-    # calstring += " "
-    # calstring += year
-    # calstring += "</h3></th>"
-    # calstring += "</tr>"
-    # calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-    # calstring += "<th>Su</th>"
-    # calstring += "<th>Mo</th>"
-    # calstring += "<th>Tu</th>"
-    # calstring += "<th>We</th>"
-    # calstring += "<th>Th</th>"
-    # calstring += "<th>Fr</th>"
-    # calstring += "<th>Sa</th>"
-    # calstring += "</tr>"
-    # calstring += ""
-    # calstring += ""
-    # calstring += ""
-    # currcount = -1 * firstday
-    # currcount = currcount + 2
-    # weekcount = 0
-    # while currcount <= daycount:
-    #
-    #     if weekcount == 0:
-    #         calstring += "<tr>"
-    #     calstring += "<th>"
-    #     if currcount > 0:
-    #     calstring += currcount
-    #     calstring += "</th>"
-    #     currcount+=1
-    #     if weekcount == 7:
-    #         calstring += "</tr>"
-    #         weekcount = 0
-    #
-    #calstring = calstringmaker(12,2021)
-    month = 12
-    year = 2021
+def calstringmaker(month, year):
     currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.get_monthlength()
     firstday = currcal.get_first_day()
@@ -324,7 +209,7 @@ def calendar():
     currcount = currcount + 2
     weekcount = 0
     rangevalue = daycount + abs(currcount) + 1
-    for i in range(3):
+    for i in range(rangevalue):
         if weekcount == 0:
             calstring += "<tr>"
         calstring += "<th>"
@@ -337,8 +222,31 @@ def calendar():
             weekcount = 0
         if weekcount != 0:
             calstring += "</tr>"
-        calstring += "</table>"
+    calstring += "</table>"
+    return calstring
+
+
+@app.route('/calendar', methods=['GET'])
+def calendar():
+    # username = authenticate()
+    # package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
+    # if(package[0] == False):
+    #     print(package[1])
+    # else:
+    #     package = package[1]
+    #
+    data = []
+    # for event in package:
+    #     details = mistdb.details_query(event[0])
+    #     if details[0]:
+    #         data.push(details[1])
+    #     else:
+    #         print(details[1])
+
    
+    month = 12
+    year = 2021
+    calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"

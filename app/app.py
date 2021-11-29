@@ -288,8 +288,11 @@ def calendar():
     #     today = date.today()
     #     month = today.month
     #     year = today.year
-    month = 11
-    year = 2021    
+
+
+    today = date.today()
+    month = today.month
+    year = today.year
     
     calstring = calstringmaker(month, year)
     # while currcount <= daycount:

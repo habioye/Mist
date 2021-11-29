@@ -291,7 +291,7 @@ def calendar():
     month = 11
     year = 2021    
     
-    #calstring = calstringmaker(month, year)
+    calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"

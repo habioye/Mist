@@ -18,7 +18,7 @@ from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
 from app import mistcalender
-from app.testing import calstringmaker
+
 
 #-----------------------------------------------------------------------
 

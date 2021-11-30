@@ -185,7 +185,10 @@ def getfriends():
 def searchfriends():
     search = request.args.get('search')
     search = '%' + str(search) + '%'
-    friends = mistdb.user_search(search)
+    package = mistdb.user_search(search)
+    if package[0] is False:
+        print(package[1])
+    friends = package[1]    
     html = render_template('friendslist.html', friends = friends)
     response = make_response(html)
     return response

@@ -65,12 +65,31 @@
            map: map,
            title:String(element[1]),
          });
-         str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
-          marker.addListener("click", () => {
-               infoWindow.close();
-               infoWindow.setContent(str);
-               infoWindow.open(marker.getMap(), marker);
-             });
+         let eventid = encodeURIComponent(element[0])
+         let url = '/details?eventid=' + eventid;
+         $.ajax(
+           {
+             type: 'GET',
+             url: url,
+             success: function(result, marker){
+               marker.addListener("click", () => {
+                    infoWindow.close();
+                    infoWindow.setContent(result);
+                    infoWindow.open(marker.getMap(), marker);
+                  }
+                );
+
+             }
+           }
+         )
+
+         // str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
+         //  marker.addListener("click", () => {
+         //       infoWindow.close();
+         //       infoWindow.setContent(str);
+         //       infoWindow.open(marker.getMap(), marker);
+         //     }
+         //   );
         })
       }
 

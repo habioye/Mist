@@ -141,6 +141,19 @@ def input():
     response = make_response(html)
 
     return response
+@app.route('/details', methods = ['GET'])
+def details():
+    # username = authenticate()
+    eventid = request.args.get('eventid')
+    package = mistdb.details_query(str(eventid))
+    if package[0] = False:
+        print(package[1])
+    else:
+        details = package[1]
+    html = render_template('details.html')
+    response = make_response(html)
+    return response
+
 
 @app.route('/addinput')
 def addinput():
@@ -188,7 +201,7 @@ def searchfriends():
     package = mistdb.user_search(search)
     if package[0] is False:
         print(package[1])
-    friends = package[1]    
+    friends = package[1]
     html = render_template('friendslist.html', friends = friends)
     response = make_response(html)
     return response

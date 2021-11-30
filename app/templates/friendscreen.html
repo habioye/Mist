@@ -86,8 +86,8 @@
          }
          function getFriends()
             {
-
-               let userid = String({{userid}})
+              var user = {{userid|tojson}};
+               let userid = String(user);
                userid =  encodeURIComponent(userid);
 
                let url = '/getfriends?search=' + userid

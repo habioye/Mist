@@ -56,6 +56,11 @@
       {
         $('#searchresults').html(response);
       }
+      function handleFriends(response)
+      {
+        $('#Friendresults').html(response);
+      }
+
 
       let request = null;
 
@@ -82,10 +87,10 @@
          function getFriends()
             {
 
-               let Search = String({{userid}})
-               Search =  encodeURIComponent(Search);
+               let userid = String({{userid}})
+               userid =  encodeURIComponent(userid);
 
-               let url = '/getfriends?search=' + Search
+               let url = '/getfriends?search=' + userid
 
                if (request != null)
                   request.abort();
@@ -94,8 +99,7 @@
                   {
                      type: 'GET',
                      url: url,
-                     success: handleResponse
-                  }
+                     success: handleFriends
                );
             }
          function setup()

@@ -173,7 +173,10 @@ def friendscreen():
 @app.route('/getfriends', methods = ['GET'])
 def getfriends():
     userid = request.args.get('search')
-    friendslist = mistdb.friends_query(userid)
+    package = mistdb.friends_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
     html = render_template('friendlist.html', friends = friendslist)
     response = make_response(html)
     return response

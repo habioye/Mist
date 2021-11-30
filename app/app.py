@@ -177,6 +177,20 @@ def friendscreen():
     response = make_response(html)
     return response
 
+@app.route('/getfriends', methods = ['GET'])
+def getfriends():
+    userid = request.args.get('search')
+    friendslist = mistdb.friends_query(userid)
+    html = render_template('friendslist.html', friends = friendslist)
+    response = make_response(html)
+    return response
+@app.route('/searchfriends', methods = ['GET'])
+def getfriends():
+    search = request.args.get('search')
+    friends = mistdb.search_users(search)
+    html = render_template('friendslist.html', friends = friendslist)
+    response = make_response(html)
+    return response
 def calstringmaker(month, year):
     currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.monthlength
@@ -224,7 +238,7 @@ def calstringmaker(month, year):
         calstring += "</tr>"
     calstring += "</table>"
     return calstring
-        
+
 
 @app.route('/calendar', methods=['GET'])
 def calendar():
@@ -235,7 +249,7 @@ def calendar():
     else:
          package = package[1]
 
-    
+
     data = []
     for event in package:
         details = mistdb.details_query(event[0])
@@ -243,14 +257,14 @@ def calendar():
             data.push(details[1])
         else:
             print(details[1])
-            
-            
+
+
     #month = request.args.get('month')
     #year = request.args.get('year')
     #calstring = calstringmaker(month, year)
-    
-    
-    
+
+
+
     # month = request.args.get('month')
     # month = request.cookies.get('month')
     # year = request.args.get('year')
@@ -258,12 +272,12 @@ def calendar():
     #     mistcal = mistcalender.mistCalender()
     #     month = mistcal.get_month()
     #     year = mistcal.get_year()
-        
+
     # request.cookies()
-    
+
    # calstring = calstringmaker(11, 2021)
     #print(calstring)
-    
+
  #   html = render_template("calendar.html", calenderinfo = calstring)
     html = render_template("calendar.html")
     # print(html)

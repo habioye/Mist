@@ -212,7 +212,11 @@ def headerstring():
     calstring += "</div></center>" 
     return calstring       
     
-
+def dateformat(year, month, day):
+    datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + str(day).zfill(2)
+    return datestring 
+    
+    
 def calstringmaker(month, year):
     currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.get_monthlength()
@@ -252,6 +256,11 @@ def calstringmaker(month, year):
       calstring += "<td>"
       if currcount > 0:
          calstring += str(currcount)
+         date = dateformat(year, month, currcount)
+         events = date_query(date)
+         for event in events:
+            for item in event:
+                calstring += str(item)         
       calstring += "</td>"
       currcount+=1
       weekcount += 1

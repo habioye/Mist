@@ -60,7 +60,7 @@ def add_event_proto(title, x_coord, y_coord):
                 cursor.execute(stmt_str, (str(event_id),str(title),
                     str(date_time.time().isoformat()), str(offset.time().isoformat()),
                     str(date_time.date().isoformat()), str(coords)))
-                
+
                 return True
     except Exception as ex:
         error_msg = "A server error occurred in add_event_proto."
@@ -199,8 +199,8 @@ def map_query(start, end):
         result = [False, error_msg]
         return result
 
-# Queries the database for all a user's subscribed events to be displayed on the 
-# calendar. Returns True and a list of events on success, returns False and an 
+# Queries the database for all a user's subscribed events to be displayed on the
+# calendar. Returns True and a list of events on success, returns False and an
 # error message on failure.
 
 def cal_query(userID):
@@ -235,7 +235,7 @@ def cal_query(userID):
         return result
 
 # Queries the database for all events on a given date. Returns True and a list of events on success,
-# returns false and an error message on failure. 
+# returns false and an error message on failure.
 #
 # To change it to show all events a user has subscribed to, uncomment lines 244 and 261 ,
 # comment lines 245 and 260, and put the below AND statements beneath the WHERE statement
@@ -570,6 +570,32 @@ def user_query(netID):
                     return [False, error_msg]
 
                 return [True, name, friends, permissions]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
+def user_search(netID):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  SELECT  userID,
+                                        userName
+                                FROM    userNames
+                                WHERE   userID = %s'''
+
+                cursor.execute(stmt_str, (netID))
+                users = cursor.fetchall()
+
+
+                return [True, users]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

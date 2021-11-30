@@ -184,13 +184,17 @@ def getfriends():
     html = render_template('friendslist.html', friends = friendslist)
     response = make_response(html)
     return response
+
 @app.route('/searchfriends', methods = ['GET'])
-def getfriends():
+def searchfriends():
     search = request.args.get('search')
-    friends = mistdb.search_users(search)
-    html = render_template('friendslist.html', friends = friendslist)
+    search = '%' + str(search) + '%'
+    friends = mistdb.user_search(search)
+    html = render_template('friendslist.html', friends = friends)
     response = make_response(html)
     return response
+
+
 def calstringmaker(month, year):
     currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.monthlength

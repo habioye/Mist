@@ -257,7 +257,7 @@ def calstringmaker(month, year):
       if currcount > 0:
          calstring += str(currcount)
          date = dateformat(year, month, currcount)
-         events = date_query(date)
+         events = mistdb.date_query(date)
          for event in events:
             for item in event:
                 calstring += str(item)         

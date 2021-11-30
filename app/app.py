@@ -181,7 +181,7 @@ def friendscreen():
 def getfriends():
     userid = request.args.get('search')
     friendslist = mistdb.friends_query(userid)
-    html = render_template('friendslist.html', friends = friendslist)
+    html = render_template('friendlist.html', friends = friendslist)
     response = make_response(html)
     return response
 

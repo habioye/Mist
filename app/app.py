@@ -146,7 +146,7 @@ def details():
     # username = authenticate()
     eventid = request.args.get('eventid')
     package = mistdb.details_query(str(eventid))
-    if package[0] = False:
+    if package[0] is False:
         print(package[1])
     else:
         details = package[1]

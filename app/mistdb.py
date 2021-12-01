@@ -118,7 +118,7 @@ def remove_by_id(event_id):
                 stmt_str = '''  DELETE FROM details
                                 WHERE       eventID = %s'''
 
-                cursor.execute(stmt_str, (event_id))
+                cursor.execute(stmt_str, (event_id,))
 
                 return True
 
@@ -146,7 +146,7 @@ def remove_by_datetime(date, time):
                                 WHERE       eventDate = %s
                                 AND         endTime < %s'''
 
-                cursor.execute(stmt_str, (date, time + 'EST'))
+                cursor.execute(stmt_str, (date, time))
 
                 return True
 
@@ -221,7 +221,7 @@ def cal_query(userID):
                                 ORDER BY    eventDate,
                                             startTime,
                                             eventName'''
-                cursor.execute(stmt_str, (userID))
+                cursor.execute(stmt_str, (userID,))
                 data = cursor.fetchall()
 
                 return [True, data]
@@ -289,7 +289,7 @@ def details_query(event):
                                 ORDER BY    eventLocation,
                                             eventName'''
 
-                cursor.execute(stmt_str, (str(event)))
+                cursor.execute(stmt_str, (str(event),))
                 data = cursor.fetchall()
 
                 if len(data) == 0:
@@ -441,7 +441,7 @@ def friends_query(netID):
                                 AND     friends.userID = %s
                                 ORDER BY    userName'''
 
-                cursor.execute(stmt_str, (netID))
+                cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 
                 return [True, data]
@@ -524,7 +524,7 @@ def permissions_query(netID):
                                 WHERE   userID = %s
                                 ORDER BY    permissions'''
 
-                cursor.execute(stmt_str, (netID))
+                cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 
                 return [True, data]
@@ -553,7 +553,7 @@ def user_query(netID):
                                 FROM    userNames
                                 WHERE   userID = %s'''
 
-                cursor.execute(stmt_str, (netID))
+                cursor.execute(stmt_str, (netID,))
                 name = cursor.fetchall()
 
                 friends = friends_query(netID)
@@ -747,7 +747,7 @@ def tags_query(tag):
                                 WHERE   eventID = %s
                                 ORDER BY    tag'''
 
-                cursor.execute(stmt_str, (tag))
+                cursor.execute(stmt_str, (tag,))
                 data = cursor.fetchall()
 
                 return [True, data]

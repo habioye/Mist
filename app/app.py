@@ -40,7 +40,7 @@ CAS_URL = 'https://fed.princeton.edu/cas/'
 
 def strip_ticket(url):
     if url is None:
-        return "No URL in Strip Ticket"
+        return "something is badly wrong"
     url = sub(r'ticket=[^&]*&?', '', url)
     url = sub(r'\?&?$|&$', '', url)
     return url
@@ -49,12 +49,12 @@ def strip_ticket(url):
 # the user's username; otherwise, return None
 
 def validate(ticket):
-    val_url = (CAS_URL + "validate" + '?service'
-        + quote(strip_ticket(request.url)) + '&ticket=' +
-        quote(ticket))
+    val_url = (CAS_URL + "validate"
+        + '?service=' + quote(strip_ticket(request.url))
+        + '&ticket=' + quote(ticket))
     lines = []
     with urlopen(val_url) as flo:
-        lines = flo.readlines()
+        lines = flo.readlines()   # Should return 2 lines.
     if len(lines) != 2:
         return None
     first_line = lines[0].decode('utf-8')
@@ -68,39 +68,64 @@ def validate(ticket):
 
 def authenticate():
 
-    # If the username is in the session, then the user was authenticated
-    # previously, return the username
+    # If the username is in the session, then the user was
+    # authenticated previously.  So return the username.
     if 'username' in session:
-        username = session.get('username')
-        name = mistdb.user_query(username)
-        # if name[0]:
-        #     if name[1][0] is None:
-        #         abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
-        return username
+        return session.get('username')
 
-    # If the request does not contain a login ticket, then redirect the
-    # browser to the login page to get one.
+    # If the request does not contain a login ticket, then redirect
+    # the browser to the login page to get one.
     ticket = request.args.get('ticket')
     if ticket is None:
-        login_url = (CAS_URL + 'login?service='
-            + quote(request.url))
-        abort(redir(login_url))
+        login_url = (CAS_URL + 'login?service=' + quote(request.url))
+        abort(redirect(login_url))
 
-    # If the login ticket is invalid, then redirect the browser to the
-    # login page to get a new one.
+    # If the login ticket is invalid, then redirect the browser
+    # to the login page to get a new one.
     username = validate(ticket)
     if username is None:
         login_url = (CAS_URL + 'login?service='
             + quote(strip_ticket(request.url)))
-        abort(redir(login_url))
+        abort(redirect(login_url))
 
-    # The user is authenticated, so store the username in the session.
+    # The user is authenticated, so store the username in
+    # the session.
     session['username'] = username
-    name = mistdb.user_query(username)
-    # if name[0]:
-    #     if name[1][0] is None:
-    #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
     return username
+
+    # # If the username is in the session, then the user was authenticated
+    # # previously, return the username
+    # if 'username' in session:
+    #     username = session.get('username')
+    #     name = mistdb.user_query(username)
+    #     # if name[0]:
+    #     #     if name[1][0] is None:
+    #     #         abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
+    #     return username
+
+    # # If the request does not contain a login ticket, then redirect the
+    # # browser to the login page to get one.
+    # ticket = request.args.get('ticket')
+    # if ticket is None:
+    #     login_url = (CAS_URL + 'login?service='
+    #         + quote(request.url))
+    #     abort(redir(login_url))
+
+    # # If the login ticket is invalid, then redirect the browser to the
+    # # login page to get a new one.
+    # username = validate(ticket)
+    # if username is None:
+    #     login_url = (CAS_URL + 'login?service='
+    #         + quote(strip_ticket(request.url)))
+    #     abort(redir(login_url))
+
+    # # The user is authenticated, so store the username in the session.
+    # session['username'] = username
+    # name = mistdb.user_query(username)
+    # # if name[0]:
+    # #     if name[1][0] is None:
+    # #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
+    # return username
 
 @app.route('/logout', methods=['GET'])
 def logout():

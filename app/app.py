@@ -271,14 +271,18 @@ def calstringmaker(month, year):
          date = dateformat(year, month, currcount)
          events = mistdb.date_query(date)
          # check if there is equal to false.
-         for eventinformation in events[1]:
-            calstring += "<a href = eventinfo?eventID=" 
-            calstring += str(eventinformation[0]) + "&eventName=" 
-            calstring += str(eventinformation[1]) + "&eventLocation=" 
-            calstring += str(eventinformation[2]) + "&startTime=" 
-            calstring += str(eventinformation[3]) + "&endTime=" 
-            calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-            calstring += str(eventinformation[1]) + "</a>"
+         if events[0] is false:
+             calstring += "A server error occurred. "
+             calstring += "Please contact the system administrator."
+         else:
+            for eventinformation in events[1]:
+                calstring += "<a href = eventinfo?eventID=" 
+                calstring += str(eventinformation[0]) + "&eventName=" 
+                calstring += str(eventinformation[1]) + "&eventLocation=" 
+                calstring += str(eventinformation[2]) + "&startTime=" 
+                calstring += str(eventinformation[3]) + "&endTime=" 
+                calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+                calstring += str(eventinformation[1]) + "</a>"
         
                 
       calstring += "</td>"

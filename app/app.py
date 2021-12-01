@@ -148,9 +148,8 @@ def details():
     package = mistdb.details_query(str(eventid))
     if package[0] is False:
         print(package[1])
-    else:
-        details = package[1]
-    html = render_template('details.html')
+    details = package[1]
+    html = render_template('details.html', details = details)
     response = make_response(html)
     return response
 

@@ -83,7 +83,7 @@ def authenticate():
     ticket = request.args.get('ticket')
     if ticket is None:
         login_url = (CAS_URL + 'login?service='
-            + quote(strip_ticket(request.url)))
+            + quote(request.url))
         abort(redir(login_url))
 
     # If the login ticket is invalid, then redirect the browser to the

@@ -18,6 +18,7 @@ from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
 from app import mistcalender
+from datetime import datetime
 
 #-----------------------------------------------------------------------
 
@@ -116,14 +117,7 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
     # username = authenticate()
-    # long = request.args.get('long')
-    # lat = request.args.get('lat')
-    # text = request.args.get('text')
-    # # print(long)
-    # # print(lat)
-    # # print(text)
-    # if long is not None and lat is not None and text is not None:
-    #     mistdb.add_event_proto(text, long, lat)
+
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])
@@ -147,6 +141,19 @@ def input():
     response = make_response(html)
 
     return response
+@app.route('/details', methods = ['GET'])
+def details():
+    # username = authenticate()
+    eventid = request.args.get('eventid')
+    print(eventid)
+    package = mistdb.details_query(str(eventid))
+    if package[0] is False:
+        print(package[1])
+    details = package[1]
+    html = render_template('details.html', details = details)
+    response = make_response(html)
+    return response
+
 
 @app.route('/addinput')
 def addinput():
@@ -176,75 +183,122 @@ def friendscreen():
     response = make_response(html)
     return response
 
-# @app.route('/calendar', methods=['GET'])
-# def calendar():
-#     # username = authenticate()
-#     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-#     if(package[0] == False):
-#         print(package[1])
-#     else:
-#         package = package[1]
-#
-#     data = []
-#     for event in package:
-#         details = mistdb.details_query(event[0])
-#         if details[0]:
-#             data.push(details[1])
-#         else:
-#             print(details[1])
+@app.route('/getfriends', methods = ['GET'])
+def getfriends():
+    userid = request.args.get('search')
+    package = mistdb.friends_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
+    html = render_template('friendlist.html', friends = friendslist)
+    response = make_response(html)
+    return response
+
+@app.route('/searchfriends', methods = ['GET'])
+def searchfriends():
+    search = request.args.get('search')
+    search = '%' + str(search) + '%'
+    package = mistdb.user_search(search)
+    if package[0] is False:
+        print(package[1])
+    friends = package[1]
+    html = render_template('friendslist.html', friends = friends)
+    response = make_response(html)
+    return response
+
+
+def calstringmaker(month, year):
+    currcal = mistcalender.mistCalender(month,year)
+    daycount = currcal.monthlength
+    firstday = currcal.get_first_day()
+    firstday = firstday % 7
+    firstday = firstday + 1
+    calstring = " <table class=\"table table-bordered table-hover\">"
+    calstring += "<tr style=\"background-color:black;color:white;\">"
+    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+    datetime_object = datetime.datetime.strptime(str(month), "%m")
+    month_name = datetime_object.strftime("%B")
+    calstring += month_name
+    calstring += " "
+    calstring += str(year)
+    calstring += "</h3></th>"
+    calstring += "</tr>"
+    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+    calstring += "<th>Su</th>"
+    calstring += "<th>Mo</th>"
+    calstring += "<th>Tu</th>"
+    calstring += "<th>We</th>"
+    calstring += "<th>Th</th>"
+    calstring += "<th>Fr</th>"
+    calstring += "<th>Sa</th>"
+    calstring += "</tr>"
+    calstring += ""
+    calstring += ""
+    calstring += ""
+    currcount = -1 * firstday
+    currcount = currcount + 2
+    weekcount = 0
+    while currcount <= daycount:
+        if weekcount == 0:
+            calstring += "<tr>"
+        weekcount += 1
+        calstring += "<th>"
+        if currcount > 0:
+            calstring += str(currcount)
+        calstring += "</th>"
+        currcount+=1
+        if weekcount == 7:
+            calstring += "</tr>"
+            weekcount = 0
+    if weekcount != 0:
+        calstring += "</tr>"
+    calstring += "</table>"
+    return calstring
+
+
+@app.route('/calendar', methods=['GET'])
+def calendar():
+    # username = authenticate()
+    package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
+    if(package[0] == False):
+         print(package[1])
+    else:
+         package = package[1]
+
+
+    data = []
+    for event in package:
+        details = mistdb.details_query(event[0])
+        if details[0]:
+            data.push(details[1])
+        else:
+            print(details[1])
+
+
+    #month = request.args.get('month')
+    #year = request.args.get('year')
+    #calstring = calstringmaker(month, year)
+
+
 
     # month = request.args.get('month')
+    # month = request.cookies.get('month')
     # year = request.args.get('year')
-    # currcal = mistcalender.mistCalender(month,year)
-    # daycount = currcal.monthlength
-    # firstday = currcal.get_first_day()
-    # firstday = firstday % 7
-    # firstday = firstday + 1
-    #
-    #
-    #
-    # caldata = currcal.to_dict()
-    # calstring = " <table class=\"table table-bordered table-hover\">"
-    # calstring += "<tr style=\"background-color:black;color:white;\">"
-    # calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    # calstring += month
-    # calstring += " "
-    # calstring += year
-    # calstring += "</h3></th>"
-    # calstring += "</tr>"
-    # calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-    # calstring += "<th>Su</th>"
-    # calstring += "<th>Mo</th>"
-    # calstring += "<th>Tu</th>"
-    # calstring += "<th>We</th>"
-    # calstring += "<th>Th</th>"
-    # calstring += "<th>Fr</th>"
-    # calstring += "<th>Sa</th>"
-    # calstring += "</tr>"
-    # calstring += ""
-    # calstring += ""
-    # calstring += ""
-    # currcount = -1 * firstday
-    # currcount = currcount + 2
-    # weekcount = 0
-    # while currcount <= daycount:
-    #
-    #     if weekcount == 0:
-    #         calstring += "<tr>"
-    #     calstring += "<th>"
-    #     if currcount > 0:
-    #     calstring += currcount
-    #     calstring += "</th>"
-    #     currcount+=1
-    #     if weekcount == 7:
-    #         calstring += "</tr>"
-    #         weekcount = 0
-    #
+    # if month is None or year is None:
+    #     mistcal = mistcalender.mistCalender()
+    #     month = mistcal.get_month()
+    #     year = mistcal.get_year()
 
-    #
-    # html = render_template("calendar.html", eventData = data)
-    # response = make_response(html)
-    # return response
+    # request.cookies()
+
+   # calstring = calstringmaker(11, 2021)
+    #print(calstring)
+
+ #   html = render_template("calendar.html", calenderinfo = calstring)
+    html = render_template("calendar.html")
+    # print(html)
+    response = make_response(html)
+    return response
 
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():

@@ -60,7 +60,7 @@ def add_event_proto(title, x_coord, y_coord):
                 cursor.execute(stmt_str, (str(event_id),str(title),
                     str(date_time.time().isoformat()), str(offset.time().isoformat()),
                     str(date_time.date().isoformat()), str(coords)))
-                
+
                 return True
     except Exception as ex:
         error_msg = "A server error occurred in add_event_proto."
@@ -82,11 +82,12 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
             with closing(conn.cursor()) as cursor:
                 # Use a pairing algorithm and hashing to create an event ID
-                # event_id = str(int(hash(title + planner)))
-                ei = hashlib.new('sha512_256')
-                ei.update(title + planner)
-                ei.digest_size = 8
-                event_id = int.from_bytes(ei.digest)
+                event_id = str(int(hash(title + planner)) % 10 * 8)
+                # ei = hashlib.new('sha512_256')
+                # event_string = title + planner
+                # ei.update(event_string.encode('utf-8'))
+                # ei.digest_size = 8
+                # event_id = int.from_bytes(ei.digest)
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
@@ -198,8 +199,8 @@ def map_query(start, end):
         result = [False, error_msg]
         return result
 
-# Queries the database for all a user's subscribed events to be displayed on the 
-# calendar. Returns True and a list of events on success, returns False and an 
+# Queries the database for all a user's subscribed events to be displayed on the
+# calendar. Returns True and a list of events on success, returns False and an
 # error message on failure.
 
 def cal_query(userID):
@@ -233,11 +234,49 @@ def cal_query(userID):
         result = [False, error_msg]
         return result
 
+# Queries the database for all events on a given date. Returns True and a list of events on success,
+# returns false and an error message on failure.
+#
+# To change it to show all events a user has subscribed to, uncomment lines 244 and 261 ,
+# comment lines 245 and 260, and put the below AND statements beneath the WHERE statement
+# AND   details.eventID = participants.eventID
+# AND     participants.userID = %s
+#def date_query(date, userID):
+def date_query(date):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+                stmt_str = '''  SELECT  eventID,
+                                        eventName,
+                                        eventLocation,
+                                        startTime,
+                                        endTime
+                                FROM    details
+                                WHERE   details.eventDate = %s
+                                ORDER BY    startTime,
+                                            eventName'''
+                cursor.execute(stmt_str, (date))
+                # cursor.execute(stmt_str, (date, userID))
+                data = cursor.fetchall()
+
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
 # Details query. Returns true and a list of event details in a list if successful.
 # The indexes are in the order displayed in the google sheets about the database.
 # If unsuccessful, returns False and an error message.
 
 def details_query(event):
+    event = "'" + event + "'"
     try:
         with conn:
             cursor = conn.cursor()
@@ -532,6 +571,32 @@ def user_query(netID):
                     return [False, error_msg]
 
                 return [True, name, friends, permissions]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
+def user_search(netID):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  SELECT  userID,
+                                        userName
+                                FROM    userNames
+                                WHERE   userID = %s'''
+
+                cursor.execute(stmt_str, (netID))
+                users = cursor.fetchall()
+
+
+                return [True, users]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

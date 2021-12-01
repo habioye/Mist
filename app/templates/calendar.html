@@ -11,12 +11,9 @@
         "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
    </head>
    <body>
-
-
         <div>
         <div class="col-9 grayborder" id="eventinfo"></div>
         </div>
-
         <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
             <div class="row" style="background-color:rgb(255, 143, 0);">
                 <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
@@ -32,7 +29,6 @@
         <h2>Calendar View</h2>
         <h3>Good <span id="ampmSpan"></span> user.</h3>
         </div></center>
-
 
         <table class="table table-bordered table-hover">
         <tr style="background-color:black;color:white;">
@@ -103,62 +99,37 @@
             "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script>
 
-        <script>
+      <script>
 
-            'use strict';
+         'use strict';
 
-            function getAmPm(){
-                let dateTime = new Date();
-                let hours = dateTime.getHours();
-                let amPm = 'morning';
-                if (hours >= 12)
-                amPm = 'afternoon';
-                $('#ampmSpan').html(amPm);
-            }
+         function getAmPm()
+         {
+            let dateTime = new Date();
+            let hours = dateTime.getHours();
+            let amPm = "morning";
+            if (hours >= 12)
+               amPm = "afternoon";
+            $('#ampmSpan').html(amPm);
+         }
 
-            function getDateTime(){
-                let dateTime = new Date();
-                $('#datetimeSpan').html(dateTime.toLocaleString());
-            }
+         function getDateTime()
+         {
+            let dateTime = new Date();
+            $('#datetimeSpan').html(dateTime.toLocaleString());
+         }
 
-            function handleResponse(response){
-                $('#eventinfo').html(response);
-            }
+         function setup()
+         {
+            getAmPm();
+            window.setInterval(getAmPm, 1000);
+            getDateTime();
+            window.setInterval(getDateTime, 1000);
 
-            let request = null;
+         }
 
-                function getCalinfo()
-                {
-                    let author = $('#authorInput').val();
-                    author = encodeURIComponent(author);
-                    // look at how you retrieve information
-                    let url = '/calender';
+         $('document').ready(setup);
 
-                    if (request != null)
-                    request.abort();
-
-                    request = $.ajax(
-                    {
-                        type: 'GET',
-                        url: url,
-                        success: handleResponse
-                    }
-                    );
-                }
-
-                function setup()
-                {
-                    getAmPm();
-                    window.setInterval(getAmPm, 1000);
-                    getDateTime();
-                    window.setInterval(getDateTime, 1000);
-                    getCalinfo();
-                    window.setInterval(getCalinfo, 1000);
-                    window.getMonth()
-                }
-
-                $('document').ready(setup);
-
-        </script>
+      </script>
     </body>
 </html>

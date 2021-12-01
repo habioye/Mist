@@ -86,28 +86,28 @@
 
       function checkInput(){
         if(document.getElementById("loc").value ==""){
-          document.getElementById("error").value = "no location";
+          document.getElementById("error").innerHTML = "no location";
           return false;
         }
 
         if(document.getElementById("title").value ==""){
-          document.getElementById("error").value = "no title";
+          document.getElementById("error").innerHTML = "no title";
           return false;
         }
         if(document.getElementById("start").value ==""){
-          document.getElementById("error").value = "no start time";
+          document.getElementById("error").innerHTML = "no start time";
           return false;
         }
         if(document.getElementById("end").value ==""){
-          document.getElementById("error").value = "no end time";
+          document.getElementById("error").innerHTML = "no end time";
           return false;
         }
         if(document.getElementById("date").value ==""){
-          document.getElementById("error").value = "no date";
+          document.getElementById("error").innerHTML = "no date";
           return false;
         }
         if(document.getElementById("coords").value =='{  "lat":LATITUDE,  "lng":LONGITUDE }'){
-          document.getElementById("error").value = "pick coordinated from map";
+          document.getElementById("error").innerHTML = "pick coordinated from map";
           return false;
         }
 

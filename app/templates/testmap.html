@@ -78,6 +78,7 @@
           center: { lat:40.34657, lng: -74.65631 },
           zoom: 16,
         });
+        const markers = [];
         const infoWindow = new google.maps.InfoWindow();
         let regex = /\d+/
         var counts = {{ eventData|tojson }}
@@ -90,6 +91,7 @@
            map: map,
            title:String(element[1]),
          });
+         markers.push(marker);
          let eventid = encodeURIComponent(element[0])
          let url = '/details?eventid=' + eventid;
          $.ajax(
@@ -117,6 +119,7 @@
          //     }
          //   );
         })
+        new MarkerClusterer({ markers, map });
       }
 
   document.getElementById("submit").onclick =  initMap;

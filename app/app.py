@@ -9,6 +9,7 @@
 from sys import stderr
 from flask import Flask, request, make_response
 from flask import render_template, session, abort
+from flask import redirect as redir
 from json import dumps
 # It seems this might break everything
 # from calender import Calender
@@ -74,7 +75,7 @@ def authenticate():
         name = mistdb.user_query(username)
         if name[0]:
             if name[1][0] is None:
-                abort(redirect('https://mist-princeton.herokuapp.com/firstimeuser'))
+                abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
         return username
 
     # If the request does not contain a login ticket, then redirect the
@@ -83,7 +84,7 @@ def authenticate():
     if ticket is None:
         login_url = (CAS_URL + 'login?service='
             + quote(strip_ticket(request.url)))
-        abort(redirect(login_url))
+        abort(redir(login_url))
 
     # If the login ticket is invalid, then redirect the browser to the
     # login page to get a new one.
@@ -91,14 +92,14 @@ def authenticate():
     if username is None:
         login_url = (CAS_URL + 'login?service='
             + quote(strip_ticket(request.url)))
-        abort(redirect(login_url))
+        abort(redir(login_url))
 
     # The user is authenticated, so store the username in the session.
     session['username'] = username
     name = mistdb.user_query(username)
-    if name[0]:
-        if name[1][0] is None:
-            abort(redirect('https://mist-princeton.herokuapp.com/firsttimeuser'))
+    # if name[0]:
+    #     if name[1][0] is None:
+    #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
     return username
 
 @app.route('/logout', methods=['GET'])
@@ -111,7 +112,7 @@ def logout():
     # Logout, and redirect the browser to the index page
     logout_url = (CAS_URL + 'logout?service='
         + quote(sub('logout', 'index', request.url)))
-    abort(redirect(logout_url))
+    abort(redir(logout_url))
 #-----------------------------------------------------------------------
 #-----------------------------------------------------------------------
 
@@ -358,7 +359,7 @@ def firsttimeuser():
     if user_data[0]:
         if user_data[1][0] is None and firstname is not None and lastname is not None:
             mistdb.add_user(netid, firstname + ' ' + lastname)
-            abort(redirect('https://mist-princeton.herokuapp.com/'))
+            abort(redir('https://mist-princeton.herokuapp.com/'))
 
     html = render_template("firsttimeuser.html", netid = netid)
     response = make_response(html)

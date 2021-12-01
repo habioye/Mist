@@ -257,7 +257,7 @@ def date_query(date):
                                 WHERE   details.eventDate = %s
                                 ORDER BY    startTime,
                                             eventName'''
-                cursor.execute(stmt_str, (date))
+                cursor.execute(stmt_str, (str(date)))
                 # cursor.execute(stmt_str, (date, userID))
                 data = cursor.fetchall()
 

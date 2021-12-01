@@ -544,6 +544,20 @@ def permissions_query(netID):
 
 def user_query(netID):
     try:
+        friends = friends_query(netID)
+        if friends[0]:
+            friends = friends[1]
+        else:
+            error_msg = "Error fetching friend data."
+            return [False, error_msg]
+        
+        permissions = permissions_query(netID)
+        if permissions[0]:
+            permissions = permissions[1]
+        else:
+            error_msg = "Error fetching permission data."
+            return [False, error_msg]
+            
         with conn:
             cursor = conn.cursor()
 
@@ -555,20 +569,6 @@ def user_query(netID):
 
                 cursor.execute(stmt_str, (netID,))
                 name = cursor.fetchall()
-
-                friends = friends_query(netID)
-                if friends[0]:
-                    friends = friends[1]
-                else:
-                    error_msg = "Error fetching friend data."
-                    return [False, error_msg]
-
-                permissions = permissions_query(netID)
-                if permissions[0]:
-                    permissions = permissions[1]
-                else:
-                    error_msg = "Error fetching permission data."
-                    return [False, error_msg]
 
                 return [True, name, friends, permissions]
 

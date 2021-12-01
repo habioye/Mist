@@ -118,7 +118,7 @@ def logout():
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    # username = authenticate()
+    username = authenticate()
     # long = request.args.get('long')
     # lat = request.args.get('lat')
     # text = request.args.get('text')
@@ -144,7 +144,7 @@ def index():
 
 @app.route('/inputpage', methods = ['GET'])
 def input():
-    # username = authenticate()
+    username = authenticate()
     html = render_template("input.html")
 
     response = make_response(html)
@@ -153,7 +153,7 @@ def input():
 
 @app.route('/addinput')
 def addinput():
-    # username = authenticate()
+    username = authenticate()
     loc = request.args.get('loc')
     title = request.args.get('title')
     start = request.args.get('start')
@@ -173,7 +173,7 @@ def addinput():
 
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
-    # username = authenticate()
+    username = authenticate()
     userid = 'getuserid'
     html = render_template('friendscreen.html', userid = userid)
     response = make_response(html)
@@ -301,7 +301,7 @@ def calstringmaker(month, year):
 
 @app.route('/calendar', methods=['GET'])
 def calendar():
-    # username = authenticate()
+    username = authenticate()
     # package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if(package[0] == False):
     #     print(package[1])

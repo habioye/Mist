@@ -392,7 +392,7 @@ def firsttimeuser():
     lastname = request.args.get('lastname')
     user_data = mistdb.user_query(netid)
     if user_data[0]:
-        if user_data[1][0] is None and firstname is not None and lastname is not None:
+        if len(user_data[1]) == 0 and firstname is not None and lastname is not None:
             mistdb.add_user(netid, firstname + ' ' + lastname)
             abort(redir('https://mist-princeton.herokuapp.com/'))
 

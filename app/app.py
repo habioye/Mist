@@ -171,7 +171,7 @@ def index():
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
     package = package[1]
-    names = mistdb.user_query('%')
+    names = mistdb.user_query(username)
     names = names[1]
 
     html = render_template("testmap.html", eventData = package, userData = names)

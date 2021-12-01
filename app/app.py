@@ -202,7 +202,7 @@ def searchfriends():
     if package[0] is False:
         print(package[1])
     friends = package[1]
-    html = render_template('friendslist.html', friends = friends)
+    html = render_template('friendssearch.html', friends = friends)
     response = make_response(html)
     return response
 

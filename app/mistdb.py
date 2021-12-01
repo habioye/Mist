@@ -276,6 +276,7 @@ def date_query(date):
 # If unsuccessful, returns False and an error message.
 
 def details_query(event):
+    event = "'" + event + "'"
     try:
         with conn:
             cursor = conn.cursor()

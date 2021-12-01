@@ -73,11 +73,11 @@
              type: 'GET',
              url: url,
              success: function(result, marker){
-               marker.addListener("click", () => {
+               marker.addListener("click", (() => {
                     infoWindow.close();
                     infoWindow.setContent(result);
                     infoWindow.open(marker.getMap(), marker);
-                  }
+                  })
                 );
 
              }

@@ -288,7 +288,7 @@ def details_query(event):
                                 ORDER BY    eventLocation,
                                             eventName'''
 
-                cursor.execute(stmt_str, (event))
+                cursor.execute(stmt_str, (str(event)))
                 data = cursor.fetchall()
 
                 if len(data) == 0:

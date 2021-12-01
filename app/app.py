@@ -213,10 +213,18 @@ def headerstring():
     return calstring       
     
 def dateformat(year, month, day):
-    datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + str(day).zfill(2)
+    datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + "-" + str(day).zfill(2)
     return datestring 
     
+@app.route('/eventinfo', methods = ['GET'])
+def eventinfo():
+    eventid = args.get('eventid')
+    # check when there is no such eventinfo
     
+    
+
+
+
 def calstringmaker(month, year):
     currcal = mistcalender.mistCalender(month,year)
     daycount = currcal.get_monthlength()
@@ -258,9 +266,16 @@ def calstringmaker(month, year):
          calstring += str(currcount)
          date = dateformat(year, month, currcount)
          events = mistdb.date_query(date)
-         for event in events:
-            for item in event:
-                calstring += str(item)         
+         # check if there is equal to false.
+         for eventinfo in events[1]:
+            calstring += "<a href = eventinfo?eventID=" 
+            calstring +=  str(eventinfo[0]) + "&eventName=" 
+            calstring += str(eventinfo[1]) + "&eventLocation=" 
+            calstring += str(eventinfo[2]) + "&startTime=" 
+            calstring += str(eventinfo[3]) + "&endTime=" 
+            calstring += str(eventinfo[4]) + "\" target = \"_blank\">"
+            calstring += str(eventinfo[1]) + "</a>"
+                
       calstring += "</td>"
       currcount+=1
       weekcount += 1

@@ -145,9 +145,13 @@ def calstringmaker(month, year):
    print("")
    print("somewhere")
    return calstring
-
+def dateformat(year, month, day):
+    datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + "-" + str(day).zfill(2)
+    return datestring 
 
 def main():
+   print(dateformat(2001,5,3))
+   print("jank")
    print(ncalstringmaker(11,2021))
    print(calstringmaker(5,2021))
    

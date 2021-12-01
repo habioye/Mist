@@ -246,7 +246,7 @@ def date_query(date):
     try:
         with conn:
             cursor = conn.cursor()
-
+            
             with closing(conn.cursor()) as cursor:
                 stmt_str = '''  SELECT  eventID,
                                         eventName,
@@ -266,6 +266,7 @@ def date_query(date):
     except Exception as ex:
         error_msg = "A server error occurred. "
         error_msg +="Please contact the system administrator."
+        print(date)
         print(ex, file=stderr, end=" ")
         print(error_msg, file=stderr)
         result = [False, error_msg]

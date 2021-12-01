@@ -73,6 +73,7 @@ def authenticate():
     if 'username' in session:
         username = session.get('username')
         name = mistdb.user_query(username)
+        print(name)
         if name[0]:
             if name[1][0] is None:
                 abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))

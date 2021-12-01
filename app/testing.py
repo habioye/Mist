@@ -1,5 +1,6 @@
 import mistcalender
 import datetime
+import mistdb
 
 def headerstring():
     calstring = "<!DOCTYPE html> "
@@ -150,6 +151,7 @@ def dateformat(year, month, day):
     return datestring 
 
 def main():
+   print(mistdb.date_query("2021-03-01")[1][1])
    print(dateformat(2001,5,3))
    print("jank")
    print(ncalstringmaker(11,2021))

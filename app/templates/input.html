@@ -110,7 +110,11 @@
           document.getElementById("error").innerHTML = "pick coordinated from map";
           return false;
         }
-
+        if(new Date(document.getElementById("start")) > new Date(document.getElementById("end"))){
+          document.getElementById("error").innerHTML = "start time after end";
+          return false;
+        }
+        
         return true;
       }
 

@@ -1,0 +1,18 @@
+<div class = "container-fluid">
+<table class="table table-striped">
+  <tbody>
+    <tr>
+    <th scope = "col">NetID</th>
+    <th scope = "col">Name</th>
+    </tr>
+
+
+  {% for friend in friends: %}
+  <tr>
+        <td>{{friend[0]}}</td>
+        <td>{{friend[1]}}</td>
+        </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>

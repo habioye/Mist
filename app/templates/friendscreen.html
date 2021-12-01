@@ -56,6 +56,11 @@
       {
         $('#searchresults').html(response);
       }
+      function handleFriends(response)
+      {
+        $('#Friendresults').html(response);
+      }
+
 
       let request = null;
 
@@ -81,11 +86,12 @@
          }
          function getFriends()
             {
+              var user = {{userid|tojson}};
+               let userid = String(user);
+               
+               userid =  encodeURIComponent(userid);
 
-               let Search = String({{userid}})
-               Search =  encodeURIComponent(Search);
-
-               let url = '/getfriends?search=' + Search
+               let url = '/getfriends?search=' + userid
 
                if (request != null)
                   request.abort();
@@ -94,7 +100,7 @@
                   {
                      type: 'GET',
                      url: url,
-                     success: handleResponse
+                     success: handleFriends
                   }
                );
             }
@@ -111,6 +117,6 @@
       style="background-color:rgb(255, 143, 0);">
 
       <center>
-    Created by Benjamin Nadon and Hassan Abioye, Anthony Gartner, Nicholas Cabrera.
+    Created by Benjamin Nadon, Hassan Abioye, Anthony Gartner, and Nicholas Cabrera.
   </div>
 </html>

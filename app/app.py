@@ -218,11 +218,15 @@ def dateformat(year, month, day):
     
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
-    eventid = args.get('eventid')
+    eventID = request.args.get('eventID')
+    eventName = request.args.get('eventName')
+    eventLocation = request.args.get('eventLocation')
+    startTime = request.args.get('startTime')
+    endTime = request.args.get('endTime')
+    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime)
+    response = make_response(html)
+    return response
     # check when there is no such eventinfo
-    
-    
-
 
 
 def calstringmaker(month, year):
@@ -267,14 +271,15 @@ def calstringmaker(month, year):
          date = dateformat(year, month, currcount)
          events = mistdb.date_query(date)
          # check if there is equal to false.
-         for eventinfo in events[1]:
+         for eventinformation in events[1]:
             calstring += "<a href = eventinfo?eventID=" 
-            calstring +=  str(eventinfo[0]) + "&eventName=" 
-            calstring += str(eventinfo[1]) + "&eventLocation=" 
-            calstring += str(eventinfo[2]) + "&startTime=" 
-            calstring += str(eventinfo[3]) + "&endTime=" 
-            calstring += str(eventinfo[4]) + "\" target = \"_blank\">"
-            calstring += str(eventinfo[1]) + "</a>"
+            calstring += str(eventinformation[0]) + "&eventName=" 
+            calstring += str(eventinformation[1]) + "&eventLocation=" 
+            calstring += str(eventinformation[2]) + "&startTime=" 
+            calstring += str(eventinformation[3]) + "&endTime=" 
+            calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+            calstring += str(eventinformation[1]) + "</a>"
+        
                 
       calstring += "</td>"
       currcount+=1

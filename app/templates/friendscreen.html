@@ -71,7 +71,7 @@
             let Search = $('#titleInput').val();
             Search =  encodeURIComponent(Search);
 
-            let url = '/searchfriends?search=' + Search
+            let url = '/searchfriends?search=' + Search;
 
             if (request != null)
                request.abort();
@@ -88,10 +88,10 @@
             {
               var user = {{userid|tojson}};
                let userid = String(user);
-               
+
                userid =  encodeURIComponent(userid);
 
-               let url = '/getfriends?search=' + userid
+               let url = '/getfriends?search=' + userid;
 
                if (request != null)
                   request.abort();
@@ -117,6 +117,6 @@
       style="background-color:rgb(255, 143, 0);">
 
       <center>
-    Created by Benjamin Nadon, Hassan Abioye, Anthony Gartner, and Nicholas Cabrera.
+    Created by Benjamin Nadon and Hassan Abioye, Anthony Gartner, Nicholas Cabrera.
   </div>
 </html>

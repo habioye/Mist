@@ -272,7 +272,7 @@ def calstringmaker(month, year):
          events = mistdb.date_query(date)
          # check if there is equal to false.
          if events[0] is False:
-             calstring += "A server error occurred. "
+             calstring += "\n A server error occurred. "
              calstring += "Please contact the system administrator."
          else:
             for eventinformation in events[1]:

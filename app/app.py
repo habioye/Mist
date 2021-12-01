@@ -75,7 +75,7 @@ def authenticate():
         name = mistdb.user_query(username)
         if name[0]:
             if len(name[1]) == 0:
-                abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
+                abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
         return username
 
 

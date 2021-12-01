@@ -73,12 +73,9 @@ def authenticate():
     if 'username' in session:
         username = session.get('username')
         name = mistdb.user_query(username)
-        print(name)
-        name = name[1]
-        print(name)
-        # if name[0]:
-        #     if name[1][0] is None:
-        #         abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
+        if name[0]:
+            if len(name[1]) == 0:
+                abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
         return username
 
 
@@ -101,12 +98,9 @@ def authenticate():
     # the session.
     session['username'] = username
     name = mistdb.user_query(username)
-    print(name)
-    name = name[1]
-    print(name)
-    # if name[0]:
-    #     if name[1][0] is None:
-    #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
+    if name[0]:
+        if len(name[1]) == 0:
+            abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
     return username
 
     # # If the username is in the session, then the user was authenticated

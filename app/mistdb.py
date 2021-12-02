@@ -437,10 +437,11 @@ def friends_query(netID):
                                         userNames.userName
                                 FROM    friends,
                                         userNames
-                                WHERE   friends.friendID = userNames.userID
-                                AND     friends.userID = %s
+                                WHERE   friends.userID = %s
                                 ORDER BY    userName'''
-
+#
+# WHERE   friends.friendID = userNames.userID
+# AND     friends.userID = %s
                 cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 

@@ -637,7 +637,7 @@ def remove_particpant(event_id, participant):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
-def user_query(netID):
+def search_query(netID):
     try:
         with conn:
             cursor = conn.cursor()

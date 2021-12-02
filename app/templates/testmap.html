@@ -130,6 +130,17 @@
 
   </script>
 
+      {% if userData != None %}
+      <table>
+        {% for user in userData %}
+        <tr>
+          <td>{{user}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
+
 
       {% if eventData != None %}
       <table>

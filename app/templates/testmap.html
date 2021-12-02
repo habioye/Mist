@@ -40,6 +40,7 @@
       </form>
 
     <h3>Filter Events:</h3>
+    <form action = "index" method = "get">
       <div>
         <input type="radio" id="all" name="drone" value="all"
                checked>
@@ -56,12 +57,13 @@
         <label for="public">Public</label>
       </div>
 
-      <label for="birthdaytime">Start(date and time):</label>
+      <label for="starttime">Start(date and time):</label>
       <input type="datetime-local" id="start" name="start">
       <br>
-      <label for="birthdaytime">End(date and time):</label>
+      <label for="endtime">End(date and time):</label>
       <input type="datetime-local" id="end" name="end">
-
+      <input type="submit", id = "filer" value = "Apply Filter">
+    </form>
 
 
       <div id = "map"></div>

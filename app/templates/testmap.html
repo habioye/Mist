@@ -38,11 +38,35 @@
       <input type="submit", id = "friend" value = "View Friends">
       </form>
 
+    <h3>Filter Events:</h3>
+      <div>
+        <input type="radio" id="all" name="drone" value="all"
+               checked>
+        <label for="all">All</label>
+      </div>
+
+      <div>
+        <input type="radio" id="friends" name="drone" value="public">
+        <label for="public">Friends</label>
+      </div>
+
+      <div>
+        <input type="radio" id="public" name="drone" value="friends">
+        <label for="public">Public</label>
+      </div>
+
+      <label for="birthdaytime">Start(date and time):</label>
+      <input type="datetime-local" id="start" name="start">
+      <br>
+      <label for="birthdaytime">End(date and time):</label>
+      <input type="datetime-local" id="end" name="end">
+
+
 
       <div id = "map"></div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
       </script>
-      <script>
+      <script >
       "use strict"
 
       let map;
@@ -54,6 +78,7 @@
           center: { lat:40.34657, lng: -74.65631 },
           zoom: 16,
         });
+        const markers = [];
         const infoWindow = new google.maps.InfoWindow();
         let regex = /\d+/
         var counts = {{ eventData|tojson }}
@@ -66,6 +91,7 @@
            map: map,
            title:String(element[1]),
          });
+         markers.push(marker);
          let eventid = encodeURIComponent(element[0])
          let url = '/details?eventid=' + eventid;
          $.ajax(
@@ -83,7 +109,7 @@
              }
            }
          )
-         
+
 
          // str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
          //  marker.addListener("click", () => {
@@ -93,6 +119,7 @@
          //     }
          //   );
         })
+        // new MarkerClusterer({ markers, map });
       }
 
   document.getElementById("submit").onclick =  initMap;
@@ -104,7 +131,7 @@
   </script>
 
 
-      <!-- {% if eventData != None %}
+      {% if eventData != None %}
       <table>
         <tr>
           <th align="left">Event ID</th>
@@ -121,7 +148,7 @@
         </tr>
         {% endfor %}
       </table>
-      {% endif %} -->
+      {% endif %}
       <hr>
       Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
       <hr>

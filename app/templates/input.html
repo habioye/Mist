@@ -27,31 +27,33 @@
       <form  action = "index" method = "get">
       <input type="submit", id = "back" value = "Return to Map">
       </form>
-      <form  action = "addinput" method = "get">
+      <p id = "error" style="color:red;">
+      </p>
+      <form onsubmit = "return checkInput()"action = "addinput" method = "get">
       <table>
       <tr>
       <td align = "right"> <label for="Location"> Location: </label> </td>
-      <td> <input type="text" name = "loc" ></td>
+      <td> <input type="text" id = "loc" name = "loc" ></td>
       </tr>
       <tr>
       <td align = "right"><label for="Title"> Event Title:</label></td>
-      <td><Input type="text", name = "title" ></td>
+      <td><Input type="text", id = "title" name = "title" ></td>
       </tr>
       <tr>
       <td align = "right"><label for="startTime"> Start Time:</label></td>
-      <td><Input type = "time", name = "start"></td>
+      <td><Input type = "time", id = "start" name = "start"></td>
       </tr>
       <tr>
       <td align = "right"><label for="endTime"> End Time:</label></td>
-      <td><Input type = "time", name = "end"></td>
+      <td><Input type = "time", id = "end" name = "end"></td>
       </tr>
       <tr>
       <td align = "right"><label for="Details"> Date:</label></td>
-      <td><Input type = "date", name = "date"></td>
+      <td><Input type = "date", id = "date" name = "date"></td>
       </tr>
       <tr>
       <td align = "right"><label for="Details"> Details:</label></td>
-      <td><Input type = "text", name = "details"></td>
+      <td><Input type = "text", id = "details" name = "details"></td>
       </tr>
       <tr>
         <td align = "right"><label for="roomnum">Room Number:</label></td>
@@ -64,7 +66,7 @@
 
       <tr>
       <td></td>
-      <td><input type="button", id = "submit" onclick = "initMap()" value = "Add coordinates from map"></td>
+      <td><input type="button", onclick = "initMap()" value = "Add coordinates from map"></td>
       </tr>
       <tr>
       <td></td>
@@ -81,6 +83,40 @@
 
       <script type = "text/javascript">
       "use strict"
+
+      function checkInput(){
+        if(document.getElementById("loc").value ==""){
+          document.getElementById("error").innerHTML = "no location";
+          return false;
+        }
+
+        if(document.getElementById("title").value ==""){
+          document.getElementById("error").innerHTML = "no title";
+          return false;
+        }
+        if(document.getElementById("start").value ==""){
+          document.getElementById("error").innerHTML = "no start time";
+          return false;
+        }
+        if(document.getElementById("end").value ==""){
+          document.getElementById("error").innerHTML = "no end time";
+          return false;
+        }
+        if(document.getElementById("date").value ==""){
+          document.getElementById("error").innerHTML = "no date";
+          return false;
+        }
+        if(document.getElementById("coords").value =='{  "lat":LATITUDE,  "lng":LONGITUDE }'){
+          document.getElementById("error").innerHTML = "pick coordinated from map";
+          return false;
+        }
+        if(document.getElementById("start").value > document.getElementById("end").value){
+          document.getElementById("error").innerHTML = "start time after end";
+          return false;
+        }
+
+        return true;
+      }
 
 
       function initMap() {

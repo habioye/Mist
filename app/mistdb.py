@@ -648,7 +648,7 @@ def search_query(netID):
                                 FROM    userNames
                                 WHERE   userID = %s'''
 
-                cursor.execute(stmt_str, (netID))
+                cursor.execute(stmt_str, (netID,))
                 name = cursor.fetchall()
 
                 friends = friends_query(netID)

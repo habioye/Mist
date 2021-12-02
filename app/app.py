@@ -189,6 +189,19 @@ def input():
 
     return response
 
+@app.route('/details', methods = ['GET'])
+def details():
+    # username = authenticate()
+    eventid = request.args.get('eventid')
+    print(eventid)
+    package = mistdb.details_query(str(eventid))
+    if package[0] is False:
+        print(package[1])
+    details = package[1]
+    html = render_template('details.html', details = details)
+    response = make_response(html)
+    return response
+
 @app.route('/addinput')
 def addinput():
     username = authenticate()
@@ -214,6 +227,28 @@ def friendscreen():
     username = authenticate()
     userid = 'getuserid'
     html = render_template('friendscreen.html', userid = userid)
+    response = make_response(html)
+    return response
+@app.route('/getfriends', methods = ['GET'])
+def getfriends():
+    userid = request.args.get('search')
+    package = mistdb.friends_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
+    html = render_template('friendlist.html', friends = friendslist)
+    response = make_response(html)
+    return response
+
+@app.route('/searchfriends', methods = ['GET'])
+def searchfriends():
+    search = request.args.get('search')
+    search = '%' + str(search) + '%'
+    package = mistdb.user_search(search)
+    if package[0] is False:
+        print(package[1])
+    friends = package[1]
+    html = render_template('friendssearch.html', friends = friends)
     response = make_response(html)
     return response
 
@@ -247,13 +282,13 @@ def headerstring():
     calstring += "<center><div class=\"header\">"
     calstring += "<h2>Calendar View</h2>"
     calstring += "<h3>Good <span id=\"ampmSpan\"></span> user.</h3>"
-    calstring += "</div></center>" 
-    return calstring       
-    
+    calstring += "</div></center>"
+    return calstring
+
 def dateformat(year, month, day):
     datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + "-" + str(day).zfill(2)
-    return datestring 
-    
+    return datestring
+
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
     eventID = request.args.get('eventID')
@@ -273,7 +308,7 @@ def calstringmaker(month, year):
     firstday = currcal.get_first_day()
     firstday = firstday % 7
     firstday = firstday + 1
-    calstring = headerstring()        
+    calstring = headerstring()
     calstring += "<table class=\"table table-bordered table-hover\">"
     calstring += "<tr style=\"background-color:black;color:white;\">"
     calstring += "<th colspan=\"7\"><h3 align=\"center\">"
@@ -314,15 +349,15 @@ def calstringmaker(month, year):
              calstring += "Please contact the system administrator."
          else:
             for eventinformation in events[1]:
-                calstring += "<a href = eventinfo?eventID=" 
-                calstring += str(eventinformation[0]) + "&eventName=" 
-                calstring += str(eventinformation[1]) + "&eventLocation=" 
-                calstring += str(eventinformation[2]) + "&startTime=" 
-                calstring += str(eventinformation[3]) + "&endTime=" 
+                calstring += "<a href = eventinfo?eventID="
+                calstring += str(eventinformation[0]) + "&eventName="
+                calstring += str(eventinformation[1]) + "&eventLocation="
+                calstring += str(eventinformation[2]) + "&startTime="
+                calstring += str(eventinformation[3]) + "&endTime="
                 calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
                 calstring += str(eventinformation[1]) + "</a>"
-        
-                
+
+
       calstring += "</td>"
       currcount+=1
       weekcount += 1
@@ -364,7 +399,7 @@ def calendar():
     today = date.today()
     month = today.month
     year = today.year
-    
+
     calstring = calstringmaker(month, year)
     # while currcount <= daycount:
     #     if weekcount == 0:

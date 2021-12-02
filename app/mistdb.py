@@ -644,7 +644,8 @@ def search_query(netID):
 
             with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''  SELECT  userName
+                stmt_str = '''  SELECT  userID,
+                                        userName
                                 FROM    userNames
                                 WHERE userID LIKE %s  '''
 

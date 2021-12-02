@@ -453,8 +453,8 @@ def calendar():
     # print(calstring)
     #html = render_template("calendar.html")
     response = make_response(calstring)
-    response.set_cookie('month', today.get_month())
-    response.set_cookie('year', today.get_year())
+    # response.set_cookie('month', today.get_month())
+    # response.set_cookie('year', today.get_year())
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

@@ -645,8 +645,7 @@ def search_query(netID):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  SELECT  userName
-                                FROM    userNames
-                                WHERE   userID = %s'''
+                                FROM    userNames  '''
 
                 cursor.execute(stmt_str, (netID,))
                 names = cursor.fetchall()

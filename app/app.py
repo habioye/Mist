@@ -326,8 +326,10 @@ def eventinfo():
     # check when there is no such eventinfo
 
 
-def calstringmaker(month, year):
-    currcal = mistcalendar.mistCalender(month,year)
+def calstringmaker(currcal):
+    #currcal = mistcalendar.mistCalender(month,year)
+    month = currcal.get_month()
+    year = currcal.get_year()
     daycount = currcal.get_monthlength()
     firstday = currcal.get_first_day()
     firstday = firstday % 7
@@ -415,20 +417,25 @@ def calendar():
     month = request.cookies.get('month')
     year = request.cookies.get('year')
     if month is None or year is None:
-        today = mistcalendar.calendar
-        month = today.month
-        year = today.year
+        today = mistcalendar.mistCalendar()
+    else:
+        today = mistcalendar.mistCalendar(month,year)
+
     
     dynamicnumber = request.args.get('dynamicstate')
     if dynamicnumber is not None:
+         if dynamicnumber == 1:
+             today.previous_year()
+         if dynamicnumber == 2:
+             today.previous_month()
+         if dynamicnumber == 3:
+             today.next_month()
+         if dynamicnumber == 4:
+             today.next_year()
+    
 
-
-
-    today = date.today()
-    month = today.month
-    year = today.year
-
-    calstring = calstringmaker(month, year)
+    
+    calstring = calstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -446,8 +453,8 @@ def calendar():
     print(calstring)
     #html = render_template("calendar.html")
     response = make_response(calstring)
-    # response.set_cookie('monthq', 4)
-    # response.set_cookie('yearq', 2021)
+    response.set_cookie('month', today.get_month())
+    response.set_cookie('year', today.get_year())
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

@@ -433,16 +433,17 @@ def friends_query(netID):
 
             with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''  SELECT  friends.friendID,
-                                        userNames.userName
-                                FROM    friends,
-                                        userNames
+                stmt_str = '''  SELECT  friends.friendID
+                                FROM    friends
                                 WHERE   friends.userID = %s
-                                AND     friends.friendID = userNames.userID
-                                ORDER BY    userName'''
-#
-# WHERE   friends.friendID = userNames.userID
-# AND     friends.userID = %s
+                                ORDER BY    friendID'''
+# '''  SELECT  friends.friendID,
+#                         userNames.userName
+#                 FROM    friends,
+#                         userNames
+#                 WHERE   friends.userID = %s
+#                 AND     friends.friendID = userNames.userID
+#                 ORDER BY    userName'''
                 cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 

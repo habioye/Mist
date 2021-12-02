@@ -646,7 +646,7 @@ def search_query(netID):
 
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
-                                WHERE userID = %s  '''
+                                WHERE userID LIKE %s  '''
 
                 cursor.execute(stmt_str, (netID,))
                 names = cursor.fetchall()

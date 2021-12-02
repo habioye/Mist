@@ -155,14 +155,7 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
     username = authenticate()
-    # long = request.args.get('long')
-    # lat = request.args.get('lat')
-    # text = request.args.get('text')
-    # # print(long)
-    # # print(lat)
-    # # print(text)
-    # if long is not None and lat is not None and text is not None:
-    #     mistdb.add_event_proto(text, long, lat)
+    
     starttime = request.args.get("starttime")
     endtime = request.args.get("endtime")
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")

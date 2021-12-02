@@ -163,6 +163,8 @@ def index():
     # # print(text)
     # if long is not None and lat is not None and text is not None:
     #     mistdb.add_event_proto(text, long, lat)
+    starttime = request.args.get("starttime")
+    endtime = request.args.get("endtime")
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])
@@ -228,7 +230,7 @@ def friendscreen():
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response
-    
+
 @app.route('/getfriends', methods = ['GET'])
 def getfriends():
     #userid = request.args.get('search')

@@ -437,10 +437,12 @@ def friends_query(netID):
                                         userNames.userName
                                 FROM    friends,
                                         userNames
-                                WHERE   friends.friendID = userNames.userID
-                                AND     friends.userID = %s
+                                WHERE   friends.userID = %s
+                                AND     friends.friendID = userNames.userID
                                 ORDER BY    userName'''
-
+#
+# WHERE   friends.friendID = userNames.userID
+# AND     friends.userID = %s
                 cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 
@@ -637,6 +639,7 @@ def remove_particpant(event_id, participant):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
+
 def search_query(netID):
     try:
         with conn:
@@ -644,13 +647,14 @@ def search_query(netID):
 
             with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''  SELECT  userName
-                                FROM    userNames  '''
+                stmt_str = '''  SELECT  userID,
+                                        userName
+                                FROM    userNames
+                                WHERE userID LIKE %s
+                                OR  LOWER(userName) LIKE LOWER(%s) '''
 
-                cursor.execute(stmt_str, (netID,))
+                cursor.execute(stmt_str, (netID,netID))
                 names = cursor.fetchall()
-
-
 
                 return [True, names]
 

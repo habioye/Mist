@@ -17,7 +17,8 @@
           <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
             <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
           </div>
-          <div class = "col-6 align-middle" display: inline-block;><center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">Welcome to Mist!</h1></center></div>
+          <div class = "col-6 align-middle" display: inline-block;><center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">Welcome to Mist! </h1>
+          </center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">{{userData[0][0]}} </h1></div>
           <div class = "col-3"display: inline-block; style = "display:inline-block;padding:0;">
               <a href = "https://mist-princeton.herokuapp.com/calendar"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day.png"  class="responsive" style = "max-width:30%;height:auto;float:right;"></a>
           </div>
@@ -39,28 +40,31 @@
       </form>
 
     <h3>Filter Events:</h3>
+    <form action = "index" method = "get">
       <div>
-        <input type="radio" id="all" name="drone" value="all"
+        <input type="radio" id="all" name="option" value="all"
                checked>
         <label for="all">All</label>
       </div>
 
       <div>
-        <input type="radio" id="friends" name="drone" value="public">
+        <input type="radio" id="friends" name="option" value="public">
         <label for="public">Friends</label>
       </div>
 
       <div>
-        <input type="radio" id="public" name="drone" value="friends">
+        <input type="radio" id="public" name="option" value="friends">
         <label for="public">Public</label>
       </div>
 
-      <label for="birthdaytime">Start(date and time):</label>
+      <label for="starttime">Start(date and time):</label>
       <input type="datetime-local" id="start" name="start">
       <br>
-      <label for="birthdaytime">End(date and time):</label>
+      <label for="endtime">End(date and time):</label>
       <input type="datetime-local" id="end" name="end">
-
+      <br>
+      <input type="submit", id = "filer" value = "Apply Filter">
+    </form>
 
 
       <div id = "map"></div>
@@ -130,7 +134,7 @@
 
   </script>
 
-      {% if userData != None %}
+      <!-- {% if userData != None %}
       <table>
 
         <tr>
@@ -158,7 +162,7 @@
         </tr>
         {% endfor %}
       </table>
-      {% endif %}
+      {% endif %} -->
       <hr>
       Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
       <hr>

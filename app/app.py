@@ -155,14 +155,15 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
     username = authenticate()
-    # long = request.args.get('long')
-    # lat = request.args.get('lat')
-    # text = request.args.get('text')
-    # # print(long)
-    # # print(lat)
-    # # print(text)
-    # if long is not None and lat is not None and text is not None:
-    #     mistdb.add_event_proto(text, long, lat)
+
+    starttime = request.args.get("starttime")
+    endtime = request.args.get("endtime")
+    option = request.args.get("option")
+
+    if starttime == "":
+        startime = "00:00:00-05:00"
+    if endtime == "":
+        endtime = "23:59:59-05:00"
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])
@@ -228,13 +229,17 @@ def friendscreen():
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response
+
 @app.route('/getfriends', methods = ['GET'])
 def getfriends():
-    userid = request.args.get('search')
+    #userid = request.args.get('search')
+    userid = authenticate()
+    print(userid)
     package = mistdb.friends_query(userid)
     if package[0] is False:
         print(package[1])
     friendslist = package[1]
+    print(friendslist)
     html = render_template('friendlist.html', friends = friendslist)
     response = make_response(html)
     return response
@@ -242,15 +247,33 @@ def getfriends():
 @app.route('/searchfriends', methods = ['GET'])
 def searchfriends():
     search = request.args.get('search')
-    search = '%' + str(search) + '%'
-    package = mistdb.search_query(search)
-    if package[0] is False:
-        print(package[1])
-    friends = package[1]
-    print(friends)
+    if(str(search) == ''):
+        friends = []
+    else:
+        search = '%' + str(search) + '%'
+        package = mistdb.search_query(search)
+        if package[0] is False:
+            print(package[1])
+        friends = package[1]
     html = render_template('friendsearch.html', friends = friends)
     response = make_response(html)
     return response
+
+@app.route("/requestfriend", methods = ['GET'])
+def requestfriend():
+    username = authenticate()
+    netid = request.args.get('netid')
+    print("add friendship " + str(username) + str(netid))
+    mistdb.add_friendship(username, netid)
+    return friendscreen()
+
+@app.route("/removefriend", methods = ['GET'])
+def removefriend():
+    username = authenticate()
+    netid = request.args.get('netid')
+    print("remove friendship " + str(username) + str(netid))
+    mistdb.remove_friendship(username, netid)
+    return friendscreen()
 
 def headerstring():
     calstring = "<!DOCTYPE html> "

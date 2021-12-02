@@ -259,6 +259,14 @@ def requestfriend():
     mistdb.add_friendship(username, netid)
     return friendscreen()
 
+@app.route("/removefriend", methods = ['GET'])
+def removefriend():
+    username = authenticate()
+    netid = request.args.get('netid')
+    print("remove friendship " + str(username) + str(netid))
+    mistdb.remove_friendship(username, netid)
+    return friendscreen()
+
 def headerstring():
     calstring = "<!DOCTYPE html> "
     calstring += "<html> "

@@ -450,7 +450,7 @@ def calendar():
     # if weekcount != 0:
     #     calstring += "</tr>"
     # calstring += "</table>"
-    print(calstring)
+    # print(calstring)
     #html = render_template("calendar.html")
     response = make_response(calstring)
     response.set_cookie('month', today.get_month())

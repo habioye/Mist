@@ -103,40 +103,6 @@ def authenticate():
             abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
     return username
 
-    # # If the username is in the session, then the user was authenticated
-    # # previously, return the username
-    # if 'username' in session:
-    #     username = session.get('username')
-    #     name = mistdb.user_query(username)
-    #     # if name[0]:
-    #     #     if name[1][0] is None:
-    #     #         abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
-    #     return username
-
-    # # If the request does not contain a login ticket, then redirect the
-    # # browser to the login page to get one.
-    # ticket = request.args.get('ticket')
-    # if ticket is None:
-    #     login_url = (CAS_URL + 'login?service='
-    #         + quote(request.url))
-    #     abort(redir(login_url))
-
-    # # If the login ticket is invalid, then redirect the browser to the
-    # # login page to get a new one.
-    # username = validate(ticket)
-    # if username is None:
-    #     login_url = (CAS_URL + 'login?service='
-    #         + quote(strip_ticket(request.url)))
-    #     abort(redir(login_url))
-
-    # # The user is authenticated, so store the username in the session.
-    # session['username'] = username
-    # name = mistdb.user_query(username)
-    # # if name[0]:
-    # #     if name[1][0] is None:
-    # #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
-    # return username
-
 @app.route('/logout', methods=['GET'])
 def logout():
     authenticate()
@@ -220,7 +186,7 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, date, details, "netid", y, x, roomNum)
+    mistdb.add_event(title, loc, start, end, date, details, username, y, x, roomNum)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])
@@ -454,10 +420,10 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     # print(calstring)
-    #html = render_template("calendar.html")
+    html = render_template("calendar.html", )
     response = make_response(calstring)
-    response.set_cookie('month', today.get_month())
-    response.set_cookie('year', today.get_year())
+    # response.set_cookie('month', today.get_month())
+    # response.set_cookie('year', today.get_year())
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

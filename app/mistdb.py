@@ -436,7 +436,7 @@ def friends_query(netID):
                 stmt_str = '''  SELECT  friends.friendID,
                                 FROM    friends
                                 WHERE   friends.userID = %s
-                                ORDER BY    userName'''
+                                ORDER BY    friendsID'''
 # '''  SELECT  friends.friendID,
 #                         userNames.userName
 #                 FROM    friends,

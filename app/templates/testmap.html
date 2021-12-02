@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
+      <title>Mist - Map View</title>
+      <link rel="shortcut icon" type="image/x-icon" href="https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico"/>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
+      <link rel="stylesheet" href=
+        "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="{{ url_for('static', filename='index.js') }}"></script>
+   </head>
+   <body>
+      <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
+        <div class="row" style="background-color:rgb(255, 143, 0);">
+          <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
+            <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
+          </div>
+          <div class = "col-6 align-middle" display: inline-block;><center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">Welcome to Mist, {{userData[0][0]}}! </h1>
+          </center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;"></h1></div>
+          <div class = "col-3"display: inline-block; style = "display:inline-block;padding:0;">
+              <a href = "https://mist-princeton.herokuapp.com/calendar?month=None&year=None"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day.png"  class="responsive" style = "max-width:50%;height:auto;float:right;"></a>
+          </div>
+        </div>
+      </div>
+      <center><h1>Campus Event Map</h1></center>
+
+      <form action = "inputpage" method = "get">
+      <table>
+      <tr>
+      <td><input type="submit", id = "submit" value = "Add Event"></td>
+      </tr>
+      </table>
+      </form>
+
+      <form  action = "friendscreen" method = "get">
+      <input type="submit", id = "friend" value = "View Friends">
+      </form>
+
+    <h3>Filter Events:</h3>
+    <form action = "index" method = "get">
+      <div>
+        <input type="radio" id="all" name="option" value="all"
+               checked>
+        <label for="all">All</label>
+      </div>
+
+      <div>
+        <input type="radio" id="friends" name="option" value="public">
+        <label for="public">Friends</label>
+      </div>
+
+      <div>
+        <input type="radio" id="public" name="option" value="friends">
+        <label for="public">Public</label>
+      </div>
+
+      <label for="starttime">Start(date and time):</label>
+      <input type="datetime-local" id="start" name="start">
+      <br>
+      <label for="endtime">End(date and time):</label>
+      <input type="datetime-local" id="end" name="end">
+      <br>
+      <input type="submit", id = "filter" value = "Apply Filter">
+    </form>
+
+
+      <div id = "map"></div>
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+      </script>
+      <script >
+      "use strict"
+
+      let map;
+      let events;
+
+      function initMap() {
+
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat:40.34657, lng: -74.65631 },
+          zoom: 16,
+        });
+        const markers = [];
+        const infoWindow = new google.maps.InfoWindow();
+        let regex = /\d+/
+        var counts = {{ eventData|tojson }}
+        counts.forEach(function(element){
+          let str = String(element[3]);
+          str = str.slice(1, str.length - 1);
+          let coords = str.split(',');
+          const marker = new google.maps.Marker({
+           position: { lat: parseFloat(coords[1]), lng:parseFloat(coords[0]) },
+           map: map,
+           title:String(element[1]),
+         });
+         markers.push(marker);
+         let eventid = encodeURIComponent(element[0])
+         let url = '/details?eventid=' + eventid;
+         $.ajax(
+           {
+             type: 'GET',
+             url: url,
+             success: function(result){
+               marker.addListener("click", () => {
+                    infoWindow.close();
+                    infoWindow.setContent(result);
+                    infoWindow.open(marker.getMap(), marker);
+                  }
+                );
+
+             }
+           }
+         )
+
+
+         // str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
+         //  marker.addListener("click", () => {
+         //       infoWindow.close();
+         //       infoWindow.setContent(str);
+         //       infoWindow.open(marker.getMap(), marker);
+         //     }
+         //   );
+        })
+        // new MarkerClusterer({ markers, map });
+      }
+
+  document.getElementById("submit").onclick =  initMap;
+
+  </script>
+
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3KgDnvZgxSc4QSXw2ag40SLeG5wAXVoI&callback=initMap">
+
+  </script>
+
+      <!-- {% if userData != None %}
+      <table>
+
+        <tr>
+          <td>{{userData}}</td>
+        </tr>
+    </table>
+  {% endif %}
+
+
+
+      {% if eventData != None %}
+      <table>
+        <tr>
+          <th align="left">Event ID</th>
+          <th align="left">Title</th>
+          <th align="left">Location</th>
+          <th align="left">Coordinates</th>
+        </tr>
+        {% for event in eventData %}
+        <tr>
+          <td>{{event[0]}}</td>
+          <td>{{event[1]}}</td>
+          <td>{{event[2]}}</td>
+          <td>{{event[3]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %} -->
+      <hr>
+      Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
+      <hr>
+
+   </body>
+</html>

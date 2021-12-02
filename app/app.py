@@ -407,7 +407,7 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    data = []
+    # data = []
     # for event in package:
     #     details = mistdb.details_query(event[0])
     #     if details[0]:
@@ -417,11 +417,10 @@ def calendar():
     month = request.cookies.get('month')
     year = request.cookies.get('year')
     if month is None or year is None:
-        today = mistcalendar.mistCalendar()
+        today = mistcalendar.mistCalendar(None,None)
     else:
         today = mistcalendar.mistCalendar(month,year)
 
-    
     dynamicnumber = request.args.get('dynamicstate')
     if dynamicnumber is not None:
          if dynamicnumber == 1:
@@ -434,7 +433,7 @@ def calendar():
              today.next_year()
     
 
-    
+
     calstring = calstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:
@@ -450,7 +449,7 @@ def calendar():
     # if weekcount != 0:
     #     calstring += "</tr>"
     # calstring += "</table>"
-    print(calstring)
+    # print(calstring)
     #html = render_template("calendar.html")
     response = make_response(calstring)
     response.set_cookie('month', today.get_month())

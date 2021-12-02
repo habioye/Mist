@@ -18,7 +18,7 @@ from app import mistdb, templates
 from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
-from app import mistcalender
+from app import mistcalendar
 from datetime import date
 import datetime
 
@@ -327,7 +327,7 @@ def eventinfo():
 
 
 def calstringmaker(month, year):
-    currcal = mistcalender.mistCalender(month,year)
+    currcal = mistcalendar.mistCalender(month,year)
     daycount = currcal.get_monthlength()
     firstday = currcal.get_first_day()
     firstday = firstday % 7
@@ -412,12 +412,16 @@ def calendar():
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-    # month = request.cookies.get('month')
-    # year = request.cookies.get('year')
-    # if month is None or year is None:
-    #     today = date.today()
-    #     month = today.month
-    #     year = today.year
+    month = request.cookies.get('month')
+    year = request.cookies.get('year')
+    if month is None or year is None:
+        today = mistcalendar.calendar
+        month = today.month
+        year = today.year
+    
+    dynamicnumber = request.args.get('dynamicstate')
+    if dynamicnumber is not None:
+
 
 
     today = date.today()

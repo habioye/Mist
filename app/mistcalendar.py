@@ -11,7 +11,7 @@ from calendar import monthrange
 # switch between months it always start you at the first day of each month. 
 # No matter what day you have you should always be able to access information 
 # about the month and the year. The data will be iso format.
-class mistCalender:
+class mistCalendar:
     # months are represented [0:12]
     def __init__(self,month,year):
         today = date.today()

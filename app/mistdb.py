@@ -649,23 +649,11 @@ def search_query(netID):
                                 WHERE   userID = %s'''
 
                 cursor.execute(stmt_str, (netID,))
-                name = cursor.fetchall()
+                names = cursor.fetchall()
 
-                friends = friends_query(netID)
-                if friends[0]:
-                    friends = friends[1]
-                else:
-                    error_msg = "Error fetching friend data."
-                    return [False, error_msg]
 
-                permissions = permissions_query(netID)
-                if permissions[0]:
-                    permissions = permissions[1]
-                else:
-                    error_msg = "Error fetching permission data."
-                    return [False, error_msg]
 
-                return [True, name, friends, permissions]
+                return [True, names]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

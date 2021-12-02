@@ -407,7 +407,7 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    data = []
+    # data = []
     # for event in package:
     #     details = mistdb.details_query(event[0])
     #     if details[0]:
@@ -421,17 +421,16 @@ def calendar():
     else:
         today = mistcalendar.mistCalendar(month,year)
 
-    
-    dynamicnumber = request.args.get('dynamicstate')
-    if dynamicnumber is not None:
-         if dynamicnumber == 1:
-             today.previous_year()
-         if dynamicnumber == 2:
-             today.previous_month()
-         if dynamicnumber == 3:
-             today.next_month()
-         if dynamicnumber == 4:
-             today.next_year()
+    # dynamicnumber = request.args.get('dynamicstate')
+    # if dynamicnumber is not None:
+    #      if dynamicnumber == 1:
+    #          today.previous_year()
+    #      if dynamicnumber == 2:
+    #          today.previous_month()
+    #      if dynamicnumber == 3:
+    #          today.next_month()
+    #      if dynamicnumber == 4:
+    #          today.next_year()
     
 
     

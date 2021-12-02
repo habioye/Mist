@@ -198,6 +198,7 @@ def details():
     if package[0] is False:
         print(package[1])
     details = package[1]
+    print(details)
     html = render_template('details.html', details = details)
     response = make_response(html)
     return response

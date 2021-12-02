@@ -433,7 +433,7 @@ def friends_query(netID):
 
             with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''  SELECT  friends.friendID,
+                stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID = %s
                                 ORDER BY    friendsID'''

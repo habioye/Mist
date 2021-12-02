@@ -650,7 +650,7 @@ def search_query(netID):
                                         userName
                                 FROM    userNames
                                 WHERE userID LIKE %s
-                                OR  userName LIKE %s  '''
+                                OR  UPPER(userName) LIKE LOWER(%s) '''
 
                 cursor.execute(stmt_str, (netID,netID))
                 names = cursor.fetchall()

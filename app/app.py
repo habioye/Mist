@@ -228,6 +228,7 @@ def friendscreen():
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response
+    
 @app.route('/getfriends', methods = ['GET'])
 def getfriends():
     #userid = request.args.get('search')

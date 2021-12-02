@@ -231,6 +231,7 @@ def friendscreen():
 @app.route('/getfriends', methods = ['GET'])
 def getfriends():
     userid = request.args.get('search')
+    userid = authenticate()
     package = mistdb.friends_query(userid)
     if package[0] is False:
         print(package[1])

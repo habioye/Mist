@@ -333,14 +333,17 @@ def calstringmaker(currcal):
       calstring += "<td>"
       if currcount > 0:
          calstring += str(currcount)
+        #  calstring += "\n"
          date = dateformat(year, month, currcount)
          events = mistdb.date_query(date)
          # check if there is equal to false.
          if events[0] is False:
-             calstring += "\n A server error occurred. "
+             calstring += "\n"
+             calstring += "A server error occurred. "
              calstring += "Please contact the system administrator."
          else:
             for eventinformation in events[1]:
+                calstring += "\n"
                 calstring += "<a href = eventinfo?eventID="
                 calstring += str(eventinformation[0]) + "&eventName="
                 calstring += str(eventinformation[1]) + "&eventLocation="

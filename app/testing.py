@@ -89,7 +89,7 @@ def ncalstringmaker(month, year):
     calstring += "</html>"
     return calstring
 
-def calstringmaker(month, year):
+def calstringmaker(month, year, currcal):
    month = 5
    year = 2021
    currcal = mistcalender.mistCalender(month,year)
@@ -112,9 +112,7 @@ def calstringmaker(month, year):
    calstring += "<th>Su</th>"
    calstring += "<th>Mo</th>"
    calstring += "<th>Tu</th>"
-
    calstring += "<th>We</th>"
-
    calstring += "<th>Th</th>"
    calstring += "<th>Fr</th>"
    calstring += "<th>Sa</th>"

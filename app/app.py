@@ -326,8 +326,8 @@ def eventinfo():
     # check when there is no such eventinfo
 
 
-def calstringmaker(month, year):
-    currcal = mistcalendar.mistCalender(month,year)
+def calstringmaker(month, year, currcal):
+    #currcal = mistcalendar.mistCalender(month,year)
     daycount = currcal.get_monthlength()
     firstday = currcal.get_first_day()
     firstday = firstday % 7
@@ -415,20 +415,20 @@ def calendar():
     month = request.cookies.get('month')
     year = request.cookies.get('year')
     if month is None or year is None:
-        today = mistcalendar.calendar
+        today = mistcalendar.mistCalendar()
         month = today.month
         year = today.year
+    else:
+        today = mistcalendar.mistCalendar(month,year)
+
     
     dynamicnumber = request.args.get('dynamicstate')
-    if dynamicnumber is not None:
+    # if dynamicnumber is not None:
+    #     if dynamicnumber == 1:
 
+    
 
-
-    today = date.today()
-    month = today.month
-    year = today.year
-
-    calstring = calstringmaker(month, year)
+    calstring = calstringmaker(month, year,today)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"

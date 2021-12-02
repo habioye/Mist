@@ -437,8 +437,8 @@ def friends_query(netID):
                                         userNames.userName
                                 FROM    friends,
                                         userNames
-                                WHERE   friends.friendID = %s
-                                AND     friends.userID = userNames.userID
+                                WHERE   friends.userID = %s
+                                AND     friends.friendID = userNames.userID
                                 ORDER BY    userName'''
 #
 # WHERE   friends.friendID = userNames.userID

@@ -417,7 +417,7 @@ def calendar():
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None or year is None:
-        today = mistcalendar.mistCalendar()
+        today = mistcalendar.mistCalendar(None, None)
     else:
         today = mistcalendar.mistCalendar(month,year)
 

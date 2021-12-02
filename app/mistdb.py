@@ -639,6 +639,7 @@ def remove_particpant(event_id, participant):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
+
 def search_query(netID):
     try:
         with conn:
@@ -654,8 +655,6 @@ def search_query(netID):
 
                 cursor.execute(stmt_str, (netID,netID))
                 names = cursor.fetchall()
-
-
 
                 return [True, names]
 

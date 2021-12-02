@@ -2,7 +2,7 @@
 <html>
    <head>
         <title>Mist - Calendar View</title>
-      
+
         <meta name="viewport"
         content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/x-icon" href="https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico" />
@@ -20,11 +20,11 @@
                 color: #fff;
                 background-color: rgb(255, 143, 0);
                 border: 1px solid black;
-                
+
                 box-shadow: 0 9px #999;
             }
             .button:hover {background-color: rgb(255, 143, 0)}
-            
+
             .button:active {
             background-color: rgb(255, 143, 0);
             box-shadow: 0 5px #666;
@@ -39,11 +39,11 @@
         <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
             <div class="row" style="background-color:rgb(255, 143, 0);">
                 <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
-                    <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
+                    <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
                 </div>
                 <div class = "col-6 align-middle" display: inline-block;><center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">Welcome to Mist!</h1></center></div>
                 <div class = "col-3"display: inline-block; style = "display:inline-block;padding:0;">
-                    <a href = "https://mist-princeton.herokuapp.com/calendar"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day.png"  class="responsive" style = "max-width:30%;height:auto;float:right;"></a>
+                    <a href = "https://mist-princeton.herokuapp.com/calendar"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:right;"></a>
                 </div>
             </div>
         </div>
@@ -52,14 +52,14 @@
         <h3>Good <span id="ampmSpan"></span> user.</h3>
         </div></center>
         <div class = "row">
-            <a href= "https://mist-princeton.herokuapp.com/calendar?dynamicstate=1"><button class="col-3 button" id = backyear><span>&#8592; Year </span></button></a>
-            <!--<button class="col-3 button" id = backmonth href = https://mist-princeton.herokuapp.com/calendar?dynamicstate=2><span>&#8592; Month </span></button>
-            <button class="col-3 button" id = nextmonth href = https://mist-princeton.herokuapp.com/calendar?dynamicstate=3><span>Month &#8594;</span></button>
-            <button class="col-3 button" id = nextyear href = https://mist-princeton.herokuapp.com/calendar?dynamicstate=4><span>Year &#8594;</span></button>-->
+            <button class="col-3 button" id = backyear><span>&#8592; Year </span></button></a>
+            <button class="col-3 button" id = backmonth><span>&#8592; Month </span></button>
+            <button class="col-3 button" id = nextmonth><span>Month &#8594;</span></button>
+            <button class="col-3 button" id = nextyear><span>Year &#8594;</span></button>
         </div>
         <br>
         {{calenderinfo}}
-        {% comment %} <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
         <tr style="background-color:black;color:white;">
         <th colspan="7"><h3 align="center">November 2021</h3></th>
         </tr>
@@ -118,8 +118,8 @@
         <td>29</td>
         <td>30</td>
         </tr>
-        
-        </table> {% endcomment %}
+
+        </table>
         <div class="footer">
          Date and time: <span id="datetimeSpan"></span><br>
          Created by Hassan Abioye, Anthony Gartner, Benjamin Nadon, Nicholas Cabrera

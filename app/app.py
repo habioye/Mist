@@ -373,19 +373,20 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    # data = []
+    data = []
     # for event in package:
     #     details = mistdb.details_query(event[0])
     #     if details[0]:
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-    month = request.cookies.get('month')
-    year = request.cookies.get('year')
+    month = request.args.get('month')
+    year = request.args.get('year')
     if month is None or year is None:
-        today = mistcalendar.mistCalendar(None,None)
+        today = mistcalendar.mistCalendar(None, None)
     else:
         today = mistcalendar.mistCalendar(month,year)
+
 
     dynamicnumber = request.args.get('dynamicstate')
     if dynamicnumber is not None:
@@ -397,7 +398,7 @@ def calendar():
              today.next_month()
          if dynamicnumber == 4:
              today.next_year()
-    
+
 
 
     calstring = calstringmaker(today)
@@ -415,11 +416,11 @@ def calendar():
     # if weekcount != 0:
     #     calstring += "</tr>"
     # calstring += "</table>"
-    print(calstring)
-    #html = render_template("calendar.html")
+    # print(calstring)
+    html = render_template("calendar.html", )
     response = make_response(calstring)
-    response.set_cookie('month', today.get_month())
-    response.set_cookie('year', today.get_year())
+    # response.set_cookie('month', today.get_month())
+    # response.set_cookie('year', today.get_year())
     return response
 
 @app.route('/firsttimeuser', methods=['GET'])

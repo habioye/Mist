@@ -155,9 +155,15 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
     username = authenticate()
-    
+
     starttime = request.args.get("starttime")
     endtime = request.args.get("endtime")
+    option = request.args.get("option")
+
+    if starttime == "":
+        startime = "00:00:00-05:00"
+    if endtime == "":
+        endtime = "23:59:59-05:00"
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])

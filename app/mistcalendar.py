@@ -17,12 +17,12 @@ class mistCalendar:
         today = date.today()
         # today.month something
 
-        if month is None:
+        if month is None or year =="None":
             self.month = today.month
         else:
             self.month = int(month)
         self.day = today.day
-        if year is None:
+        if year is None or year =="None":
             self.year = today.year
         else:
             self.year = int(year)

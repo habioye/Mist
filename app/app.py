@@ -417,23 +417,23 @@ def calendar():
     month = request.cookies.get('month')
     year = request.cookies.get('year')
     if month is None or year is None:
-        today = mistcalendar.mistCalendar()
+        today = mistcalendar.mistCalendar(None,None)
     else:
         today = mistcalendar.mistCalendar(month,year)
 
-    # dynamicnumber = request.args.get('dynamicstate')
-    # if dynamicnumber is not None:
-    #      if dynamicnumber == 1:
-    #          today.previous_year()
-    #      if dynamicnumber == 2:
-    #          today.previous_month()
-    #      if dynamicnumber == 3:
-    #          today.next_month()
-    #      if dynamicnumber == 4:
-    #          today.next_year()
+    dynamicnumber = request.args.get('dynamicstate')
+    if dynamicnumber is not None:
+         if dynamicnumber == 1:
+             today.previous_year()
+         if dynamicnumber == 2:
+             today.previous_month()
+         if dynamicnumber == 3:
+             today.next_month()
+         if dynamicnumber == 4:
+             today.next_year()
     
 
-    
+
     calstring = calstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:

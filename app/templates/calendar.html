@@ -52,10 +52,10 @@
         <h3>Good <span id="ampmSpan"></span> user.</h3>
         </div></center>
         <div class = "row">
-            <button class="col-3 button" id = backyear onclick="clicked(1)"><span>&#8592; Year </span></button>
-            <button class="col-3 button" id = backmonth onclick="clicked(2)"><span>&#8592; Month </span></button>
-            <button class="col-3 button" id = nextmonth onclick="clicked(3)"><span>Month &#8594;</span></button>
-            <button class="col-3 button" id = nextyear onclick="clicked(4)"><span>Year &#8594;</span></button>
+            <button class="col-3 button" id = backyear><span>&#8592; Year </span></button></a>
+            <button class="col-3 button" id = backmonth><span>&#8592; Month </span></button>
+            <button class="col-3 button" id = nextmonth><span>Month &#8594;</span></button>
+            <button class="col-3 button" id = nextyear><span>Year &#8594;</span></button>
         </div>
         <br>
         {{calenderinfo}}
@@ -131,41 +131,6 @@
         <script>
 
             'use strict';
-
-            function clicked(int state){
-              let curyear =  {{year}};
-              let curmonth = {{month}};
-
-              if(state == 1){
-                curyear = curyear - 1;
-              }
-              if(state == 2){
-                curmonth = curmonth - 1;
-              }
-              if(state == 3){
-                curmonth = curmonth + 1;
-              }
-              if(state == 4){
-                curyear = curyear + 1;
-              }
-              if(curmonth == 0){
-                curmonth = 12;
-                curyear = curyear - 1;
-              }
-              if(curmonth == 13){
-                curmonth = 1;
-                curyear  = curyear + 1;
-            }
-            let url = "https://mist-princeton.herokuapp.com/calendar?month=";
-            url += encodeURIComponent(curmonth);
-            url += "&year=";
-            url += encodeURIComponent(curyear);
-            window.location.href = url;
-
-
-
-
-            }
 
             function getAmPm(){
                 let dateTime = new Date();

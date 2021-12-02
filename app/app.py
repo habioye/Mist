@@ -244,7 +244,7 @@ def getfriends():
 def searchfriends():
     search = request.args.get('search')
     search = '%' + str(search) + '%'
-    package = mistdb.user_search(search)
+    package = mistdb.user_query(search)
     if package[0] is False:
         print(package[1])
     friends = package[1]

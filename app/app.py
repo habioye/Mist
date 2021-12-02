@@ -245,11 +245,14 @@ def getfriends():
 @app.route('/searchfriends', methods = ['GET'])
 def searchfriends():
     search = request.args.get('search')
-    search = '%' + str(search) + '%'
-    package = mistdb.search_query(search)
-    if package[0] is False:
-        print(package[1])
-    friends = package[1]
+    if(str(search) == ''):
+        friends = []
+    else:
+        search = '%' + str(search) + '%'
+        package = mistdb.search_query(search)
+        if package[0] is False:
+            print(package[1])
+        friends = package[1]
     html = render_template('friendsearch.html', friends = friends)
     response = make_response(html)
     return response

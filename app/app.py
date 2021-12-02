@@ -164,6 +164,7 @@ def index():
         startime = "00:00:00-05:00"
     if endtime == "":
         endtime = "23:59:59-05:00"
+
     package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
     # if package[0] == False:
         # print(package[1])

@@ -193,12 +193,10 @@ def input():
 def details():
     # username = authenticate()
     eventid = request.args.get('eventid')
-    print(eventid)
     package = mistdb.details_query(str(eventid))
     if package[0] is False:
         print(package[1])
     details = package[1]
-    print(details)
     html = render_template('details.html', details = details)
     response = make_response(html)
     return response
@@ -249,6 +247,7 @@ def searchfriends():
     if package[0] is False:
         print(package[1])
     friends = package[1]
+    print(friends)
     html = render_template('friendsearch.html', friends = friends)
     response = make_response(html)
     return response

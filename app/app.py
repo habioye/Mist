@@ -252,6 +252,13 @@ def searchfriends():
     response = make_response(html)
     return response
 
+@app.route("/requestfriend", methods = ['GET'])
+def requestfriend():
+    username = authenticate()
+    netid = request.args.get('netid')
+    mistdb.add_friendship(username, netid)
+    return friendscreen()
+
 def headerstring():
     calstring = "<!DOCTYPE html> "
     calstring += "<html> "

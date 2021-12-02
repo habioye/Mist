@@ -55,7 +55,8 @@ def calstringmaker(month, year):
    return calstring
 
 def main():
-   print(calstringmaker(5,2021))
+   print(hash("somethin"))
+   #print(calstringmaker(5,2021))
    
 if __name__ == '__main__':
    main()

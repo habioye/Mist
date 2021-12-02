@@ -247,7 +247,6 @@ def searchfriends():
     if package[0] is False:
         print(package[1])
     friends = package[1]
-    print(friends)
     html = render_template('friendsearch.html', friends = friends)
     response = make_response(html)
     return response
@@ -256,6 +255,7 @@ def searchfriends():
 def requestfriend():
     username = authenticate()
     netid = request.args.get('netid')
+    print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
     return friendscreen()
 

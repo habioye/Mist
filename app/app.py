@@ -140,6 +140,7 @@ def index():
     # There should be an exception thrown for the package data.
     package = package[1]
     package[0] = str(package[0])
+    print(package[0])
     names = mistdb.user_query(username)
     names = names[1]
 

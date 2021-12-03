@@ -139,6 +139,7 @@ def index():
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
     package = package[1]
+    package[0] = str(package[0])
     names = mistdb.user_query(username)
     names = names[1]
 
@@ -166,7 +167,6 @@ def details():
     if package[0] is False:
         print(package[1])
     details = package[1]
-    details[0] = str(details[0])
     html = render_template('details.html', details = details)
     response = make_response(html)
     return response

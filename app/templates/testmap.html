@@ -97,6 +97,7 @@
          });
          markers.push(marker);
          let eventid = encodeURIComponent(element[0])
+         console.log(eventid)
          let url = '/details?eventid=' + eventid;
          $.ajax(
            {

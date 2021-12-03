@@ -161,6 +161,7 @@ def input():
 def details():
     # username = authenticate()
     eventid = request.args.get('eventid')
+    print(eventid)
     package = mistdb.details_query(str(eventid))
     if package[0] is False:
         print(package[1])

@@ -287,13 +287,9 @@ def eventinfo():
     eventLocation = request.args.get('eventLocation')
     startTime = request.args.get('startTime')
     endTime = request.args.get('endTime')
-    eventDate = request.args.get('eventDate')
-    details = request.args.get('details')
-    plannerID = request.args.get('plannerID')
-    coordinates = request.args.get('coordinates')
-    roomNumber = request.args.get('roomNumber')
     
-    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime, eventDate= eventDate,details = details,plannerID = plannerID, coordinates = coordinates, roomNumber = roomNumber)
+    
+    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime)
     response = make_response(html)
     return response
     # check when there is no such eventinfo
@@ -349,19 +345,12 @@ def altcalstring(currcal):
             for eventinformation in events[1]:
                 calstring += "\n"
                 calstring += "<a href = eventinfo?eventID="
-                event_id = eventinformation[0]
-                eventstuff = mistdb.details_query(event_id)
-                calstring += str(eventstuff[0]) + "&eventName="
-                calstring += str(eventstuff[1]) + "&eventLocation="
-                calstring += str(eventstuff[2]) + "&startTime="
-                calstring += str(eventstuff[3]) + "&endTime="
-                calstring += str(eventstuff[4]) + "&eventDate="
-                calstring += str(eventstuff[5]) + "&details="
-                calstring += str(eventstuff[6]) + "&plannerID="
-                calstring += str(eventstuff[7]) + "&coordinates="
-                calstring += str(eventstuff[8]) + "&roomNumber="
-                calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
-                calstring += str(eventstuff[1]) + "</a>"
+                calstring += str(eventinformation[0]) + "&eventName="
+                calstring += str(eventinformation[1]) + "&eventLocation="
+                calstring += str(eventinformation[2]) + "&startTime="
+                calstring += str(eventinformation[3]) + "&endTime="
+                calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+                calstring += str(eventinformation[1]) + "</a>"
 
                 
 
@@ -435,18 +424,14 @@ def calstringmaker(currcal):
                 event_id = eventinformation[0]
                 eventstuff = mistdb.details_query(event_id)
                 if eventstuff[0]:
-                    eventstuff = eventstuff[1]
-                    calstring += str(eventstuff[0]) + "&eventName="
-                    calstring += str(eventstuff[1]) + "&eventLocation="
-                    calstring += str(eventstuff[2]) + "&startTime="
-                    calstring += str(eventstuff[3]) + "&endTime="
-                    calstring += str(eventstuff[4]) + "&eventDate="
-                    calstring += str(eventstuff[5]) + "&details="
-                    calstring += str(eventstuff[6]) + "&plannerID="
-                    calstring += str(eventstuff[7]) + "&coordinates="
-                    calstring += str(eventstuff[8]) + "&roomNumber="
-                    calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
-                    calstring += str(eventstuff[1]) + "</a>"
+                    calstring += "\n"
+                    calstring += "<a href = eventinfo?eventID="
+                    calstring += str(eventinformation[0]) + "&eventName="
+                    calstring += str(eventinformation[1]) + "&eventLocation="
+                    calstring += str(eventinformation[2]) + "&startTime="
+                    calstring += str(eventinformation[3]) + "&endTime="
+                    calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+                    calstring += str(eventinformation[1]) + "</a>"
 
 
       calstring += "</td>"

@@ -32,6 +32,10 @@
       <form onsubmit = "return checkInput()"action = "addinput" method = "get">
       <table>
       <tr>
+      <td align = "right"> <label for="private"> Private Event: </label> </td>
+      <td> <input type="checkbox" id = "private" name = "private" ></td>
+      </tr>
+      <tr>
       <td align = "right"> <label for="Location"><font color = "RED">*</font> Location: </label> </td>
       <td> <input type="text" id = "loc" name = "loc" ></td>
       </tr>
@@ -80,7 +84,7 @@
         <option value="Firestone">Firestone Library</option>
         <option value="Friend">Friend Center</option>
         <option value="Jewish">Center For Jewish Life</option>
-      </select></td> 
+      </select></td>
       </tr>
       <tr>
       <td></td>
@@ -137,7 +141,7 @@
         document.getElementById("coords").value = '{  "lat":LATITUDE,  "lng":LONGITUDE }'
         if (document.getElementById("placelist").value == "Frist")
         document.getElementById("coords").value = '{  "lat": 40.34695705355033,  "lng": -74.65532898902893 }'
-        if (document.getElementById("placelist").value == "Firestone") 
+        if (document.getElementById("placelist").value == "Firestone")
         document.getElementById("coords").value = '{  "lat": 40.349475477436926,  "lng": -74.65779662132263 }'
         if (document.getElementById("placelist").value == "Friend")
         document.getElementById("coords").value = '{  "lat": 40.35041168571587,  "lng": -74.65282917022705 }'

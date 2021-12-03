@@ -4,6 +4,29 @@
       <meta name="google-site-verification" content="fttcwGg9F1gbh8l5e_24FFe9nGrpDViWjDw3Vljeoec" />
       <title>Mist - Map View</title>
       <link rel="shortcut icon" type="image/x-icon" href="https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico"/>
+      <style>
+        input[type=submit] {
+          display: inline-block;
+          padding: 15px 25px;
+          font-size: 3vw;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          outline: none;
+          color: #fff;
+          background-color: rgb(255, 143, 0);
+          border: 1px solid black;
+  
+          box-shadow: 0 9px #999;
+        }
+        input[type=submit]:hover {background-color: rgb(255, 143, 0)}
+  
+        input[type=submit]:active {
+        background-color: rgb(255, 143, 0);
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+        }
+      </style>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
       
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" />

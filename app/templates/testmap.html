@@ -7,8 +7,8 @@
       <style>
         input[type=submit] {
           display: inline-block;
-          padding: 15px 25px;
-          font-size: 3vw;
+          padding: 10px 15px;
+          font-size: 1.5vw;
           cursor: pointer;
           text-align: center;
           text-decoration: none;
@@ -17,14 +17,35 @@
           background-color: rgb(255, 143, 0);
           border: 1px solid black;
   
-          box-shadow: 0 9px #999;
+          box-shadow: 0 5px #999;
         }
         input[type=submit]:hover {background-color: rgb(255, 143, 0)}
   
         input[type=submit]:active {
         background-color: rgb(255, 143, 0);
         box-shadow: 0 5px #666;
-        transform: translateY(4px);
+        transform: translateY(2px);
+        }
+        input[type=reset] {
+          display: inline-block;
+          padding: 10px 15px;
+          font-size: 1.5vw;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          outline: none;
+          color: #fff;
+          background-color: black;
+          border: 1px solid black;
+  
+          box-shadow: 0 5px #999;
+        }
+        input[type=reset]:hover {background-color: black)}
+  
+        input[type=reset]:active {
+        background-color: black;
+        box-shadow: 0 5px #666;
+        transform: translateY(2px);
         }
       </style>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -52,18 +73,15 @@
       <center><h1>Campus Event Map</h1></center>
 
       <h2>{{userData[0][0]}}</h2>
+      <div class = "row" style="padding-left: 20px;">
       <form action = "inputpage" method = "get">
-      <table>
-      <tr>
-      <td><input type="submit", id = "submit" value = "Add Event"></td>
-      </tr>
-      </table>
+      <input type="submit", id = "submit" value = "Add Event">
       </form>
 
       <form  action = "friendscreen" method = "get">
       <input type="submit", id = "friend" value = "View Friends">
       </form>
-
+      </div>
     <h3>Filter Events:</h3>
     <form action = "index" method = "get">
       <div>
@@ -88,7 +106,7 @@
       <label for="enddate">End(date and time):</label>
       <input type="date" id="end" name="end">
       <br>
-      <div class = "row">
+      <div class = "row" style="padding-left: 20px;">
       <input type="submit", id = "filter" value = "Apply Filter">
       <input type ="reset", id = "reset" value = "Reset Filter">
       </div>

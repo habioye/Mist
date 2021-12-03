@@ -81,13 +81,13 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                # Use a pairing algorithm and hashing to create an event ID
-                event_id = str(int(hash(title + planner)) % 10 * 8)
-                # ei = hashlib.new('sha512_256')
-                # event_string = title + planner
-                # ei.update(event_string.encode('utf-8'))
-                # ei.digest_size = 8
-                # event_id = int.from_bytes(ei.digest)
+                # Use the lower 8 bytes of sha256 hashing to create an event ID
+                ei = hashlib.new('sha512_256')
+                event_string = title + planner
+                ei.update(event_string.encode('utf-8'))
+                event_id = bytearray(ei.digest())[:8]
+                event_id = int.from_bytes(bytes(event_id), 'big')
+                print(event_id)
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,

@@ -103,40 +103,6 @@ def authenticate():
             abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
     return username
 
-    # # If the username is in the session, then the user was authenticated
-    # # previously, return the username
-    # if 'username' in session:
-    #     username = session.get('username')
-    #     name = mistdb.user_query(username)
-    #     # if name[0]:
-    #     #     if name[1][0] is None:
-    #     #         abort(redir('https://mist-princeton.herokuapp.com/firstimeuser'))
-    #     return username
-
-    # # If the request does not contain a login ticket, then redirect the
-    # # browser to the login page to get one.
-    # ticket = request.args.get('ticket')
-    # if ticket is None:
-    #     login_url = (CAS_URL + 'login?service='
-    #         + quote(request.url))
-    #     abort(redir(login_url))
-
-    # # If the login ticket is invalid, then redirect the browser to the
-    # # login page to get a new one.
-    # username = validate(ticket)
-    # if username is None:
-    #     login_url = (CAS_URL + 'login?service='
-    #         + quote(strip_ticket(request.url)))
-    #     abort(redir(login_url))
-
-    # # The user is authenticated, so store the username in the session.
-    # session['username'] = username
-    # name = mistdb.user_query(username)
-    # # if name[0]:
-    # #     if name[1][0] is None:
-    # #         abort(redir('https://mist-princeton.herokuapp.com/firsttimeuser'))
-    # return username
-
 @app.route('/logout', methods=['GET'])
 def logout():
     authenticate()
@@ -173,6 +139,7 @@ def index():
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
     package = package[1]
+    package[0] = str(package[0])
     names = mistdb.user_query(username)
     names = names[1]
 
@@ -195,6 +162,7 @@ def input():
 def details():
     # username = authenticate()
     eventid = request.args.get('eventid')
+    print(eventid)
     package = mistdb.details_query(str(eventid))
     if package[0] is False:
         print(package[1])
@@ -220,7 +188,7 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, date, details, "netid", y, x, roomNum)
+    mistdb.add_event(title, loc, start, end, date, details, username, y, x, roomNum)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])
@@ -367,14 +335,17 @@ def calstringmaker(currcal):
       calstring += "<td>"
       if currcount > 0:
          calstring += str(currcount)
+        #  calstring += "\n"
          date = dateformat(year, month, currcount)
          events = mistdb.date_query(date)
          # check if there is equal to false.
          if events[0] is False:
-             calstring += "\n A server error occurred. "
+             calstring += "\n"
+             calstring += "A server error occurred. "
              calstring += "Please contact the system administrator."
          else:
             for eventinformation in events[1]:
+                calstring += "\n"
                 calstring += "<a href = eventinfo?eventID="
                 calstring += str(eventinformation[0]) + "&eventName="
                 calstring += str(eventinformation[1]) + "&eventLocation="

@@ -126,9 +126,9 @@ def index():
     enddate = request.args.get("end")
     option = request.args.get("option")
 
-    if startdate == "":
+    if startdate is None:
         startdate = "-infinity"
-    if enddate == "":
+    if enddate is None:
         enddate = "infinity"
 
     package = mistdb.map_query(startdate, enddate)

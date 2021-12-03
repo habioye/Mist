@@ -69,6 +69,20 @@
       <td><input type="button", onclick = "initMap()" value = "Add coordinates from map"></td>
       </tr>
       <tr>
+        <td></td>
+        <td>OR</td>
+      </tr>
+      <tr>
+      <td></td>
+      <td alight = "right"><select id = "placelist" onchange="addCords()">
+        <option value="Default"> Select Popular Location</option>
+        <option value="Frist">Frist Campus Center</option>
+        <option value="Firestone">Firestone Library</option>
+        <option value="Friend">Friend Center</option>
+        <option value="Jewish">Center For Jewish Life</option>
+      </select></td> 
+      </tr>
+      <tr>
       <td></td>
       <td><input type="submit", id = "submit" value = "Create"></td>
       </tr>
@@ -118,7 +132,18 @@
         return true;
       }
 
-
+      function addCords() {
+        if (document.getElementById("placelist").value == "Default")
+        document.getElementById("coords").value = '{  "lat":LATITUDE,  "lng":LONGITUDE }'
+        if (document.getElementById("placelist").value == "Frist")
+        document.getElementById("coords").value = '{  "lat": 40.34695705355033,  "lng": -74.65532898902893 }'
+        if (document.getElementById("placelist").value == "Firestone") 
+        document.getElementById("coords").value = '{  "lat": 40.349475477436926,  "lng": -74.65779662132263 }'
+        if (document.getElementById("placelist").value == "Friend")
+        document.getElementById("coords").value = '{  "lat": 40.35041168571587,  "lng": -74.65282917022705 }'
+        if (document.getElementById("placelist").value == "Jewish")
+        document.getElementById("coords").value = '{  "lat": 40.34671174749656,  "lng": -74.65363383293152 }'
+      }
       function initMap() {
         console.log("initmap");
   const map = new google.maps.Map(document.getElementById("map"), {

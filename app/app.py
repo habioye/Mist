@@ -139,7 +139,8 @@ def index():
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
     package = package[1]
-    package[0] = str(package[0])
+    for event in package:
+        event[0] = str(event[0])
     names = mistdb.user_query(username)
     names = names[1]
 

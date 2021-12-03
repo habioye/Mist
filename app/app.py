@@ -498,8 +498,8 @@ def calendar():
     # calstring += "</table>"
     # print(calstring)
     #calstring = altcalstring(today)
-    html = render_template("calendar.html", calendarinfo=calstring)
-    response = make_response(html)
+    #html = render_template("calendar.html", calendarinfo=calstring)
+    response = make_response(calstring)
     # response.set_cookie('month', today.get_month())
     # response.set_cookie('year', today.get_year())
     return response

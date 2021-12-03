@@ -434,7 +434,7 @@ def calstringmaker(currcal):
                 calstring += "<a href = eventinfo?eventID="
                 event_id = eventinformation[0]
                 eventstuff = mistdb.details_query(event_id)
-                
+                eventstuff = eventstuff[1]
                 calstring += str(eventstuff[0]) + "&eventName="
                 calstring += str(eventstuff[1]) + "&eventLocation="
                 calstring += str(eventstuff[2]) + "&startTime="

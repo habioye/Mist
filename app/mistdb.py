@@ -182,10 +182,10 @@ def map_query(start, end):
                                         eventLocation,
                                         coordinates
                                 FROM    details
+                                WHERE   eventDate BETWEEN %s AND %s
                                 ORDER BY    eventLocation,
                                             eventName'''
-#                              WHERE   startTime BETWEEN '00:00:00-05:00' AND '23:59:59-05:00'
-                cursor.execute(stmt_str)
+                cursor.execute(stmt_str(start, end))
                 data = cursor.fetchall()
 
                 return [True, data]

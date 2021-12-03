@@ -126,9 +126,9 @@ def index():
     enddate = request.args.get("end")
     option = request.args.get("option")
 
-    if startdate is None:
+    if startdate is None or startdate == '':
         startdate = "-infinity"
-    if enddate is None:
+    if enddate is None or enddate == '':
         enddate = "infinity"
 
     package = mistdb.map_query(startdate, enddate)
@@ -434,18 +434,19 @@ def calstringmaker(currcal):
                 calstring += "<a href = eventinfo?eventID="
                 event_id = eventinformation[0]
                 eventstuff = mistdb.details_query(event_id)
-                eventstuff = eventstuff[1]
-                calstring += str(eventstuff[0]) + "&eventName="
-                calstring += str(eventstuff[1]) + "&eventLocation="
-                calstring += str(eventstuff[2]) + "&startTime="
-                calstring += str(eventstuff[3]) + "&endTime="
-                calstring += str(eventstuff[4]) + "&eventDate="
-                calstring += str(eventstuff[5]) + "&details="
-                calstring += str(eventstuff[6]) + "&plannerID="
-                calstring += str(eventstuff[7]) + "&coordinates="
-                calstring += str(eventstuff[8]) + "&roomNumber="
-                calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
-                calstring += str(eventstuff[1]) + "</a>"
+                if eventstuff[0]:
+                    eventstuff = eventstuff[1]
+                    calstring += str(eventstuff[0]) + "&eventName="
+                    calstring += str(eventstuff[1]) + "&eventLocation="
+                    calstring += str(eventstuff[2]) + "&startTime="
+                    calstring += str(eventstuff[3]) + "&endTime="
+                    calstring += str(eventstuff[4]) + "&eventDate="
+                    calstring += str(eventstuff[5]) + "&details="
+                    calstring += str(eventstuff[6]) + "&plannerID="
+                    calstring += str(eventstuff[7]) + "&coordinates="
+                    calstring += str(eventstuff[8]) + "&roomNumber="
+                    calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
+                    calstring += str(eventstuff[1]) + "</a>"
 
 
       calstring += "</td>"

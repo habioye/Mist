@@ -351,10 +351,6 @@ def altcalstring(currcal):
                 calstring += str(eventinformation[3]) + "&endTime="
                 calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
                 calstring += str(eventinformation[1]) + "</a>"
-
-                
-
-
       calstring += "</td>"
       currcount+=1
       weekcount += 1
@@ -485,7 +481,7 @@ def calendar():
 
 
 
-    #calstring = calstringmaker(today)
+    calstring = calstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -501,9 +497,9 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     # print(calstring)
-    calstring = altcalstring(today)
-    html = render_template("calendar.html", calendarinfo=calstring)
-    response = make_response(html)
+    #calstring = altcalstring(today)
+    #html = render_template("calendar.html", calendarinfo=calstring)
+    response = make_response(calstring)
     # response.set_cookie('month', today.get_month())
     # response.set_cookie('year', today.get_year())
     return response

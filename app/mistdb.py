@@ -174,6 +174,8 @@ def map_query(start, end):
     try:
         with conn:
             cursor = conn.cursor()
+            print(start)
+            print(end)
 
             with closing(conn.cursor()) as cursor:
 

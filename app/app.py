@@ -287,10 +287,96 @@ def eventinfo():
     eventLocation = request.args.get('eventLocation')
     startTime = request.args.get('startTime')
     endTime = request.args.get('endTime')
-    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime)
+    eventDate = request.args.get('eventDate')
+    details = request.args.get('details')
+    plannerID = request.args.get('plannerID')
+    coordinates = request.args.get('coordinates')
+    roomNumber = request.args.get('roomNumber')
+    
+    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime, eventDate= eventDate,details = details,plannerID = plannerID, coordinates = coordinates, roomNumber = roomNumber)
     response = make_response(html)
     return response
     # check when there is no such eventinfo
+
+def altcalstring(currcal):
+    month = currcal.get_month()
+    year = currcal.get_year()
+    daycount = currcal.get_monthlength()
+    firstday = currcal.get_first_day()
+    firstday = firstday % 7
+    firstday = firstday + 1
+    calstring = "<table class=\"table table-bordered table-hover\">"
+    calstring += "<tr style=\"background-color:black;color:white;\">"
+    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+    datetime_object = datetime.datetime.strptime(str(month), "%m")
+    month_name = datetime_object.strftime("%B")
+    calstring += month_name
+    calstring += " "
+    calstring += str(year)
+    calstring += "</h3></th>"
+    calstring += "</tr>"
+    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+    calstring += "<th>Su</th>"
+    calstring += "<th>Mo</th>"
+    calstring += "<th>Tu</th>"
+    calstring += "<th>We</th>"
+    calstring += "<th>Th</th>"
+    calstring += "<th>Fr</th>"
+    calstring += "<th>Sa</th>"
+    calstring += "</tr>"
+    calstring += ""
+    calstring += ""
+    calstring += ""
+    currcount = -1 * firstday
+    currcount = currcount + 2
+    weekcount = 0
+    rangevalue = daycount + abs(currcount) + 1
+    for i in range(rangevalue):
+      if weekcount == 0:
+         calstring += "<tr>"
+      calstring += "<td>"
+      if currcount > 0:
+         calstring += str(currcount)
+        #  calstring += "\n"
+         date = dateformat(year, month, currcount)
+         events = mistdb.date_query(date)
+         # check if there is equal to false.
+         if events[0] is False:
+             calstring += "\n"
+             calstring += "A server error occurred. "
+             calstring += "Please contact the system administrator."
+         else:
+            for eventinformation in events[1]:
+                calstring += "\n"
+                calstring += "<a href = eventinfo?eventID="
+                event_id = eventinformation[0]
+                eventstuff = mistdb.details_query(event_id)
+                calstring += str(eventstuff[0]) + "&eventName="
+                calstring += str(eventstuff[1]) + "&eventLocation="
+                calstring += str(eventstuff[2]) + "&startTime="
+                calstring += str(eventstuff[3]) + "&endTime="
+                calstring += str(eventstuff[4]) + "&eventDate="
+                calstring += str(eventstuff[5]) + "&details="
+                calstring += str(eventstuff[6]) + "&plannerID="
+                calstring += str(eventstuff[7]) + "&coordinates="
+                calstring += str(eventstuff[8]) + "&roomNumber="
+                calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
+                calstring += str(eventstuff[1]) + "</a>"
+
+                
+
+
+      calstring += "</td>"
+      currcount+=1
+      weekcount += 1
+      if weekcount == 7:
+         calstring += "</tr>"
+         weekcount = 0
+    if weekcount != 0:
+      calstring += "</tr>"
+    calstring += "</table>"
+    
+    
 
 
 def calstringmaker(currcal):
@@ -346,12 +432,20 @@ def calstringmaker(currcal):
             for eventinformation in events[1]:
                 calstring += "\n"
                 calstring += "<a href = eventinfo?eventID="
-                calstring += str(eventinformation[0]) + "&eventName="
-                calstring += str(eventinformation[1]) + "&eventLocation="
-                calstring += str(eventinformation[2]) + "&startTime="
-                calstring += str(eventinformation[3]) + "&endTime="
-                calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-                calstring += str(eventinformation[1]) + "</a>"
+                event_id = eventinformation[0]
+                eventstuff = mistdb.details_query(event_id)
+                
+                calstring += str(eventstuff[0]) + "&eventName="
+                calstring += str(eventstuff[1]) + "&eventLocation="
+                calstring += str(eventstuff[2]) + "&startTime="
+                calstring += str(eventstuff[3]) + "&endTime="
+                calstring += str(eventstuff[4]) + "&eventDate="
+                calstring += str(eventstuff[5]) + "&details="
+                calstring += str(eventstuff[6]) + "&plannerID="
+                calstring += str(eventstuff[7]) + "&coordinates="
+                calstring += str(eventstuff[8]) + "&roomNumber="
+                calstring += str(eventstuff[9]) + "\" target = \"_blank\">"
+                calstring += str(eventstuff[1]) + "</a>"
 
 
       calstring += "</td>"
@@ -405,7 +499,7 @@ def calendar():
 
 
 
-    calstring = calstringmaker(today)
+    #calstring = calstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -421,8 +515,9 @@ def calendar():
     #     calstring += "</tr>"
     # calstring += "</table>"
     # print(calstring)
-    html = render_template("calendar.html", )
-    response = make_response(calstring)
+    calstring = altcalstring(today)
+    html = render_template("calendar.html", calendarinfo=calstring)
+    response = make_response(html)
     # response.set_cookie('month', today.get_month())
     # response.set_cookie('year', today.get_year())
     return response

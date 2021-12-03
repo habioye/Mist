@@ -85,7 +85,8 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
                 ei = hashlib.new('sha512_256')
                 event_string = title + planner
                 ei.update(event_string.encode('utf-8'))
-                event_id = int.from_bytes(ei.digest[:8])
+                event_id = bytearray(ei.digest())[:8]
+                event_id = int.from_bytes(bytes(event_id), 'big')
                 print(event_id)
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,

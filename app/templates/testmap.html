@@ -97,6 +97,7 @@
          });
          markers.push(marker);
          let eventid = encodeURIComponent(element[0])
+         console.log(eventid)
          let url = '/details?eventid=' + eventid;
          $.ajax(
            {
@@ -141,7 +142,7 @@
           <td>{{userData}}</td>
         </tr>
     </table>
-  {% endif %}
+  {% endif %}-->
 
 
 
@@ -162,7 +163,7 @@
         </tr>
         {% endfor %}
       </table>
-      {% endif %} -->
+      {% endif %}
       <hr>
       Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
       <hr>

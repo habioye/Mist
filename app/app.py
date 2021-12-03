@@ -122,8 +122,8 @@ def logout():
 def index():
     username = authenticate()
 
-    startdate = request.args.get("startdate")
-    enddate = request.args.get("startdate")
+    startdate = request.args.get("start")
+    enddate = request.args.get("end")
     option = request.args.get("option")
 
     if startdate == "":

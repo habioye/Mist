@@ -3,13 +3,13 @@
   <tbody>
     <tr>
     <th scope = "col">NetID</th>
-    <th scope = "col">Name</th>
+    <!-- <th scope = "col">Name</th> -->
     </tr>
 
   {% for friend in friends: %}
   <tr>
         <td>{{friend[0]}}</td>
-        <td>{{friend[1]}}</td>
+        <!-- <td>{{friend[1]}}</td> -->
 
         <td> <a href = "removefriend?netid={{friend[0]}}">remove friend</a>
         </tr>

@@ -185,7 +185,7 @@ def map_query(start, end):
                                 WHERE   eventDate BETWEEN %s AND %s
                                 ORDER BY    eventLocation,
                                             eventName'''
-                cursor.execute(stmt_str(start, end))
+                cursor.execute(stmt_str, (start, end))
                 data = cursor.fetchall()
 
                 return [True, data]

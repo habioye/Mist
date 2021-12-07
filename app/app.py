@@ -172,12 +172,16 @@ def details():
 
 @app.route('/addinput')
 def addinput():
+    privacy = "PUBLIC"
+    if(request.args.get('private') == 'on'):
+        privacy = "PRIVATE"
     username = authenticate()
     loc = request.args.get('loc')
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
-    date = request.args.get('date')
+    startDate = request.args.get('startDate')
+    endDate = request.args.get('endDate')
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
     coords = coords.strip('{ }')
@@ -187,7 +191,7 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, date, details, username, y, x, roomNum)
+    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, privacy)
     return index()
 
 @app.route('/friendscreen', methods = ['GET'])
@@ -287,8 +291,8 @@ def eventinfo():
     eventLocation = request.args.get('eventLocation')
     startTime = request.args.get('startTime')
     endTime = request.args.get('endTime')
-    
-    
+
+
     html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime)
     response = make_response(html)
     return response
@@ -360,8 +364,8 @@ def altcalstring(currcal):
     if weekcount != 0:
       calstring += "</tr>"
     calstring += "</table>"
-    
-    
+
+
 
 
 def calstringmaker(currcal):

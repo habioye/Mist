@@ -130,40 +130,19 @@ def index():
         startdate = "-infinity"
     if enddate is None or enddate == '':
         enddate = "infinity"
-    points = []
-    if option == "friends":
-        friendlist = mistdb.friends_query(username)
-        friendslist = friendslist[1]
-        for friendID in friendslist:
-            package = mistdb.private_query(startdate, enddate,username, friendID)
-            package = package[1]
-            points.extend(package)
 
-    if option == "public":
-        points = mistdb.public_query(startdate, enddate)
-        points = points[1]
-
-    if option =="all":
-        points = mi stdb.public_query(startdate, enddate)
-        points = points[1]
-        friendlist = mistdb.friends_query(username)
-        friendslist = friendslist[1]
-        for friendID in friendslist:
-            package = mistdb.private_query(startdate, enddate,username, friendID)
-            package = package[1]
-            points.extend(package)
-
+    package = mistdb.map_query(startdate, enddate)
     # if package[0] == False:
         # print(package[1])
     # else:
         # print(package[1])
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
-
+    package = package[1]
     names = mistdb.user_query(username)
     names = names[1]
 
-    html = render_template("testmap.html", eventData = points, userData = names)
+    html = render_template("testmap.html", eventData = package, userData = names)
 
     response = make_response(html)
 

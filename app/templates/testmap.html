@@ -58,8 +58,6 @@
 
    </head>
    <body>
-    <div id = "container">
-     <div class = "content">
       <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
         <div class="row" style="background-color:rgb(255, 143, 0);">
           <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
@@ -72,9 +70,9 @@
           </div>
         </div>
       </div>
-
       <center><h1>Campus Event Map</h1></center>
 
+      <h2>{{userData[0][0]}}</h2>
       <h2>Hello {{userData[0][0]}}<a href = "logout"> logout</a></h2>
       <div class = "row" style="padding-left: 20px;">
       <form action = "inputpage" method = "get">
@@ -115,11 +113,8 @@
       </div>
     </form>
     <br>
-  </div>
-  <div class = "background">
-    <div id = "map"></div>
-  </div>
-</div>
+
+      <div id = "map"></div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
       </script>
       <script >

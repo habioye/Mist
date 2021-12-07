@@ -139,7 +139,7 @@ def index():
             package = package[1]
             points.extend(package)
 
-    if option = "publ ic":
+    if option == "publ ic":
         points = mistdb.public_query(startdate, enddate)
         points = points[1]
 

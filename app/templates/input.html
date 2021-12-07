@@ -51,9 +51,12 @@
       <td align = "right"><label for="endTime"><font color = "RED">*</font> End Time:</label></td>
       <td><Input type = "time", id = "end" name = "end"></td>
       </tr>
+      <tr><td align = "right"><label for="startDate"><font color = "RED">*</font> Start Date:</label></td>
+      <td><Input type = "date", id = "startDate" name = "startDate"></td>
+      </tr>
       <tr>
-      <td align = "right"><label for="Details"><font color = "RED">*</font> Date:</label></td>
-      <td><Input type = "date", id = "date" name = "date"></td>
+        <td align = "right"><label for="endDate"> End Date:</label></td>
+        <td><Input type = "date", id = "endDate" name = "endDate"></td>
       </tr>
       <tr>
       <td align = "right"><label for="Details"> Details:</label></td>
@@ -120,16 +123,35 @@
           document.getElementById("error").innerHTML = "no end time";
           return false;
         }
-        if(document.getElementById("date").value ==""){
-          document.getElementById("error").innerHTML = "no date";
+        if(document.getElementById("startDate").value ==""){
+          document.getElementById("error").innerHTML = "no start date";
           return false;
         }
+        if(document.getElementById("endDate").value ==""){
+          document.getElementById("endDate").value = document.getElementById("startDate").value;
+        }
+
         if(document.getElementById("coords").value =='{  "lat":LATITUDE,  "lng":LONGITUDE }'){
           document.getElementById("error").innerHTML = "pick coordinated from map";
           return false;
         }
-        if(document.getElementById("start").value > document.getElementById("end").value){
-          document.getElementById("error").innerHTML = "start time after end";
+        // if(document.getElementById("start").value > document.getElementById("end").value){
+        //   document.getElementById("error").innerHTML = "start time after end";
+        //   return false;
+        // }
+
+        // let s1 = document.getElementById("startDate") + " " + document.getElementById("start");
+        // let s2 = document.getElementById("endDate") + " " + document.getElementById("end");
+        let s1 = document.getElementById("startDate").value + " " + document.getElementById("start").value;
+        let s2 = document.getElementById("endDate").value + " " + document.getElementById("end").value;
+        console.log(s1);
+        var d1 = new Date(s1);
+        var d2 = new Date(s2);
+
+
+
+        if( d1 > d2 ){
+          document.getElementById("error").innerHTML = "event must start before it ends";
           return false;
         }
 

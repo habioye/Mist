@@ -201,6 +201,72 @@ def map_query(start, end):
         result = [False, error_msg]
         return result
 
+#queries for only private friend events
+def private_query(start, end, netid, friendid):
+    try:
+        with conn:
+            cursor = conn.cursor()
+            print(start)
+            print(end)
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  SELECT  eventID,
+                                        eventName,
+                                        eventLocation,
+                                        coordinates
+                                FROM    details
+                                WHERE   eventDate BETWEEN %s AND %s
+                                AND     eventPrivacy = 'PRIVATE'
+                                AND     plannerID = %s
+                                OR      plannerID = %s
+                                ORDER BY    eventLocation,
+                                            eventName'''
+                cursor.execute(stmt_str, (start, end, netid, friendid))
+                data = cursor.fetchall()
+
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        error_msg +=" start: " + start + " end: " + end
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
+def public_query(start, end):
+    try:
+        with conn:
+            cursor = conn.cursor()
+            print(start)
+            print(end)
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  SELECT  eventID,
+                                        eventName,
+                                        eventLocation,
+                                        coordinates
+                                FROM    details
+                                WHERE   eventDate BETWEEN %s AND %s
+                                AND     eventPrivacy = 'PUBLIC'
+                                ORDER BY    eventLocation,
+                                            eventName'''
+                cursor.execute(stmt_str, (start, end))
+                data = cursor.fetchall()
+
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        error_msg +=" start: " + start + " end: " + end
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
 # Queries the database for all a user's subscribed events to be displayed on the
 # calendar. Returns True and a list of events on success, returns False and an
 # error message on failure.

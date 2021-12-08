@@ -142,8 +142,9 @@ def index():
             package = package[1]
             points.extend(package)
             for friendID in friendslist:
-                print(friendID)
+                print(friendID[0])
                 package = mistdb.private_query(startdate, enddate, friendID[0])
+                print(package)
                 package = package[1]
                 points.extend(package)
 

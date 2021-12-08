@@ -137,6 +137,7 @@ def index():
         if option == "friends":
             friendslist = mistdb.friends_query(username)
             friendslist = friendslist[1]
+            print(friendslist)
             package = mistdb.private_query(startdate, enddate, username)
             package = package[1]
             points.extend(package)
@@ -153,7 +154,7 @@ def index():
             package = mistdb.public_query(startdate, enddate)
             package = package[1]
             points.extend(package)
-            
+
 
             package = mistdb.private_query(startdate, enddate, username)
             package = package[1]
@@ -194,7 +195,7 @@ def input():
 def details():
     # username = authenticate()
     eventid = request.args.get('eventid')
-    print(eventid)
+    # print(eventid)
     package = mistdb.details_query(str(eventid))
     if package[0] is False:
         print(package[1])
@@ -239,12 +240,10 @@ def friendscreen():
 def getfriends():
     #userid = request.args.get('search')
     userid = authenticate()
-    print(userid)
     package = mistdb.friends_query(userid)
     if package[0] is False:
         print(package[1])
     friendslist = package[1]
-    print(friendslist)
     html = render_template('friendlist.html', friends = friendslist)
     response = make_response(html)
     return response

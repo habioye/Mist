@@ -202,7 +202,12 @@ def details():
     if package[0] is False:
         print(package[1])
     details = package[1]
-    html = render_template('details.html', details = details)
+    start = str(details[0][3])
+    start = start[:4]
+    end = str(details[0][4])
+    end = end[:4]
+    time = start + " - " + end
+    html = render_template('details.html', details = details, time = time)
     response = make_response(html)
     return response
 

@@ -202,7 +202,7 @@ def map_query(start, end):
         return result
 
 #queries for only private friend events
-def private_query(start, end, netid, friendid):
+def private_query(start, end, friendid):
     try:
         with conn:
             cursor = conn.cursor()
@@ -216,13 +216,12 @@ def private_query(start, end, netid, friendid):
                                         eventLocation,
                                         coordinates
                                 FROM    details
-                                WHERE   eventDate BETWEEN %s AND %s
+                                WHERE   (eventDate BETWEEN %s AND %s)
                                 AND     eventPrivacy = 'PRIVATE'
                                 AND     plannerID = %s
-                                OR      plannerID = %s
                                 ORDER BY    eventLocation,
                                             eventName'''
-                cursor.execute(stmt_str, (start, end, netid, friendid))
+                cursor.execute(stmt_str, (start, end, friendid))
                 data = cursor.fetchall()
 
                 return [True, data]

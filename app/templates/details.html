@@ -18,17 +18,4 @@
     <a href = "calendar?eventid = {{details[0][0]}}"> Add to Calendar </a>
 
   </p>
-
-  <script>
-  function convertTime(time){
-    time = String(time);
-    time = time.substring(0,4);
-    return time;
-  }
-  function onStart(){
-  document.getElementById("start").innerHTML = convertTime({{details[0][3]}});
-  document.getElementById("end").innerHTML = convertTime({{details[0][4]}});
-}
-$('document').ready(onStart);
-  </script>
 </html>

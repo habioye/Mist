@@ -208,9 +208,11 @@ def details():
 
 @app.route('/addinput')
 def addinput():
+    username=authenticate()
     privacy = "PUBLIC"
     if(request.args.get('private') == 'on'):
         privacy = "PRIVATE"
+        print(username + "created privte event")
     username = authenticate()
     loc = request.args.get('loc')
     title = request.args.get('title')

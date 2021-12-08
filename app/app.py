@@ -159,14 +159,14 @@ def index():
         # print(package[1])
         # package = dumps(package[1])
     # There should be an exception thrown for the package data.
-    names = mistdb.user_query(username)
-    names = names[1]
+        names = mistdb.user_query(username)
+        names = names[1]
 
-    html = render_template("testmap.html", eventData = points, userData = names)
+        html = render_template("testmap.html", eventData = points, userData = names)
 
-    response = make_response(html)
+        response = make_response(html)
 
-    return response
+        return response
 
 @app.route('/inputpage', methods = ['GET'])
 def input():

@@ -132,7 +132,7 @@ def index():
             enddate = "infinity"
         points = []
         if option == "friends":
-            friendlist = mistdb.friends_query(username)
+            friendslist = mistdb.friends_query(username)
             friendslist = friendslist[1]
             for friendID in friendslist:
                 package = mistdb.private_query(startdate, enddate,username, friendID)
@@ -146,7 +146,7 @@ def index():
         if option == "all":
             points = mistdb.public_query(startdate, enddate)
             points = points[1]
-            friendlist = mistdb.friends_query(username)
+            friendslist = mistdb.friends_query(username)
             friendslist = friendslist[1]
             for friendID in friendslist:
                 package = mistdb.private_query(startdate, enddate,username, friendID)

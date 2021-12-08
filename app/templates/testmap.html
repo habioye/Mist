@@ -122,6 +122,8 @@
 
       let map;
       let events;
+      import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 
       function initMap() {
 
@@ -173,17 +175,8 @@
              }
            }
          )
-
-
-         // str ="[" + str + "] " + element[0] + " " + element[1] + " " + element[2];
-         //  marker.addListener("click", () => {
-         //       infoWindow.close();
-         //       infoWindow.setContent(str);
-         //       infoWindow.open(marker.getMap(), marker);
-         //     }
-         //   );
         })
-        // new MarkerClusterer({ markers, map });
+        new MarkerClusterer({ markers, map });
       }
 
   document.getElementById("submit").onclick =  initMap;

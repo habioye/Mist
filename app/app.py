@@ -212,7 +212,7 @@ def addinput():
     privacy = "PUBLIC"
     if(request.args.get('private') == 'on'):
         privacy = "PRIVATE"
-        print(username + "created privte event")
+        print(username + "created private event")
     username = authenticate()
     loc = request.args.get('loc')
     title = request.args.get('title')

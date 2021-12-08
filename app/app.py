@@ -205,15 +205,15 @@ def details():
     start = str(details[0][3])
     start = start[:5]
     if(int(start[:2]) > 12):
-        start = start + " PM"
+        start = str(int(start[:2]) - 12) + start[2:] + ' PM'
     else:
         start = start + " AM"
     end = str(details[0][4])
     end = end[:5]
-    if(int(start[:2]) > 12):
-        start = start + " PM"
+    if(int(end[:2]) > 12):
+        end = str(int(end[:2]) - 12) + end[2:] + " PM"
     else:
-        start = start + " AM"
+        end = end + " AM"
     time = start + " - " + end
     html = render_template('details.html', details = details, time = time)
     response = make_response(html)

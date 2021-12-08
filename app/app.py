@@ -144,7 +144,7 @@ def index():
             points = points[1]
 
         if option == "all":
-            points = mi stdb.public_query(startdate, enddate)
+            points = mistdb.public_query(startdate, enddate)
             points = points[1]
             friendlist = mistdb.friends_query(username)
             friendslist = friendslist[1]

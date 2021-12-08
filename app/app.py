@@ -230,7 +230,7 @@ def addinput():
     roomNum = request.args.get('roomnum')
 
     mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, privacy)
-    return index()
+    return redirect('/index')
 
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
@@ -274,7 +274,7 @@ def requestfriend():
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
-    return friendscreen()
+    return redirect('/friendscreen')
 
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
@@ -282,7 +282,7 @@ def removefriend():
     netid = request.args.get('netid')
     print("remove friendship " + str(username) + str(netid))
     mistdb.remove_friendship(username, netid)
-    return friendscreen()
+    return redirect('/friendscreen')
 
 def headerstring():
     calstring = "<!DOCTYPE html> "

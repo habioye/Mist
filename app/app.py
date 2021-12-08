@@ -120,38 +120,53 @@ def logout():
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    username = authenticate()
+        username = authenticate()
 
-    startdate = request.args.get("start")
-    enddate = request.args.get("end")
-    option = request.args.get("option")
+        startdate = request.args.get("start")
+        enddate = request.args.get("end")
+        option = request.args.get("option")
 
-    if startdate is None or startdate == '':
-        startdate = "-infinity"
-    if enddate is None or enddate == '':
-        enddate = "infinity"
-    points = []
-    if option == "friends":
-        friendlist = mistdb.friends_query(username)
-        friendslist = friendslist[1]
-        for friendID in friendslist:
-            package = mistdb.private_query(startdate, enddate,username, friendID)
-            package = package[1]
-            points.extend(package)
+        if startdate is None or startdate == '':
+            startdate = "-infinity"
+        if enddate is None or enddate == '':
+            enddate = "infinity"
+        points = []
+        if option == "friends":
+            friendlist = mistdb.friends_query(username)
+            friendslist = friendslist[1]
+            for friendID in friendslist:
+                package = mistdb.private_query(startdate, enddate,username, friendID)
+                package = package[1]
+                points.extend(package)
 
-    if option == "public":
-        points = mistdb.public_query(startdate, enddate)
-        points = points[1]
+        if option == "public":
+            points = mistdb.public_query(startdate, enddate)
+            points = points[1]
 
-    if option == "all":
-        points = mi stdb.public_query(startdate, enddate)
-        points = points[1]
-        friendlist = mistdb.friends_query(username)
-        friendslist = friendslist[1]
-        for friendID in friendslist:
-            package = mistdb.private_query(startdate, enddate,username, friendID)
-            package = package[1]
-            points.extend(package)
+        if option == "all":
+            points = mi stdb.public_query(startdate, enddate)
+            points = points[1]
+            friendlist = mistdb.friends_query(username)
+            friendslist = friendslist[1]
+            for friendID in friendslist:
+                package = mistdb.private_query(startdate, enddate,username, friendID)
+                package = package[1]
+                points.extend(package)
+
+    # if package[0] == False:
+        # print(package[1])
+    # else:
+        # print(package[1])
+        # package = dumps(package[1])
+    # There should be an exception thrown for the package data.
+    names = mistdb.user_query(username)
+    names = names[1]
+
+    html = render_template("testmap.html", eventData = points, userData = names)
+
+    response = make_response(html)
+
+    return response
 
 @app.route('/inputpage', methods = ['GET'])
 def input():

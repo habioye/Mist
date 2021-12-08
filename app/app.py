@@ -203,9 +203,17 @@ def details():
         print(package[1])
     details = package[1]
     start = str(details[0][3])
-    start = start[:4]
+    start = start[:5]
+    if(int(start[:2]) > 12):
+        start = start + " PM"
+    else:
+        start = start + " AM"
     end = str(details[0][4])
-    end = end[:4]
+    end = end[:5]
+    if(int(start[:2]) > 12):
+        start = start + " PM"
+    else:
+        start = start + " AM"
     time = start + " - " + end
     html = render_template('details.html', details = details, time = time)
     response = make_response(html)

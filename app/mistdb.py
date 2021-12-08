@@ -723,8 +723,7 @@ def search_query(search, netID ):
                                 OR  LOWER(userName) LIKE LOWER(%s)
                                 AND userID NOT IN (SELECT  friends.friendID
                                                 FROM    friends
-                                                WHERE   friends.userID = %s
-                                                ORDER BY    friendID ) '''
+                                                WHERE   friends.userID = %s ) '''
 
                 cursor.execute(stmt_str, (search, search, netID))
                 names = cursor.fetchall()

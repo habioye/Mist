@@ -719,8 +719,8 @@ def search_query(search, netID ):
                 stmt_str = '''  SELECT  userID,
                                         userName
                                 FROM    userNames
-                                WHERE userID LIKE %s
-                                OR  LOWER(userName) LIKE LOWER(%s)
+                                WHERE (userID LIKE %s
+                                OR  LOWER(userName) LIKE LOWER(%s))
                                 AND userID NOT IN (SELECT  friends.friendID
                                                 FROM    friends
                                                 WHERE   friends.userID = %s ) '''

@@ -152,10 +152,15 @@ def index():
         if option == "all":
             points = mistdb.public_query(startdate, enddate)
             points = points[1]
+
+            package = mistdb.private_query(startdate, enddate, username)
+            package = package[1]
+            points.extend(package)
+            
             friendslist = mistdb.friends_query(username)
             friendslist = friendslist[1]
             for friendID in friendslist:
-                package = mistdb.private_query(startdate, enddate,username, friendID)
+                package = mistdb.private_query(startdate, enddate, friendID)
                 package = package[1]
                 points.extend(package)
 

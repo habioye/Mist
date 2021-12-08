@@ -206,8 +206,7 @@ def private_query(start, end, friendid):
     try:
         with conn:
             cursor = conn.cursor()
-            print(start)
-            print(end)
+            
 
             with closing(conn.cursor()) as cursor:
 

@@ -126,6 +126,9 @@ def index():
         enddate = request.args.get("end")
         option = request.args.get("option")
 
+        if option is None or option == '':
+            option = "all"
+
         if startdate is None or startdate == '':
             startdate = "-infinity"
         if enddate is None or enddate == '':

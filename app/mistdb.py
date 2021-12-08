@@ -709,7 +709,7 @@ def remove_particpant(event_id, participant):
         result = [False, error_msg]
         return result
 
-def search_query(netID):
+def search_query(search, netID ):
     try:
         with conn:
             cursor = conn.cursor()
@@ -720,9 +720,13 @@ def search_query(netID):
                                         userName
                                 FROM    userNames
                                 WHERE userID LIKE %s
-                                OR  LOWER(userName) LIKE LOWER(%s) '''
+                                OR  LOWER(userName) LIKE LOWER(%s)
+                                AND userID NOT IN (SELECT  friends.friendID
+                                                FROM    friends
+                                                WHERE   friends.userID = %s
+                                                ORDER BY    friendID ) '''
 
-                cursor.execute(stmt_str, (netID,netID))
+                cursor.execute(stmt_str, (search, search, netID))
                 names = cursor.fetchall()
 
                 return [True, names]

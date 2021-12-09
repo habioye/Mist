@@ -564,6 +564,7 @@ def calendar():
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():
     netid = session.get('username')
+    print(netid)
     firstname = request.args.get('firstname')
     lastname = request.args.get('lastname')
     user_data = mistdb.user_query(netid)

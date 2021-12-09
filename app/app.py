@@ -554,7 +554,16 @@ def calendar():
 
     #calstring = calstringmaker(today)
     # uses a div implementation for the calendar.
-    calstring = divcalstringmaker(today)
+    
+    
+    
+    
+    
+    #calstring = divcalstringmaker(today)
+    calstring = "<div> test</div>"
+    
+    
+    
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -664,29 +673,30 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
-    day = int(request.args.get('day'))
-    month = int(request.args.get('month'))
-    year = int(request.args.get('year'))
-    date = dateformat(year, month, day)
-    events = mistdb.date_query(date)
-    eventstring = "<div>"
-    if events[0] is False:
-        eventstring += "\n"
-        eventstring += "A server error occurred. "
-        eventstring += "Please contact the system administrator."
-        eventstring += "</div>"
-        return eventstring
-    else:
-        for eventinformation in events[1]:
-            eventstring += "\n"
-            eventstring += "<a href = eventinfo?eventID="
-            eventstring += str(eventinformation[0]) + "&eventName="
-            eventstring += str(eventinformation[1]) + "&eventLocation="
-            eventstring += str(eventinformation[2]) + "&startTime="
-            eventstring += str(eventinformation[3]) + "&endTime="
-            eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-            eventstring += str(eventinformation[1]) + "</a>"
-    eventstring += "</div>"
+    eventstring = "<div> test</div>"
+    # day = int(request.args.get('day'))
+    # month = int(request.args.get('month'))
+    # year = int(request.args.get('year'))
+    # date = dateformat(year, month, day)
+    # events = mistdb.date_query(date)
+    # eventstring = "<div>"
+    # if events[0] is False:
+    #     eventstring += "\n"
+    #     eventstring += "A server error occurred. "
+    #     eventstring += "Please contact the system administrator."
+    #     eventstring += "</div>"
+    #     return eventstring
+    # else:
+    #     for eventinformation in events[1]:
+    #         eventstring += "\n"
+    #         eventstring += "<a href = eventinfo?eventID="
+    #         eventstring += str(eventinformation[0]) + "&eventName="
+    #         eventstring += str(eventinformation[1]) + "&eventLocation="
+    #         eventstring += str(eventinformation[2]) + "&startTime="
+    #         eventstring += str(eventinformation[3]) + "&endTime="
+    #         eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+    #         eventstring += str(eventinformation[1]) + "</a>"
+    # eventstring += "</div>"
     return eventstring
 
 

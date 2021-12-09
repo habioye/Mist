@@ -76,21 +76,20 @@
               Menu
           </a>
           <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Map</a>
-              <a class="dropdown-item" href="#">Calendar</a>
-              <a class="dropdown-item" href="#">Create Events</a>
-              <a class="dropdown-item" href="#">Friend Search</a>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="index">Map</a>
+              <a class="dropdown-item" href="calendar">Calendar</a>
+              <a class="dropdown-item" href="inputpage">Create Events</a>
+              <a class="dropdown-item" href="friendscreen">Friend Search</a>
           </div>
         </li>
       </ul>
 
         <span class="navbar-text ml-auto">
-          {{userData[0][0]}}
+          {{userData[0][0]}}  <a href = "logout"> logout</a></h2>
         </span>
       </ul>
     </nav>
-    <div class="container-fluid" style="margin-top:80px"></div>
+    <!-- <div class="container-fluid" style="margin-top:80px"></div>
       <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
         <div class="row" style="background-color:rgb(255, 143, 0);">
           <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
@@ -113,9 +112,9 @@
       </form>
 
       <form  action = "friendscreen" method = "get">
+      </div> -->
       <input type="submit", id = "friend" value = "View Friends">
       </form>
-      </div>
     <h3>Filter Events:</h3>
     <form action = "index" method = "get">
       <div>
@@ -213,40 +212,59 @@
            }
          )
         })
-        const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
-        markerCluster.addListener("click", () => {
-          console.log(markerCluster);
-            var markers = cluster[0].markers_;
-            var html = "Points:";
-            for(var i = 0; i < markers.length; i++){
+        var mcOptions = {zoomOnClick: false, minimumClusterSize: 2};
+        const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
+        markerCluster.setZoomOnClick(false);
+        google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+          var markers = cluster.getMarkers();
+          console.log(markers);
+          var html = "Points:";
+          for(var i = 0; i < markers.length; i++){
               html += "<br>";
               html += markers[i].getContent();
             }
-            const infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent(html);
-            infoWindow.open(markers[0].getMap(), markers[0]);
+          console.log(html)
+          const infoWindow2 = new google.maps.InfoWindow();
+          infoWindow2.setContent(html);
+          infoWindow2.open(markers[0].getMap(), markers[0]);
 
-          }
-       );
+        });
+       //  markerCluster.addListener("click", () => {
+       //    console.log(markerCluster);
+       //    var clusters = markerCluster.clusters;
+       //    if (clusters.length == 1 && clusters[0].markers_.length > 1){
+       //
+       //      var markers = cluster[0].markers;
+       //      var html = "Points:";
+       //      for(var i = 0; i < markers.length; i++){
+       //        html += "<br>";
+       //        html += markers[i].getContent();
+       //      }
+       //      const infoWindow = new google.maps.InfoWindow();
+       //      infoWindow.setContent(html);
+       //      infoWindow.open(markers[0].getMap(), markers[0]);
+       //      }
+       //    }
+       // );
 
     }
 
 
-      function multiChoice(markerCluster){
-          var cluster = markerCluster.clusters_;
-          if(cluster[0].markers_.length > 1 && cluster.length == 1){
-            var markers = cluster[0].markers_;
-            var html = "Points:";
-            for(var i = 0; i < markers.length; i++){
-              html += "<br>";
-              html += markers[i].getContent();
-            }
-            const infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent(html);
-            infoWindow.open(markers[0].getMap(), markers[0]);
-            }
-          }
-
+      // function multiChoice(markerCluster){
+      //     var cluster = markerCluster.clusters_;
+      //     if(cluster[0].markers_.length > 1 && cluster.length == 1){
+      //       var markers = cluster[0].markers_;
+      //       var html = "Points:";
+      //       for(var i = 0; i < markers.length; i++){
+      //         html += "<br>";
+      //         html += markers[i].getContent();
+      //       }
+      //       const infoWindow = new google.maps.InfoWindow();
+      //       infoWindow.setContent(html);
+      //       infoWindow.open(markers[0].getMap(), markers[0]);
+      //       }
+      //     }
+      //
 
   </script>
 
@@ -265,7 +283,7 @@
 
 
 
-      {% if eventData != None %}
+      {% if master != None %}
       <table>
         <tr>
           <th align="left">Event ID</th>
@@ -273,7 +291,7 @@
           <th align="left">Location</th>
           <th align="left">Coordinates</th>
         </tr>
-        {% for event in eventData %}
+        {% for event in master %}
         <tr>
           <td>{{event[0]}}</td>
           <td>{{event[1]}}</td>

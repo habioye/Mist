@@ -216,7 +216,7 @@
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
         markerCluster.addListener("click", () => {
           var cluster = markerCluster.clusters_;
-          if(cluster[0].markers_.length > 1 && cluster.length == 1){
+          console.log(cluster);
             var markers = cluster[0].markers_;
             var html = "Points:";
             for(var i = 0; i < markers.length; i++){
@@ -226,7 +226,7 @@
             const infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(html);
             infoWindow.open(markers[0].getMap(), markers[0]);
-            }
+
           }
        );
 

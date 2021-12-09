@@ -48,6 +48,43 @@
         box-shadow: 0 5px #666;
         transform: translateY(2px);
         }
+        .sidenav {
+          height: 100%; /* Full-height: remove this if you want "auto" height */
+          width: 160px; /* Set the width of the sidebar */
+          position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+          z-index: 1; /* Stay on top */
+          top: 0; /* Stay at the top */
+          left: 0;
+          background-color: #111; /* Black */
+          overflow-x: hidden; /* Disable horizontal scroll */
+          padding-top: 20px;
+        }
+
+        /* The navigation menu links */
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #818181;
+          display: block;
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover {
+          color: #f1f1f1;
+        }
+
+        /* Style page content */
+        .main {
+          margin-left: 160px; /* Same as the width of the sidebar */
+          padding: 0px 10px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
       </style>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -89,8 +126,8 @@
         </span>
       </ul>
     </nav>
-    <!-- <div class="container-fluid" style="margin-top:80px"></div>
-      <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
+    <div class="container-fluid" style="margin-top:80px"></div>
+      <!-- <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
         <div class="row" style="background-color:rgb(255, 143, 0);">
           <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
             <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
@@ -112,10 +149,18 @@
       </form>
 
       <form  action = "friendscreen" method = "get">
-      </div> -->
+      </div>
       <input type="submit", id = "friend" value = "View Friends">
-      </form>
-    <h3>Filter Events:</h3>
+      </form> -->
+      
+      <div class="sidenav">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+      
+    <!--<h3>Filter Events:</h3>
     <form action = "index" method = "get">
       <div>
         <input type="radio" id="all" name="option" value="all"
@@ -143,9 +188,8 @@
       <input type="submit", id = "filter" value = "Apply Filter">
       <input type ="reset", id = "reset" value = "Reset Filter">
       </div>
-    </form>
+    </form>-->
     <br>
-
       <div id = "map"></div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
       </script>
@@ -302,7 +346,7 @@
       </table>
       {% endif %}
       <hr>
-      Created by Benjamin Nadon, Anthony Gartner, Hassan Aboiye, and Nicholas Cabrera </a>.
+      Created by Benjamin Nadon, Anthony Gartner, Hassan Abioye, and Nicholas Cabrera </a>.
       <hr>
 
    </body>

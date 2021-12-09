@@ -302,6 +302,8 @@ def removefriend():
     mistdb.remove_friendship(username, netid)
     return redirect('/friendscreen')
 
+
+## creates the html document string to roughly create entire template.
 def headerstring():
     calstring = "<!DOCTYPE html> "
     calstring += "<html> "
@@ -339,6 +341,8 @@ def dateformat(year, month, day):
     datestring = str(year).zfill(4) + "-" + str(month).zfill(2) + "-" + str(day).zfill(2)
     return datestring
 
+
+# gives event info when you click a link to an event.
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
     eventID = request.args.get('eventID')
@@ -353,154 +357,155 @@ def eventinfo():
     return response
     # check when there is no such eventinfo
 
-def altcalstring(currcal):
-    month = currcal.get_month()
-    year = currcal.get_year()
-    daycount = currcal.get_monthlength()
-    firstday = currcal.get_first_day()
-    firstday = firstday % 7
-    firstday = firstday + 1
-    calstring = "<table class=\"table table-bordered table-hover\">"
-    calstring += "<tr style=\"background-color:black;color:white;\">"
-    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    datetime_object = datetime.datetime.strptime(str(month), "%m")
-    month_name = datetime_object.strftime("%B")
-    calstring += month_name
-    calstring += " "
-    calstring += str(year)
-    calstring += "</h3></th>"
-    calstring += "</tr>"
-    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-    calstring += "<th>Su</th>"
-    calstring += "<th>Mo</th>"
-    calstring += "<th>Tu</th>"
-    calstring += "<th>We</th>"
-    calstring += "<th>Th</th>"
-    calstring += "<th>Fr</th>"
-    calstring += "<th>Sa</th>"
-    calstring += "</tr>"
-    calstring += ""
-    calstring += ""
-    calstring += ""
-    currcount = -1 * firstday
-    currcount = currcount + 2
-    weekcount = 0
-    rangevalue = daycount + abs(currcount) + 1
-    for i in range(rangevalue):
-      if weekcount == 0:
-         calstring += "<tr>"
-      calstring += "<td>"
-      if currcount > 0:
-         calstring += str(currcount)
-        #  calstring += "\n"
-         date = dateformat(year, month, currcount)
-         events = mistdb.date_query(date)
-         # check if there is equal to false.
-         if events[0] is False:
-             calstring += "\n"
-             calstring += "A server error occurred. "
-             calstring += "Please contact the system administrator."
-         else:
-            for eventinformation in events[1]:
-                calstring += "\n"
-                calstring += "<a href = eventinfo?eventID="
-                calstring += str(eventinformation[0]) + "&eventName="
-                calstring += str(eventinformation[1]) + "&eventLocation="
-                calstring += str(eventinformation[2]) + "&startTime="
-                calstring += str(eventinformation[3]) + "&endTime="
-                calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-                calstring += str(eventinformation[1]) + "</a>"
-      calstring += "</td>"
-      currcount+=1
-      weekcount += 1
-      if weekcount == 7:
-         calstring += "</tr>"
-         weekcount = 0
-    if weekcount != 0:
-      calstring += "</tr>"
-    calstring += "</table>"
+# creates an a calendar body based on using a table implementation.
+# def altcalstring(currcal):
+#     month = currcal.get_month()
+#     year = currcal.get_year()
+#     daycount = currcal.get_month_length()
+#     firstday = currcal.get_first_day()
+#     firstday = firstday % 7
+#     firstday = firstday + 1
+#     calstring = "<table class=\"table table-bordered table-hover\">"
+#     calstring += "<tr style=\"background-color:black;color:white;\">"
+#     calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+#     datetime_object = datetime.datetime.strptime(str(month), "%m")
+#     month_name = datetime_object.strftime("%B")
+#     calstring += month_name
+#     calstring += " "
+#     calstring += str(year)
+#     calstring += "</h3></th>"
+#     calstring += "</tr>"
+#     calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+#     calstring += "<th>Su</th>"
+#     calstring += "<th>Mo</th>"
+#     calstring += "<th>Tu</th>"
+#     calstring += "<th>We</th>"
+#     calstring += "<th>Th</th>"
+#     calstring += "<th>Fr</th>"
+#     calstring += "<th>Sa</th>"
+#     calstring += "</tr>"
+#     calstring += ""
+#     calstring += ""
+#     calstring += ""
+#     currcount = -1 * firstday
+#     currcount = currcount + 2
+#     weekcount = 0
+#     rangevalue = daycount + abs(currcount) + 1
+#     for i in range(rangevalue):
+#       if weekcount == 0:
+#          calstring += "<tr>"
+#       calstring += "<td>"
+#       if currcount > 0:
+#          calstring += str(currcount)
+#         #  calstring += "\n"
+#          date = dateformat(year, month, currcount)
+#          events = mistdb.date_query(date)
+#          # check if there is equal to false.
+#          if events[0] is False:
+#              calstring += "\n"
+#              calstring += "A server error occurred. "
+#              calstring += "Please contact the system administrator."
+#          else:
+#             for eventinformation in events[1]:
+#                 calstring += "\n"
+#                 calstring += "<a href = eventinfo?eventID="
+#                 calstring += str(eventinformation[0]) + "&eventName="
+#                 calstring += str(eventinformation[1]) + "&eventLocation="
+#                 calstring += str(eventinformation[2]) + "&startTime="
+#                 calstring += str(eventinformation[3]) + "&endTime="
+#                 calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+#                 calstring += str(eventinformation[1]) + "</a>"
+#       calstring += "</td>"
+#       currcount+=1
+#       weekcount += 1
+#       if weekcount == 7:
+#          calstring += "</tr>"
+#          weekcount = 0
+#     if weekcount != 0:
+#       calstring += "</tr>"
+#     calstring += "</table>"
 
 
 
+# creates a full calendar body based on using a table implementation
+# def calstringmaker(currcal):
+#     #currcal = mistcalendar.mistCalender(month,year)
+#     month = currcal.get_month()
+#     year = currcal.get_year()
+#     daycount = currcal.get_month_length()
+#     firstday = currcal.get_first_day()
+#     firstday = firstday % 7
+#     firstday = firstday + 1
+#     calstring = headerstring()
+#     calstring += "<table class=\"table table-bordered table-hover\">"
+#     calstring += "<tr style=\"background-color:black;color:white;\">"
+#     calstring += "<th colspan=\"7\"><h3 align=\"center\">"
+#     datetime_object = datetime.datetime.strptime(str(month), "%m")
+#     month_name = datetime_object.strftime("%B")
+#     calstring += month_name
+#     calstring += " "
+#     calstring += str(year)
+#     calstring += "</h3></th>"
+#     calstring += "</tr>"
+#     calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
+#     calstring += "<th>Su</th>"
+#     calstring += "<th>Mo</th>"
+#     calstring += "<th>Tu</th>"
+#     calstring += "<th>We</th>"
+#     calstring += "<th>Th</th>"
+#     calstring += "<th>Fr</th>"
+#     calstring += "<th>Sa</th>"
+#     calstring += "</tr>"
+#     calstring += ""
+#     calstring += ""
+#     calstring += ""
+#     currcount = -1 * firstday
+#     currcount = currcount + 2
+#     weekcount = 0
+#     rangevalue = daycount + abs(currcount) + 1
+#     for i in range(rangevalue):
+#       if weekcount == 0:
+#          calstring += "<tr>"
+#       calstring += "<td>"
+#       if currcount > 0:
+#          calstring += str(currcount)
+#         #  calstring += "\n"
+#          date = dateformat(year, month, currcount)
+#          events = mistdb.date_query(date)
+#          # check if there is equal to false.
+#          if events[0] is False:
+#              calstring += "\n"
+#              calstring += "A server error occurred. "
+#              calstring += "Please contact the system administrator."
+#          else:
+#             for eventinformation in events[1]:
+#                 calstring += "\n"
+#                 calstring += "<a href = eventinfo?eventID="
+#                 event_id = eventinformation[0]
+#                 eventstuff = mistdb.details_query(event_id)
+#                 if eventstuff[0]:
+#                     calstring += "\n"
+#                     calstring += "<a href = eventinfo?eventID="
+#                     calstring += str(eventinformation[0]) + "&eventName="
+#                     calstring += str(eventinformation[1]) + "&eventLocation="
+#                     calstring += str(eventinformation[2]) + "&startTime="
+#                     calstring += str(eventinformation[3]) + "&endTime="
+#                     calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+#                     calstring += str(eventinformation[1]) + "</a>"
 
-def calstringmaker(currcal):
-    #currcal = mistcalendar.mistCalender(month,year)
-    month = currcal.get_month()
-    year = currcal.get_year()
-    daycount = currcal.get_monthlength()
-    firstday = currcal.get_first_day()
-    firstday = firstday % 7
-    firstday = firstday + 1
-    calstring = headerstring()
-    calstring += "<table class=\"table table-bordered table-hover\">"
-    calstring += "<tr style=\"background-color:black;color:white;\">"
-    calstring += "<th colspan=\"7\"><h3 align=\"center\">"
-    datetime_object = datetime.datetime.strptime(str(month), "%m")
-    month_name = datetime_object.strftime("%B")
-    calstring += month_name
-    calstring += " "
-    calstring += str(year)
-    calstring += "</h3></th>"
-    calstring += "</tr>"
-    calstring += "<tr style=\"background-color: rgb(110, 110, 110);\">"
-    calstring += "<th>Su</th>"
-    calstring += "<th>Mo</th>"
-    calstring += "<th>Tu</th>"
-    calstring += "<th>We</th>"
-    calstring += "<th>Th</th>"
-    calstring += "<th>Fr</th>"
-    calstring += "<th>Sa</th>"
-    calstring += "</tr>"
-    calstring += ""
-    calstring += ""
-    calstring += ""
-    currcount = -1 * firstday
-    currcount = currcount + 2
-    weekcount = 0
-    rangevalue = daycount + abs(currcount) + 1
-    for i in range(rangevalue):
-      if weekcount == 0:
-         calstring += "<tr>"
-      calstring += "<td>"
-      if currcount > 0:
-         calstring += str(currcount)
-        #  calstring += "\n"
-         date = dateformat(year, month, currcount)
-         events = mistdb.date_query(date)
-         # check if there is equal to false.
-         if events[0] is False:
-             calstring += "\n"
-             calstring += "A server error occurred. "
-             calstring += "Please contact the system administrator."
-         else:
-            for eventinformation in events[1]:
-                calstring += "\n"
-                calstring += "<a href = eventinfo?eventID="
-                event_id = eventinformation[0]
-                eventstuff = mistdb.details_query(event_id)
-                if eventstuff[0]:
-                    calstring += "\n"
-                    calstring += "<a href = eventinfo?eventID="
-                    calstring += str(eventinformation[0]) + "&eventName="
-                    calstring += str(eventinformation[1]) + "&eventLocation="
-                    calstring += str(eventinformation[2]) + "&startTime="
-                    calstring += str(eventinformation[3]) + "&endTime="
-                    calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-                    calstring += str(eventinformation[1]) + "</a>"
 
-
-      calstring += "</td>"
-      currcount+=1
-      weekcount += 1
-      if weekcount == 7:
-         calstring += "</tr>"
-         weekcount = 0
-    if weekcount != 0:
-      calstring += "</tr>"
-    calstring += "</table>"
-    calstring += "</body>"
-    calstring += "</html>"
-    return calstring
+#       calstring += "</td>"
+#       currcount+=1
+#       weekcount += 1
+#       if weekcount == 7:
+#          calstring += "</tr>"
+#          weekcount = 0
+#     if weekcount != 0:
+#       calstring += "</tr>"
+#     calstring += "</table>"
+#     calstring += "</body>"
+#     calstring += "</html>"
+#     return calstring
 
 
 @app.route('/calendar', methods=['GET'])
@@ -512,35 +517,45 @@ def calendar():
     # else:
     #     package = package[1]
     #
-    data = []
+    #data = []
     # for event in package:
     #     details = mistdb.details_query(event[0])
     #     if details[0]:
     #         data.push(details[1])
     #     else:
     #         print(details[1])
+    
     month = request.args.get('month')
     year = request.args.get('year')
-    if month is None or year is None:
+    if month is None and year is None:
         today = mistcalendar.mistCalendar(None, None)
+    elif month is None or year is None:
+        print("ValueError: inconsistent input to calendar",file= stderr)
+        html = render_template("error.html", error_type="Value Error", error_message="inconsistent input to calendar")
+        response = make_response(html)
+        return response
     else:
         today = mistcalendar.mistCalendar(month,year)
+    
+    
+
+    # Decommisioned since we can assume that js will give us the right month and year combination.
+    # dynamicnumber = request.args.get('dynamicstate')
+    # if dynamicnumber is not None:
+    #      if dynamicnumber == 1:
+    #          today.previous_year()
+    #      if dynamicnumber == 2:
+    #          today.previous_month()
+    #      if dynamicnumber == 3:
+    #          today.next_month()
+    #      if dynamicnumber == 4:
+    #          today.next_year()
 
 
-    dynamicnumber = request.args.get('dynamicstate')
-    if dynamicnumber is not None:
-         if dynamicnumber == 1:
-             today.previous_year()
-         if dynamicnumber == 2:
-             today.previous_month()
-         if dynamicnumber == 3:
-             today.next_month()
-         if dynamicnumber == 4:
-             today.next_year()
 
-
-
-    calstring = calstringmaker(today)
+    #calstring = calstringmaker(today)
+    # uses a div implementation for the calendar.
+    calstring = divcalstringmaker(today)
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"
@@ -563,6 +578,128 @@ def calendar():
     # response.set_cookie('year', today.get_year())
     return response
 
+def padding_from_first(first_day):
+    padding = first_day % 6
+    return padding
+
+def padd_next(padding, length):
+    next_padding = padding + length % 6
+    return next_padding
+    
+def divcalstringmaker(today):
+    padding_to = today.peek_previous_month_length()
+    month_length = today.get_month_length()
+    first_day = today.get_first_day()
+    padding = padding_from_first(first_day)
+    padding_next = padd_next(padding,month_length)
+    year = today.get_year()
+    month = today.get_month()
+    
+    calstring = "div class= \"container\""
+    calstring += "<div class=\"calendar\">"
+    calstring += "<div class=\"month\">"
+    #calstring += "<i class=\"fas fa-angle-left prev\"></i>"
+    calstring += "<div class=\"date\">"
+    calstring += "<h1></h1>"
+    calstring += "<p></p>"
+    calstring += "</div>"
+    #calstring += "<i class=\"fas fa-angle-right next\"></i>"
+    calstring += "</div>"
+    calstring += "<div class=\"weekdays\">"
+    calstring += "<div>Sun</div>"
+    calstring += "<div>Mon</div>"
+    calstring += "<div>Tue</div>"
+    calstring += "<div>Wed</div>"
+    calstring += "<div>Wed</div>"
+    calstring += "<div>Thu</div>"
+    calstring += "<div>Fri</div>"
+    calstring += "<div>Sat</div>"
+    calstring += "</div>"
+    calstring += "<div class=\"days\">"
+    for i in range(padding + month_length):
+        if i - padding < 0:
+            calstring +="<div class=\"prev-date\" id = >"
+            
+            calstring += str(padding_to - (padding - i) + 1)
+            calstring += "</div>"
+        else:
+            calstring += "<div class =\"days\" id = \"" + str(i+1) + "\" onclick = \"getPanelDetails(this.id)\">"
+            if today.is_today(i + 1, month, year):
+                calstring += "<div class=\"today\">"
+                calstring += str(i + 1)
+                calstring += "</div>"
+            else:
+                calstring += str(i + 1)
+            date = dateformat(year, month, i+1)
+            events = mistdb.date_query(date)
+            # check if there is equal to false.
+            if events[0] is False:
+                calstring += "\n"
+                calstring += "A server error occurred. "
+                calstring += "Please contact the system administrator."
+            else:
+                for eventinformation in events[1]:
+                    calstring += "\n"
+                    calstring += "< div class=\"event\">"
+                    calstring += "<a href = eventinfo?eventID="
+                    event_id = eventinformation[0]
+                    eventstuff = mistdb.details_query(event_id)
+                    if eventstuff[0]:
+                        calstring += "\n"
+                        calstring += "<a href = eventinfo?eventID="
+                        calstring += str(eventinformation[0]) + "&eventName="
+                        calstring += str(eventinformation[1]) + "&eventLocation="
+                        calstring += str(eventinformation[2]) + "&startTime="
+                        calstring += str(eventinformation[3]) + "&endTime="
+                        calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+                        calstring += str(eventinformation[1]) + "</a>"
+                    calstring += "</div>"
+            calstring += "</div>"
+            
+    for j in range(padding_next):
+        calstring += "<div class=\"next-date\">"
+        calstring += str(i + 1)
+        calstring += "</div>"
+    return calstring
+        
+    
+@app.route('/caldayinfo', methods=['GET'])
+def caldayinfo():
+    day = int(request.args.get('day'))
+    month = int(request.args.get('month'))
+    year = int(request.args.get('year'))
+    date = dateformat(year, month, day)
+    events = mistdb.date_query(date)
+    eventstring = "<div>"
+    if events[0] is False:
+        eventstring += "\n"
+        eventstring += "A server error occurred. "
+        eventstring += "Please contact the system administrator."
+        eventstring += "</div>"
+        return eventstring
+    else:
+        for eventinformation in events[1]:
+            eventstring += "\n"
+            eventstring += "<a href = eventinfo?eventID="
+            eventstring += str(eventinformation[0]) + "&eventName="
+            eventstring += str(eventinformation[1]) + "&eventLocation="
+            eventstring += str(eventinformation[2]) + "&startTime="
+            eventstring += str(eventinformation[3]) + "&endTime="
+            eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+            eventstring += str(eventinformation[1]) + "</a>"
+    eventstring += "</div>"
+    return eventstring
+        
+            
+            
+        
+    
+    
+    
+    
+    
+    
+    
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():
     netid = session.get('username')

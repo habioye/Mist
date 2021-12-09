@@ -190,7 +190,7 @@
       </div>
     </form>-->
     <br>
-      <div id = "map"></div>
+      <div id = "main"></div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
       </script>
       <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js">
@@ -219,11 +219,10 @@
         }
 
 
-        map = new google.maps.Map(document.getElementById("map"), {
+        map = new google.maps.Map(document.getElementById("main"), {
           center: { lat:40.34657, lng: -74.65631 },
           zoom: 16,
         });
-        map.setPadding(160, 0, 0, 0);
         const markers = [];
         const infoWindow = new google.maps.InfoWindow();
         let regex = /\d+/

@@ -217,14 +217,16 @@
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
         google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
           var markers = cluster.getMarkers();
+          console.log(markers);
           var html = "Points:";
           for(var i = 0; i < markers.length; i++){
               html += "<br>";
               html += markers[i].getContent();
             }
-            const infoWindow2 = new google.maps.InfoWindow();
-            infoWindow2.setContent(html);
-            infoWindow2.open(markers[0].getMap(), markers[0]);
+          console.log(html)
+          const infoWindow2 = new google.maps.InfoWindow();
+          infoWindow2.setContent(html);
+          infoWindow2.open(markers[0].getMap(), markers[0]);
 
         });
        //  markerCluster.addListener("click", () => {

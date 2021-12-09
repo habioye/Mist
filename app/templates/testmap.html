@@ -185,7 +185,7 @@
       }
 
       function multiChoice(markerCluster){
-          var cluster = markerCluster.clusters_;
+          let cluster = markerCluster.getClusters();
           if(cluster.length == 1 && cluster[0].markers_.length > 1){
             var markers = cluster[0].markers_;
             var html = "Points:";

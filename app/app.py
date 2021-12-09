@@ -252,7 +252,6 @@ def addinput():
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
     username = authenticate()
-    userid = 'getuserid'
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response
@@ -523,7 +522,7 @@ def calendar():
     #         data.push(details[1])
     #     else:
     #         print(details[1])
-    
+
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None and year is None:
@@ -535,8 +534,8 @@ def calendar():
         return response
     else:
         today = mistcalendar.mistCalendar(month,year)
-    
-    
+
+
 
     # Decommisioned since we can assume that js will give us the right month and year combination.
     # dynamicnumber = request.args.get('dynamicstate')
@@ -584,7 +583,7 @@ def padding_from_first(first_day):
 def padd_next(padding, length):
     next_padding = padding + length % 6
     return next_padding
-    
+
 def divcalstringmaker(today):
     padding_to = today.peek_previous_month_length()
     month_length = today.get_month_length()
@@ -593,7 +592,7 @@ def divcalstringmaker(today):
     padding_next = padd_next(padding,month_length)
     year = today.get_year()
     month = today.get_month()
-    
+
     calstring = "div class= \"container\""
     calstring += "<div class=\"calendar\">"
     calstring += "<div class=\"month\">"
@@ -618,7 +617,7 @@ def divcalstringmaker(today):
     for i in range(padding + month_length):
         if i - padding < 0:
             calstring +="<div class=\"prev-date\" id = >"
-            
+
             calstring += str(padding_to - (padding - i) + 1)
             calstring += "</div>"
         else:
@@ -654,14 +653,14 @@ def divcalstringmaker(today):
                         calstring += str(eventinformation[1]) + "</a>"
                     calstring += "</div>"
             calstring += "</div>"
-            
+
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"
         calstring += str(i + 1)
         calstring += "</div>"
     return calstring
-        
-    
+
+
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
     day = int(request.args.get('day'))
@@ -688,17 +687,17 @@ def caldayinfo():
             eventstring += str(eventinformation[1]) + "</a>"
     eventstring += "</div>"
     return eventstring
-        
-            
-            
-        
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():
     netid = session.get('username')

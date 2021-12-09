@@ -62,11 +62,11 @@
 
             'use strict';
             const today = new Date();
-            let month = today.getMonth() + 1;
-            let year = today.getFullYear();
+            var month = today.getMonth() + 1;
+            var year = today.getFullYear();
 
 
-            function getAmPm(){
+           /*function getAmPm(){
                 let dateTime = new Date();
                 let hours = dateTime.getHours();
                 let amPm = 'morning';
@@ -78,7 +78,7 @@
             function getDateTime(){
                 let dateTime = new Date();
                 $('#datetimeSpan').html(dateTime.toLocaleString());
-            }
+            } {% endcomment %}*/
 
             function handleCalendar(response){
                 $('#calendar_info').html(response);
@@ -101,28 +101,22 @@
                     {
                         type: 'GET',
                         url: url,
-                        success: handleCalend
+                        success: handleCalendar
                     }
                     );
             }
 
             function get_events(day_id) {
-                // $('#' + clicked_id).css("{background-color: red}")
-                let day = 0;
-                let month = 0;
-                let year = 0;
+
           
-                if (day_id === "today") {
-                  let today = new Date();
+                if (day_id == "today") {
                   day = String(today.getDate());
-                  month = String(today.getMonth() + 1);
-                  year = String(today.getFullYear());
                 }
                 else {
                   day = String(clicked_id);
                 }
           
-                let url = "/caldayinfo?day=" + day + "&month=" + str(month) + "&year=" + str(year);
+                let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);
           
                 if (ev_request != null) 
                   ev_request.abort();
@@ -141,7 +135,7 @@
                       month = 12;
                       year = year -1;
                   }
-              };
+              }
               function next_month() {
                   month = month + 1;
                   if(month == 13) {
@@ -150,11 +144,9 @@
 
                   }
               }
-
-
             function setup() {
                 getCalinfo();
-                getd_events();
+                get_events("today");
             }
             document.querySelector(".prev").addListener("click", ()=>{
                 prev_month();
@@ -164,9 +156,6 @@
                 next_month();
                 getCalinfo();
             });
-
-          
-
                 $('document').ready(setup);
 
         </script>

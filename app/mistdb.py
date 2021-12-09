@@ -444,9 +444,6 @@ def add_friendship(user_a, user_b):
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                print("FRIENDS DATA")
-                print(user_a)
-                print(user_b)
 
                 stmt_str = '''INSERT INTO friends (userID, friendID)
                     VALUES (%s, %s)'''
@@ -506,17 +503,26 @@ def friends_query(netID):
 
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
-                                WHERE   friends.userID = %s
+                                WHERE   friends.userID LIKE %s
                                 ORDER BY    friendID'''
-# '''  SELECT  friends.friendID,
-#                         userNames.userName
-#                 FROM    friends,
-#                         userNames
-#                 WHERE   friends.userID = %s
-#                 AND     friends.friendID = userNames.userID
-#                 ORDER BY    userName'''
+                # stmt_str = '''  SELECT  friends.friendID,
+                #                         userNames.userName
+                #                 FROM    friends,
+                #                         userNames
+                #                 WHERE   friends.userID LIKE %s
+                #                 AND     friends.friendID = userNames.userID
+                #                 ORDER BY    userName'''
                 cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
+
+                stmt_str = '''  SELECT  userName
+                                FROM    userNames
+                                WHERE   userID LIKE %s'''
+                data = list(data)
+                for person in data:
+                    id = '%' + person[0] + '%'
+                    cursor.execute(stmt_str, (id,))
+                    person[1] = cursor.fetchall()[0]
 
                 return [True, data]
 

@@ -213,7 +213,8 @@
            }
          )
         })
-        const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
+        var mcOptions = {zoomOnClick: false, minimumClusterSize: 2};
+        const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
         google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
           var markers = cluster.getMarkers;
           var html = "Points:";
@@ -221,9 +222,9 @@
               html += "<br>";
               html += markers[i].getContent();
             }
-            const infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent(html);
-            infoWindow.open(markers[0].getMap(), markers[0]);
+            const infoWindow2 = new google.maps.InfoWindow();
+            infoWindow2.setContent(html);
+            infoWindow2.open(markers[0].getMap(), markers[0]);
 
         });
        //  markerCluster.addListener("click", () => {

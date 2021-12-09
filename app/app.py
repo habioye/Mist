@@ -121,6 +121,8 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
         username = authenticate()
+        print("INDEX")
+        print(username)
 
         startdate = request.args.get("start")
         enddate = request.args.get("end")

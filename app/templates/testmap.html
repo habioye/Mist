@@ -152,14 +152,41 @@
       </div>
       <input type="submit", id = "friend" value = "View Friends">
       </form> -->
-      
+
       <div class="sidenav">
-        <a href="#">About</a>
+        <!-- <a href="#">About</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a href="#">Contact</a> -->
+        <form action = "index" method = "get">
+          <div>
+            <input type="radio" id="all" name="option" value="all"
+                   checked>
+            <label for="all">All</label>
+          </div>
+
+          <div>
+            <input type="radio" id="friends" name="option" value="friends">
+            <label for="friends">Friends</label>
+          </div>
+
+          <div>
+            <input type="radio" id="public" name="option" value="public">
+            <label for="public">Public</label>
+          </div>
+
+          <label for="startdate">Start Date:</label>
+          <input type="date" id="start" name="start">
+          <br>
+          <label for="enddate">End Date:</label>
+          <input type="date" id="end" name="end">
+          <br>
+          <div class = "row" style="padding-left: 20px;">
+          <input type="submit", id = "filter" value = "Apply Filter">
+          <input type ="reset", id = "reset" value = "Reset Filter">
+          </div>
       </div>
-      
+
     <!--<h3>Filter Events:</h3>
     <form action = "index" method = "get">
       <div>

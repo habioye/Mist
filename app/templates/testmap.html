@@ -215,8 +215,7 @@
         })
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
         markerCluster.addListener("click", () => {
-          var cluster = markerCluster.clusters_;
-          console.log(cluster);
+          console.log(markerCluster);
             var markers = cluster[0].markers_;
             var html = "Points:";
             for(var i = 0; i < markers.length; i++){

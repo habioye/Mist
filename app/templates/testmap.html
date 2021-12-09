@@ -282,7 +282,7 @@
 
 
 
-      {% if eventData != None %}
+      {% if master != None %}
       <table>
         <tr>
           <th align="left">Event ID</th>
@@ -290,7 +290,7 @@
           <th align="left">Location</th>
           <th align="left">Coordinates</th>
         </tr>
-        {% for event in eventData %}
+        {% for event in master %}
         <tr>
           <td>{{event[0]}}</td>
           <td>{{event[1]}}</td>

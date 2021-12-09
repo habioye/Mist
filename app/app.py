@@ -178,10 +178,10 @@ def index():
     # There should be an exception thrown for the package data.
         names = mistdb.user_query(username)
         names = names[1]
-        # points = mistdb.map_query(startdate,enddate)
-        # points = points[1]
+        master = mistdb.map_query(startdate,enddate)
+        master = master[1]
 
-        html = render_template("testmap.html", eventData = points, userData = names)
+        html = render_template("testmap.html", eventData = points, userData = names, master = master)
 
         response = make_response(html)
 

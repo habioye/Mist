@@ -121,8 +121,6 @@ def logout():
 @app.route('/index', methods=['GET'])
 def index():
         username = authenticate()
-        print("INDEX")
-        print(username)
 
         startdate = request.args.get("start")
         enddate = request.args.get("end")
@@ -227,8 +225,7 @@ def details():
 @app.route('/addinput')
 def addinput():
     username=authenticate()
-    print("ADD")
-    print(username)
+
     privacy = "PUBLIC"
     if(request.args.get('private') == 'on'):
         privacy = "PRIVATE"
@@ -705,7 +702,7 @@ def caldayinfo():
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():
     netid = session.get('username')
-    print(netid)
+
     firstname = request.args.get('firstname')
     lastname = request.args.get('lastname')
     user_data = mistdb.user_query(netid)

@@ -43,60 +43,11 @@
         <th colspan="7"><h3 align="center">November 2021</h3></th>
         </tr>
         <tr style="background-color: rgb(110, 110, 110);">
-        <th>Su</th>
-        <th>Mo</th>
-        <th>Tu</th>
-        <th>We</th>
-        <th>Th</th>
-        <th>Fr</th>
-        <th>Sa</th>
-        </tr>
-
-        <tr>
-        <td></td>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
-        </tr>
-
-        <tr>
-        <td>7</td>
-        <td>8</td>
-        <td>9</td>
-        <td>10</td>
-        <td>11</td>
-        <td>12</td>
-        <td>13</td>
-        </tr>
-
-        <tr>
-        <td>14</td>
-        <td>15</td>
-        <td>16</td>
-        <td>17</td>
-        <td>18</td>
-        <td>19</td>
-        <td>20</td>
-        </tr>
-
-        <tr>
-        <td>21</td>
-        <td>22</td>
-        <td>23</td>
-        <td>24</td>
-        <td>25</td>
-        <td>26</td>
-        <td>27</td>
-        </tr>
-
-        <tr>
-        <td>28</td>
-        <td>29</td>
-        <td>30</td>
-        </tr>
+        
+        <div class="container">
+            <div id="calendar_info"></div>
+            <div id="day_panel"></div>
+          </div>
 
         </table> -->
         <div class="footer">
@@ -106,10 +57,14 @@
         <script src=
             "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script>
-
+        
         <script>
 
             'use strict';
+            const today = new Date();
+            let month = today.getMonth() + 1;
+            let year = today.getFullYear();
+
 
             function getAmPm(){
                 let dateTime = new Date();
@@ -125,16 +80,17 @@
                 $('#datetimeSpan').html(dateTime.toLocaleString());
             }
 
-            function handleResponse(response){
-                $('#eventinfo').html(response);
+            function handleCalendar(response){
+                $('#calendar_info').html(response);
+            }
+            function handleDay(response){
+                $('#day_panel').html(response);
             }
 
             let request = null;
 
             function getCalinfo()
             {
-                    let author = $('#authorInput').val();
-                    author = encodeURIComponent(author);
                     // look at how you retrieve information
                     let url = '/calender';
 
@@ -145,24 +101,75 @@
                     {
                         type: 'GET',
                         url: url,
-                        success: handleResponse
+                        success: handleCalend
                     }
                     );
             }
 
-                function setup()
-                {
-                    getAmPm();
-                    window.setInterval(getAmPm, 1000);
-                    getDateTime();
-                    window.setInterval(getDateTime, 1000);
-                    getCalinfo();
-                    window.setInterval(getCalinfo, 1000);
-                    window.getMonth()
+            function get_events(day_id) {
+                // $('#' + clicked_id).css("{background-color: red}")
+                let day = 0;
+                let month = 0;
+                let year = 0;
+          
+                if (day_id === "today") {
+                  let today = new Date();
+                  day = String(today.getDate());
+                  month = String(today.getMonth() + 1);
+                  year = String(today.getFullYear());
                 }
+                else {
+                  day = String(clicked_id);
+                }
+          
+                let url = "/caldayinfo?day=" + day + "&month=" + str(month) + "&year=" + str(year);
+          
+                if (ev_request != null) 
+                  ev_request.abort();
+          
+                ev_request = $.ajax(
+                    {
+                        type: 'GET',
+                        url: url,
+                        success: handleDay
+                    }
+                );
+              }
+              function prev_month() {
+                  month = month - 1;
+                  if(month == 0) {
+                      month = 12;
+                      year = year -1;
+                  }
+              };
+              function next_month() {
+                  month = month + 1;
+                  if(month == 13) {
+                    month = 1;
+                    year += 1;
+
+                  }
+              }
+
+
+            function setup() {
+                getCalinfo();
+                getd_events();
+            }
+            document.querySelector(".prev").addListener("click", ()=>{
+                prev_month();
+                getCalinfo();
+            });
+            document.querySelector(".next").addListener("click", ()=> {
+                next_month();
+                getCalinfo();
+            });
+
+          
 
                 $('document').ready(setup);
 
         </script>
+
     </body>
 </html>

@@ -5,7 +5,7 @@ print("what")
 month = 12
 year = 2021
 currcal = mistcalender.mistCalender(12,2021)
-daycount = currcal.get_monthlength
+daycount = currcal.get_month_length
 firstday = currcal.get_first_day()
 firstday = firstday % 7
 firstday = firstday + 1

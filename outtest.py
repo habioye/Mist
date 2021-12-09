@@ -1,6 +1,4 @@
-from mistcalendar import mistCalendar
 import datetime
-import mistdb
 from datetime import date
 
 # def headerstring():

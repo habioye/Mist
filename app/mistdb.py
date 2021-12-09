@@ -65,8 +65,8 @@ def add_event_proto(title, x_coord, y_coord):
     except Exception as ex:
         error_msg = "A server error occurred in add_event_proto."
         error_msg +="Please contact the system administrator."
-        print(ex, file=stderr, end=" ")
-        print(error_msg, file=stderr)
+        print(ex, file = stderr, end=" ")
+        print(error_msg, file = stderr)
         result = [False, error_msg]
         return result
 
@@ -849,6 +849,7 @@ def tags_query(tag):
                 data = cursor.fetchall()
 
                 return [True, data]
+
 
     except Exception as ex:
         error_msg = "A server error occurred. "

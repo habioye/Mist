@@ -215,7 +215,7 @@
         })
         var mcOptions = {zoomOnClick: false, minimumClusterSize: 2};
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
-        google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+        google.maps.event.addListener(markerCluster, 'click', function(cluster) {
           var markers = cluster.getMarkers();
           console.log(markers);
           var html = "Points:";

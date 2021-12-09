@@ -227,6 +227,8 @@ def details():
 @app.route('/addinput')
 def addinput():
     username=authenticate()
+    print("ADD")
+    print(username)
     privacy = "PUBLIC"
     if(request.args.get('private') == 'on'):
         privacy = "PRIVATE"

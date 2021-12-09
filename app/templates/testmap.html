@@ -119,7 +119,7 @@
       </script>
       <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js">
       MarkerClusterer.prototype.onClick = function() {
-    return true; 
+    return true;
         };
 </script>
       <script >
@@ -184,8 +184,21 @@
         markerCluster.onClickZoom = function() { return multiChoice(markerCluster); }
       }
 
+      function multiChoice(markerCluster){
+          var cluster = markerCluster.clusters_;
+          if(cluster.length == 1 && cluster[0].markers_.length > 1){
+            var markers = cluster[0].markers_;
+            var html;
+            for(var i = 0; i < markers.length; i++){
+              html += "<br>"
+              html += markers[i].getContent();
+            }
+            const infoWindow = new google.maps.InfoWindow();
+            infoWindow.setContent(html);
+            infoWindow.open(markers[0].getMap(), markers[0]);
+            }
+          }
 
-  document.getElementById("submit").onclick =  initMap;
 
   </script>
 

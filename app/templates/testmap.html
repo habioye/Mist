@@ -181,7 +181,7 @@
          )
         })
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
-        markerCluster.setMaxZoom(30);
+        markerCluster.setMaxZoom(10);
         markerCluster.onClick = function() { return multiChoice(markerCluster); }
       }
 

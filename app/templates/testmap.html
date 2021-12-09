@@ -181,16 +181,17 @@
          )
         })
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
-        markerCluster.onClickZoom = function() { return multiChoice(markerCluster); }
+        markerCluster.setMaxZoom(30);
+        markerCluster.onClick = function() { return multiChoice(markerCluster); }
       }
 
       function multiChoice(markerCluster){
           var cluster = markerCluster.clusters_;
           if(cluster.length == 1 && cluster[0].markers_.length > 1){
             var markers = cluster[0].markers_;
-            var html;
+            var html = "Points:";
             for(var i = 0; i < markers.length; i++){
-              html += "<br>"
+              html += "<br>";
               html += markers[i].getContent();
             }
             const infoWindow = new google.maps.InfoWindow();

@@ -216,7 +216,7 @@
         var mcOptions = {zoomOnClick: false, minimumClusterSize: 2};
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
         google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
-          var markers = cluster.getMarkers;
+          var markers = cluster.getMarkers();
           var html = "Points:";
           for(var i = 0; i < markers.length; i++){
               html += "<br>";

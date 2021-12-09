@@ -214,23 +214,35 @@
          )
         })
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
-        markerCluster.addListener("click", () => {
-          console.log(markerCluster);
-          var clusters = markerCluster.clusters;
-          if (clusters.length == 1 && clusters[0].markers_.length > 1){
-
-            var markers = cluster[0].markers;
-            var html = "Points:";
-            for(var i = 0; i < markers.length; i++){
+        google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+          var markers = cluster.getMarkers;
+          var html = "Points:";
+          for(var i = 0; i < markers.length; i++){
               html += "<br>";
               html += markers[i].getContent();
             }
             const infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(html);
             infoWindow.open(markers[0].getMap(), markers[0]);
-            }
-          }
-       );
+
+        });
+       //  markerCluster.addListener("click", () => {
+       //    console.log(markerCluster);
+       //    var clusters = markerCluster.clusters;
+       //    if (clusters.length == 1 && clusters[0].markers_.length > 1){
+       //
+       //      var markers = cluster[0].markers;
+       //      var html = "Points:";
+       //      for(var i = 0; i < markers.length; i++){
+       //        html += "<br>";
+       //        html += markers[i].getContent();
+       //      }
+       //      const infoWindow = new google.maps.InfoWindow();
+       //      infoWindow.setContent(html);
+       //      infoWindow.open(markers[0].getMap(), markers[0]);
+       //      }
+       //    }
+       // );
 
     }
 

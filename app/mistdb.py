@@ -519,6 +519,7 @@ def friends_query(netID):
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
                 data = list(data)
+                print(data)
                 for person in data:
                     id = '%' + person[0] + '%'
                     cursor.execute(stmt_str, (id,))

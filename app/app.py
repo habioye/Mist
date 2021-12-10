@@ -571,6 +571,7 @@ def eventstringmaker(day,month,year):
     date = dateformat(year, month, day)
     events = mistdb.date_query(date)
 
+
     if events[0] is False:
         eventstring = "\n"
         eventstring += "A server error occurred. "
@@ -578,8 +579,10 @@ def eventstringmaker(day,month,year):
         eventstring += "</div>"
         return eventstring
     else:
-        for eventinformation in events[1]:
-            eventstring = "\n"
+        events = events[1]
+        eventstring = ""
+        for eventinformation in events:
+            eventstring += "\n"
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
             eventstring += "<a href = eventinfo?eventID="

@@ -123,19 +123,12 @@
 
                   }
               }
-
-            document.querySelector(".prev").addListener("click", ()=>{
-                prev_month();
-                getCalinfo();
-            });
-            document.querySelector(".next").addListener("click", ()=> {
-                next_month();
-                getCalinfo();
-            });
-                function setup() {
+            function setup() {
                 getCalinfo();
                 get_events("today");
             }
+
+
                 $('document').ready(setup);
 
         </script>

@@ -491,7 +491,7 @@ def divcalstringmaker(today):
                 calstring += str(calc_day)
                 calstring += "</div>"
             else:
-                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+                calstring += "<div class =\"day\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
                 calstring += str(calc_day)
                 calstring += "</div>"
 

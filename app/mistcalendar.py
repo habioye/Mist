@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------
-# calender.py
+# calendar.py
 # Author: Hassan Abioye
 #-----------------------------------------------------------------------
 from datetime import date
@@ -10,7 +10,7 @@ from sys import stderr
 
 
 
-# this calender class initializes to the current day. When ever you want to
+# this calendar class initializes to the current day. When ever you want to
 # switch between months it always start you at the first day of each month.
 # No matter what day you have you should always be able to access information
 # about the month and the year. The data will be iso format. This implies that date information will not start at 0 for days or months. This also implies that years will not have a year 0.

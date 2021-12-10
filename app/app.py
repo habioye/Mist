@@ -274,11 +274,11 @@ def getfriends():
 def getrequests():
     #userid = request.args.get('search')
     userid = authenticate()
-    package = mistdb.friends_query(userid)
+    package = mistdb.requests_query(userid)
     if package[0] is False:
         print(package[1])
     friendslist = package[1]
-    html = render_template('friendlist.html', friends = friendslist)
+    html = render_template('friendrequests.html', friends = friendslist)
     response = make_response(html)
     return response
 @app.route('/searchfriends', methods = ['GET'])
@@ -305,20 +305,22 @@ def requestfriend():
     mistdb.add_friendrequest(username, netid)
     return redirect('/friendscreen')
 
-@app.route("/addfriend", methods = ['GET']){
+@app.route("/addfriend", methods = ['GET'])
+def addfriend():
     username = authenticate()
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
     mistdb.remove_friendrequest(username, netid)
     return redirect('/friendscreen')
-}
-@app.route("/removerequest", method = ['GET']){
-username = authenticate()
-netid = request.args.get('netid')
-mistdb.remove_friendrequest(username, netid)
-return redirect('/friendscreen')
-}
+
+@app.route("/removerequest", method = ['GET'])
+def removerequest():
+    username = authenticate()
+    netid = request.args.get('netid')
+    mistdb.remove_friendrequest(username, netid)
+    return redirect('/friendscreen')
+
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
     username = authenticate()

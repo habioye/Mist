@@ -694,7 +694,7 @@ def divcalstringmaker(today):
                 calstring += str(i + 1 - padding)
                 calstring += "</div>"
             else:
-                calstring += str(i + 1)
+                calstring += str(i + 1 - padding)
             # date = dateformat(year, month, i+1)
             # events = mistdb.date_query(date)
             # # check if there is equal to false.
@@ -723,7 +723,7 @@ def divcalstringmaker(today):
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"
-        calstring += str(j)
+        calstring += str(j+1)
         calstring += "</div>"
     return calstring
 

@@ -524,10 +524,19 @@ def calendar():
     #     else:
     #         print(details[1])
 
+    
+    html = render_template("calendar.html")
+
+    response = make_response(html)
+
+    return response
+    
+@app.route('/calinfo', methods=['GET'])
+def calinfo():
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None and year is None:
-        today = mistcalendar.mistCalendar(None, None)
+        today = mistcalendar.mistCalendar("None", "None")
     elif month is None or year is None:
         print("ValueError: inconsistent input to calendar",file= stderr)
         html = render_template("error.html", error_type="Value Error", error_message="inconsistent input to calendar")

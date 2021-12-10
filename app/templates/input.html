@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
       <link rel="stylesheet" href=
         "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-      
+
        <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
    </head>
    <body>
@@ -39,7 +39,7 @@
       </ul>
 
         <span class="navbar-text ml-auto" style = "font-size: 1.5vw;">
-          <!--{{userData[0][0]}}--> USER  <a href = "logout"> logout</a>
+          {{username}} USER  <a href = "logout"> logout</a>
         </span>
 
     </nav>

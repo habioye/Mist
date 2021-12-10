@@ -190,7 +190,7 @@ def index():
 @app.route('/inputpage', methods = ['GET'])
 def input():
     username = authenticate()
-    html = render_template("input.html")
+    html = render_template("input.html", username = username)
 
     response = make_response(html)
 

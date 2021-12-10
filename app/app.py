@@ -294,14 +294,15 @@ def requestfriend():
     mistdb.add_friendrequest(username, netid)
     return redirect('/friendscreen')
 
-@app.route("/addfriend", methods = ['GET']){
+@app.route("/addfriend", methods = ['GET'])
+def addfriend():
     username = authenticate()
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
     mistdb.add_friendrequest(username, netid)
     return redirect('/friendscreen')
-}
+
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
     username = authenticate()
@@ -578,7 +579,7 @@ def calinfo():
 
 
     #calstring = divcalstringmaker(today)
-    calstring = "<p> calendar</p>"
+    #calstring = "<p> calendar</p>"
 
 
 

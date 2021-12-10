@@ -8,6 +8,14 @@
         <link rel="shortcut icon" type="image/x-icon" href="https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico" />
         <link rel="stylesheet" href=
         "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+            <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
         
    </head>
    <body>
@@ -88,10 +96,10 @@
 
           
                 if (day_id == "today") {
-                  day = String(today.getDate());
+                  var day = String(today.getDate());
                 }
                 else {
-                  day = String(day_id);
+                  var day = String(day_id);
                 }
           
                 let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);

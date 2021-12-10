@@ -624,7 +624,7 @@ def calinfo():
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
 
-    html = render_template("calform.html", stuff="wowow")
+    html = render_template("calform.html", days= "calstring")
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())
@@ -648,27 +648,7 @@ def divcalstringmaker(today):
     year = today.get_year()
     month = today.get_month()
 
-    calstring = "div class= \"container\""
-    calstring += "<div class=\"calendar\">"
-    calstring += "<div class=\"month\">"
-    #calstring += "<i class=\"fas fa-angle-left prev\"></i>"
-    calstring += "<div class=\"date\">"
-    calstring += "<h1></h1>"
-    calstring += "<p></p>"
-    calstring += "</div>"
-    #calstring += "<i class=\"fas fa-angle-right next\"></i>"
-    calstring += "</div>"
-    calstring += "<div class=\"weekdays\">"
-    calstring += "<div>Sun</div>"
-    calstring += "<div>Mon</div>"
-    calstring += "<div>Tue</div>"
-    calstring += "<div>Wed</div>"
-    calstring += "<div>Wed</div>"
-    calstring += "<div>Thu</div>"
-    calstring += "<div>Fri</div>"
-    calstring += "<div>Sat</div>"
-    calstring += "</div>"
-    calstring += "<div class=\"days\">"
+    calstring = "<div class=\"days\">"
     for i in range(padding + month_length):
         if i - padding < 0:
             calstring +="<div class=\"prev-date\" id = >"

@@ -498,8 +498,8 @@ def remove_friendrequest(requester, requestee):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM requests
-                                WHERE       requester = %s
-                                AND         requestee = %s'''
+                                WHERE       requester LIKE %s
+                                AND         requestee LIKE %s'''
 
                 cursor.execute(stmt_str, (requester, requestee))
 
@@ -525,8 +525,8 @@ def remove_friendship(user_a, user_b):
             with closing(conn.cursor()) as cursor:
 
                 stmt_str = '''  DELETE FROM friends
-                                WHERE       userID = %s
-                                AND         friendID = %s'''
+                                WHERE       userID LIKE %s
+                                AND         friendID LIKE %s'''
 
                 cursor.execute(stmt_str, (user_a, user_b))
                 cursor.execute(stmt_str, (user_b, user_a))
@@ -824,6 +824,7 @@ def remove_particpant(event_id, participant):
         return result
 
 def search_query(search, netID ):
+    netID = '%' + handle_plus(netID) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -837,7 +838,7 @@ def search_query(search, netID ):
                                 OR  LOWER(userName) LIKE LOWER(%s))
                                 AND userID NOT IN (SELECT  friends.friendID
                                                 FROM    friends
-                                                WHERE   friends.userID = %s) '''
+                                                WHERE   friends.userID LIKE %s) '''
 
                 cursor.execute(stmt_str, (search, search, netID))
                 names = cursor.fetchall()

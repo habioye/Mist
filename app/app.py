@@ -384,6 +384,7 @@ def dateformat(year, month, day):
 # gives event info when you click a link to an event.
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
+    username = authenticate()
     eventID = request.args.get('eventID')
     eventName = request.args.get('eventName')
     eventLocation = request.args.get('eventLocation')
@@ -425,6 +426,7 @@ def month_full(month):
 
 @app.route('/calinfo', methods=['GET'])
 def calinfo():
+    username = authenticate()
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None and year is None:
@@ -488,6 +490,7 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
+    username = authenticate()
     day = request.args.get("day")
     month = request.args.get("month")
     year = request.args.get("year")

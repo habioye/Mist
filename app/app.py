@@ -471,7 +471,6 @@ def divcalstringmaker(today, username):
     padding_next = padd_next(padding,month_length)
     year = today.get_year()
     month = today.get_month()
-    day = today.get_day()
 
     calstring = "<div class=\"days\">"
     for i in range(padding + month_length):

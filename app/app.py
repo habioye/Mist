@@ -351,7 +351,7 @@ def removerequest():
 def cancelrequest():
     username = authenticate()
     netid = request.args.get('netid')
-    mistdb.remove_friendrequest(username, username)
+    mistdb.remove_friendrequest(username, netid)
     return redirect('/friendscreen')
 
 @app.route("/removefriend", methods = ['GET'])

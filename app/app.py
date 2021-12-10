@@ -220,8 +220,9 @@ def details():
         start = str(int(start[:2]) - 12) + start[2:] + ' PM'
     else:
         start = start + " AM"
+
+    end = str(details[0][4])
     if end is not None:
-        end = str(details[0][4])
         end = end[:5]
         if(int(end[:2]) > 12):
             end = str(int(end[:2]) - 12) + end[2:] + " PM"

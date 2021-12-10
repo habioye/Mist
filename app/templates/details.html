@@ -25,7 +25,8 @@
     <br>
     {% if participants != none %}
       <strong>Interested Friends:</strong>
-      <table>
+      <table {border-spacing: 5px}>
+
         {% for participant in participants %}
           <tr>
             <td>{{ participant[1] }}</td>

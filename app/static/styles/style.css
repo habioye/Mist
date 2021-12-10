@@ -34,7 +34,7 @@ html {
 .calendar {
   width: 80rem;
   height: 60rem;
-  background-color: #2d2d3a;
+  background-color: #b8b8b8;
 
   margin: auto;
   display: flex;
@@ -44,7 +44,7 @@ html {
 .month {
   width: 100%;
   height: 12rem;
-  background-color: #d38c23;
+  background-color: #cec9c1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,7 +103,7 @@ html {
   width: 12%;
   height: 5rem;
   box-sizing: border-box;
-  background-color: #58bae4;
+  background-color: #17a2b8;
   margin: 5px;
 
   display: flex;

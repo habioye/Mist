@@ -501,6 +501,7 @@ def caldayinfo():
 
 
 def eventstringmaker(day,month,year):
+    username = authenticate()
 
     date = dateformat(year, month, day)
     events = mistdb.date_query(date)
@@ -521,7 +522,8 @@ def eventstringmaker(day,month,year):
             eventstring += "\n"
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
-            eventstring += "<a href = eventinfo?eventID="
+            eventstring += "<a href = eventinfo?username="
+            eventString += str(username) + "&eventID="
             eventstring += str(eventinformation[0]) + "&eventName="
             eventstring += str(eventinformation[1]) + "&eventLocation="
             eventstring += str(eventinformation[2]) + "&startTime="

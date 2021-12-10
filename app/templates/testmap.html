@@ -238,6 +238,11 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         let option = urlParams.get("option");
+        let start = urlParams.get("start");
+        let end = urlParams.get("end");
+
+        document.getElementById("startdate").value = start;
+        document.getElementById("enddate").value = end;
 
         if(option == "friends"){
           document.getElementById("friends").checked = true;

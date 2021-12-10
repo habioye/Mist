@@ -488,7 +488,7 @@ def add_friendrequest(requester, requestee):
             result = [False, error_msg]
             return result
 
-def remove_friendship(user_a, user_b):
+def remove_friendrequest(requester, requestee):
     try:
         with conn:
             cursor = conn.cursor()

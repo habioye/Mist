@@ -513,7 +513,7 @@ def eventstringmaker(day,month,year):
     date = dateformat(year, month, day)
     print('DATE')
     print(date)
-    events = mistdb.date_query(date)
+    events = mistdb.date_query(date, username)
     eventstring = ""
 
 

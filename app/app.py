@@ -235,9 +235,16 @@ def details():
         participants = participants[1]
         if len(participants) == 0:
             participants = None
-    html = render_template('details.html', details = details, start = start, end = end, participants = participants)
+    html = render_template('details.html', details = details, start = start, username = username, participants = participants)
     response = make_response(html)
     return response
+
+@app.route('/deleteevent')
+def delete():
+    username = authenticate()
+    eventid = request.args.get('eventid')
+    mistdb.remove_by_id(str(eventid))
+    return redirect('/index')
 
 @app.route('/addinput')
 def addinput():

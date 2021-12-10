@@ -553,37 +553,25 @@ def friends_query(netID):
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                # print("NET ID")
-                # print(netID)
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID LIKE %s
                                 ORDER BY    friendID'''
-                # stmt_str = '''  SELECT  friends.friendID,
-                #                         userNames.userName
-                #                 FROM    friends,
-                #                         userNames
-                #                 WHERE   friends.userID LIKE %s
-                #                 AND     friends.friendID = userNames.userID
-                #                 ORDER BY    userName'''
                 cursor.execute(stmt_str, (netID,))
                 data = cursor.fetchall()
 
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
-                # print("FRIENDS LIST")
-                # print(data)
+                
                 data = list(data)
                 for i in range(len(data)):
                     data[i] = list(data[i])
                     id = '%' + handle_plus(data[i][0]) + '%'
                     cursor.execute(stmt_str, (id,))
                     name = cursor.fetchall()
-                    # print(name)
                     data[i].append(name[0][0])
-                # print("WITH NAMES")
-                # print(data)
+
                 return [True, data]
 
     except Exception as ex:
@@ -824,6 +812,7 @@ def user_query(netID):
 # message on failure.
 
 def add_participant(event_id, participant):
+    participant = handle_plus(participant)
     try:
         with conn:
             cursor = conn.cursor()
@@ -883,15 +872,28 @@ def search_query(search, netID ):
                                         userName
                                 FROM    userNames
                                 WHERE (userID LIKE %s
-                                OR  LOWER(userName) LIKE LOWER(%s))
-                                AND userID NOT IN (SELECT  friends.friendID
-                                                FROM    friends
-                                                WHERE   friends.userID LIKE %s) '''
+                                OR  LOWER(userName) LIKE LOWER(%s))'''
+                                # AND userID NOT IN (SELECT  friends.friendID
+                                #                 FROM    friends
+                                #                 WHERE   friends.userID LIKE %s) '''
 
-                cursor.execute(stmt_str, (search, search, netID))
+                cursor.execute(stmt_str, (search, search))
                 names = cursor.fetchall()
 
-                return [True, names]
+                stmt_str = '''  SELECT  friends.friendID
+                                FROM    friends
+                                WHERE   friends.userID LIKE %s'''
+                cursor.execute(stmt_str, (netID,))
+                friends = cursor.fetchall()
+
+                data = []
+
+                for name in names:
+                    for friend in friends:
+                        if handle_plus(name[0]) != handle_plus(friend[0]):
+                            data.append(name)
+
+                return [True, data]
 
     except Exception as ex:
         error_msg = "A server error occurred. "
@@ -907,27 +909,31 @@ def search_query(search, netID ):
 # and their names on Success, False and error message on failure.
 
 def particpants_query(event_id, netID):
+    netID = '%' + handle_plus(netID) + '%'
+    friends = friends_query(netID)
     try:
-        with conn:
-            cursor = conn.cursor()
+        if friends[0]:
+            with conn:
+                cursor = conn.cursor()
 
-            with closing(conn.cursor()) as cursor:
+                with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''  SELECT  participants.userID,
-                                        userNames.userName
-                                FROM    participants,
-                                        friends,
-                                        userNames
-                                WHERE   friends.userID = %s
-                                AND     participants.eventID = %s
-                                AND     friends.friendID = participants.userID
-                                AND     participants.userID = userNames.userName
-                                ORDER BY    userName'''
+                    stmt_str = '''  SELECT  userID
+                                    FROM    participants
+                                    WHERE   eventID = %s
+                                    ORDER BY    userID'''
 
-                cursor.execute(stmt_str, (netID, event_id))
-                data = cursor.fetchall()
+                    cursor.execute(stmt_str, (event_id))
+                    particpants = cursor.fetchall()
 
-                return [True, data]
+                    data = []
+
+                    for friend in friends:
+                        for participant in particpants:
+                            if handle_plus(participant[0]) == friend[0]:
+                                data.append(friend)
+                    
+                    return [True, data]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

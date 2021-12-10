@@ -187,7 +187,7 @@ def index():
         names = names[1]
         master = mistdb.map_query(startdate,enddate)
         master = master[1]
-        userData.append(username)
+        names.append(username)
 
         html = render_template("testmap.html", eventData = points, userData = names, num = numrequests, master = master)
 

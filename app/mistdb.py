@@ -476,7 +476,7 @@ def add_friendrequest(requester, requestee):
                     stmt_str = '''INSERT INTO requests (requester, requestee)
                         VALUES (%s, %s)'''
 
-                    cursor.execute(stmt_str, (user_a, user_b))
+                    cursor.execute(stmt_str, (requester, requestee))
 
                     return True
 

@@ -301,6 +301,8 @@ def getpending():
     if package[0] is False:
         print(package[1])
     friendslist = package[1]
+    print("pending:")
+    print(friendslist)
     html = render_template('pendingrequests.html', friends = friendslist)
     response = make_response(html)
     return response

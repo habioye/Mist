@@ -112,6 +112,7 @@
       function handleRequests(response)
       {
         $('#friendrequests').html(response);
+        getPending();
       }
       function handlePending(response){
         $('#pendingrequests').html(response);
@@ -187,7 +188,7 @@
 
                      userid =  encodeURIComponent(userid);
 
-                     let url = '/getrequests'
+                     let url = '/getpending'
 
                      if (request != null)
                         request.abort();

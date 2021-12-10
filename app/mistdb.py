@@ -210,7 +210,7 @@ def private_query(start, end, friendid):
     try:
         with conn:
             cursor = conn.cursor()
-            
+
 
             with closing(conn.cursor()) as cursor:
 
@@ -465,7 +465,51 @@ def add_friendship(user_a, user_b):
             result = [False, error_msg]
             return result
 
+def add_friendrequest(requester, requestee):
+    if handle_plus(requester) != handle_plus(requestee):
+        try:
+            with conn:
+                cursor = conn.cursor()
 
+                with closing(conn.cursor()) as cursor:
+
+                    stmt_str = '''INSERT INTO requests (requester, requestee)
+                        VALUES (%s, %s)'''
+
+                    cursor.execute(stmt_str, (user_a, user_b))
+
+                    return True
+
+        except Exception as ex:
+            error_msg = "A server error occurred. "
+            error_msg +="Please contact the system administrator."
+            print(ex, file=stderr, end=" ")
+            print(error_msg, file=stderr)
+            result = [False, error_msg]
+            return result
+
+def remove_friendship(user_a, user_b):
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  DELETE FROM requests
+                                WHERE       requester = %s
+                                AND         requestee = %s'''
+
+                cursor.execute(stmt_str, (user_a, user_b))
+
+                return True
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
 # Remove the friendship relationship between two users. Returns True
 # if successful, false and error message if failure.
 

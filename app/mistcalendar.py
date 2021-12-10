@@ -44,7 +44,7 @@ class mistCalendar:
             
             
 
-    def is_today(day, month, year):
+    def is_today(self, day, month, year):
         today = date.today()
         if day == today.day and month == today.month and year == today.year:
             return True

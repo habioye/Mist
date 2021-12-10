@@ -264,8 +264,11 @@ def getfriends():
     userid = authenticate()
     package = mistdb.friends_query(userid)
     if package[0] is False:
+        print("getfriends:")
         print(package[1])
     friendslist = package[1]
+    print("getfriends")
+    print(friendslist)
     html = render_template('friendlist.html', friends = friendslist)
     response = make_response(html)
     return response
@@ -278,6 +281,8 @@ def getrequests():
     if package[0] is False:
         print(package[1])
     friendslist = package[1]
+    print("getrequests")
+    print(friendslist)
     html = render_template('friendrequests.html', friends = friendslist)
     response = make_response(html)
     return response

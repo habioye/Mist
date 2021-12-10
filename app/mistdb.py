@@ -312,8 +312,9 @@ def cal_query(userID):
 # comment lines 245 and 260, and put the below AND statements beneath the WHERE statement
 # AND   details.eventID = participants.eventID
 # AND     participants.userID = %s
-#def date_query(date, userID):
-def date_query(date):
+def date_query(date, userID):
+    userID = '%' + handle_plus(userID) + '%'
+#def date_query(date):
     try:
         with conn:
             cursor = conn.cursor()
@@ -326,10 +327,12 @@ def date_query(date):
                                         endTime
                                 FROM    details
                                 WHERE   details.eventDate = %s
+                                AND     details.eventID = participants.eventID
+                                AND     participants.userID LIKE %s
                                 ORDER BY    startTime,
                                             eventName'''
-                cursor.execute(stmt_str, (str(date),))
-                # cursor.execute(stmt_str, (date, userID))
+                #cursor.execute(stmt_str, (str(date),))
+                cursor.execute(stmt_str, (date, userID))
                 data = cursor.fetchall()
 
                 return [True, data]

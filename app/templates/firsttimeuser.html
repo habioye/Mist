@@ -3,7 +3,7 @@
    <head>
       <head>
       <title>First Time User</title>
-      
+
       <meta name="viewport"
       content="width=device-width, initial-scale=1">
 
@@ -22,12 +22,14 @@
         </div></center>
         <hr>
         <center><div class="container-fluid">
-            <form action="firsttimeuser" method="get">
+          <p id = "error" style="color:red;">
+          </p>
+            <form onsubmit = "return checkInput()" action="firsttimeuser" method="get">
                 <div class="col-sm-12">
-                    <input type="text" name="firstname" placeholder="Preferred First Name">
+                    <input type="text" name="firstname" id = "first" placeholder="Preferred First Name">
                 </div>
                 <div class="col-sm-12">
-                    <input type="text" name="lastname" placeholder="Last Name">
+                    <input type="text" name="lastname" id = "last" placeholder="Last Name">
                 </div>
                 <div class="col-sm-12">
                     <input type="submit"
@@ -35,4 +37,20 @@
             </form>
         </div></center>
     </body>
+    <script>
+    function checkInput(){
+      if(document.getElementById("first").value ==""){
+        document.getElementById("error").innerHTML = "please enter first name";
+        return false;
+      }
+      // if(document.getElementById("roomnum").value ==""){
+      //   document.getElementById("error").innerHTML = "no roomnum";
+      //   return false;
+      // }
+      if(document.getElementById("last").value ==""){
+        document.getElementById("error").innerHTML = "please enter last name";
+        return false;
+      }
+    }
+    </script>
 </html>

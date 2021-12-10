@@ -551,7 +551,7 @@ def caldayinfo():
     # eventstring += "</div>"
     
     
-    # day = request.args.get("day")
+    day = request.args.get("day")
     # month = request.args.get("month")
     # year = request.args.get("year")
     # month_name = month_full(month)

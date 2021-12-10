@@ -590,7 +590,10 @@ def calinfo():
     # print(calstring)
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
-    response = make_response(calstring)
+    
+    html = render_template(calstring)
+    response = make_response(html)
+
     # response.set_cookie('month', today.get_month())
     # response.set_cookie('year', today.get_year())
     return response

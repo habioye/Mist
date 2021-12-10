@@ -325,6 +325,7 @@ def date_query(date, userID):
                                         details.eventLocation,
                                         details.startTime,
                                         details.endTime,
+                                        details.details,
                                         details.roomNumber,
                                         details.endDate
                                 FROM    details,

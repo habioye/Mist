@@ -96,10 +96,10 @@
 
           
                 if (day_id == "today") {
-                  day = String(today.getDate());
+                  var day = String(today.getDate());
                 }
                 else {
-                  day = String(day_id);
+                  var day = String(day_id);
                 }
           
                 let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);

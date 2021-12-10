@@ -723,7 +723,7 @@ def divcalstringmaker(today):
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"
-        calstring += str(j)
+        calstring += str(j+1)
         calstring += "</div>"
     return calstring
 

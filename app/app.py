@@ -541,7 +541,7 @@ def eventstringmaker(day,month,year):
             eventstring += quote(str(eventinformation[2])) + "&startTime="
             eventstring += quote(str(eventinformation[3])) + "&endTime="
             eventstring += quote(str(eventinformation[4])) + "\" target = \"_blank\">"
-            eventstring += quote(str(eventinformation[1])) + "</a>"
+            eventstring += str(eventinformation[1]) + "</a>"
             eventstring += "</span>"
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
             eventstring +="</div>"

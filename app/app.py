@@ -314,7 +314,7 @@ def addfriend():
     mistdb.remove_friendrequest(username, netid)
     return redirect('/friendscreen')
 
-@app.route("/removerequest", method = ['GET'])
+@app.route("/removerequest", methods = ['GET'])
 def removerequest():
     username = authenticate()
     netid = request.args.get('netid')

@@ -690,7 +690,7 @@ def divcalstringmaker(today):
             calstring += "<div class =\"days\" id = \"" + str(i+1-padding) + "\" onclick = \"getPanelDetails(this.id)\">"
             if today.is_today(i + 1, month, year):
                 calstring += "<div class=\"today\">"
-                calstring += str(i + 1)
+                calstring += str(i + 1 - padding)
                 calstring += "</div>"
             else:
                 calstring += str(i + 1)

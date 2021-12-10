@@ -481,19 +481,6 @@ def divcalstringmaker(today):
             calstring += "</div>"
         else:
             calc_day = i+1-padding
-<<<<<<< HEAD
-            now = date(calc_day,month,year)
-            list = mistdb.date_query(now,username)
-            list = list[1]
-            if len(list) != 0:
-                calstring += "<div class =\"filleday\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-                calstring += str(calc_day)
-                calstring += "</div>"
-            else:
-                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-                calstring += str(calc_day)
-                calstring += "</div>"
-=======
             # if today.is_today(calc_day, month, year):
             #     calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
             #     calstring += str(calc_day)
@@ -502,7 +489,6 @@ def divcalstringmaker(today):
             calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
             calstring += str(calc_day)
             calstring += "</div>"
->>>>>>> parent of f004d8f (Update app.py)
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

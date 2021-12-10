@@ -76,14 +76,14 @@ def add_event_proto(title, x_coord, y_coord):
 # and hashes the coordinates into an eventID. Hashing might need to be changed
 # to be more complex to ensure unique IDs, but seems statistically improbable.
 
-def add_event(title, location, start, end, date, details, planner, x_coord, y_coord, number, privacy):
+def add_event(title, location, start, end, date, details, planner, x_coord, y_coord, number, endDate, privacy):
     try:
         with conn:
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
                 print("Adding event")
-                print(planner)
+                print(endDate)
                 # Use the lower 8 bytes of sha256 hashing to create an event ID
                 ei = hashlib.new('sha512_256')
                 event_string = title + planner
@@ -94,9 +94,9 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber, eventPrivacy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '( %s , %s )'::point, %s, %s)'''
+                    roomNumber, endDate, eventPrivacy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '( %s , %s )'::point, %s, %s, %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start,
-                    end, date, details, planner, float(x_coord), float(y_coord), number, privacy))
+                    end, date, details, planner, float(x_coord), float(y_coord), number, endDate, privacy))
 
                 return True
     except Exception as ex:
@@ -206,6 +206,7 @@ def map_query(start, end):
 
 #queries for only private friend events
 def private_query(start, end, friendid):
+    friendid = '%' + handle_plus(friendid) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -220,7 +221,7 @@ def private_query(start, end, friendid):
                                 FROM    details
                                 WHERE   (eventDate BETWEEN %s AND %s)
                                 AND     eventPrivacy = 'PRIVATE'
-                                AND     plannerID = %s
+                                AND     plannerID LIKE %s
                                 ORDER BY    eventLocation,
                                             eventName'''
                 cursor.execute(stmt_str, (start, end, friendid))
@@ -273,6 +274,7 @@ def public_query(start, end):
 # error message on failure.
 
 def cal_query(userID):
+    userID = '%' + handle_plus(userID) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -286,7 +288,7 @@ def cal_query(userID):
                                         eventDate
                                 FROM    details
                                 WHERE   details.eventID = participants.eventID
-                                AND     participants.userID = %s
+                                AND     participants.userID LIKE %s
                                 ORDER BY    eventDate,
                                             startTime,
                                             eventName'''
@@ -440,27 +442,28 @@ def edit_name(netID, name):
 # an error message on failure.
 
 def add_friendship(user_a, user_b):
-    try:
-        with conn:
-            cursor = conn.cursor()
+    if handle_plus(user_a) != handle_plus(user_b):
+        try:
+            with conn:
+                cursor = conn.cursor()
 
-            with closing(conn.cursor()) as cursor:
+                with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''INSERT INTO friends (userID, friendID)
-                    VALUES (%s, %s)'''
+                    stmt_str = '''INSERT INTO friends (userID, friendID)
+                        VALUES (%s, %s)'''
 
-                cursor.execute(stmt_str, (user_a, user_b))
-                cursor.execute(stmt_str, (user_b, user_a))
+                    cursor.execute(stmt_str, (user_a, user_b))
+                    cursor.execute(stmt_str, (user_b, user_a))
 
-                return True
+                    return True
 
-    except Exception as ex:
-        error_msg = "A server error occurred. "
-        error_msg +="Please contact the system administrator."
-        print(ex, file=stderr, end=" ")
-        print(error_msg, file=stderr)
-        result = [False, error_msg]
-        return result
+        except Exception as ex:
+            error_msg = "A server error occurred. "
+            error_msg +="Please contact the system administrator."
+            print(ex, file=stderr, end=" ")
+            print(error_msg, file=stderr)
+            result = [False, error_msg]
+            return result
 
 
 # Remove the friendship relationship between two users. Returns True
@@ -502,8 +505,8 @@ def friends_query(netID):
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                print("NET ID")
-                print(netID)
+                # print("NET ID")
+                # print(netID)
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID LIKE %s
@@ -521,8 +524,8 @@ def friends_query(netID):
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
-                print("FRIENDS LIST")
-                print(data)
+                # print("FRIENDS LIST")
+                # print(data)
                 data = list(data)
                 for i in range(len(data)):
                     data[i] = list(data[i])
@@ -531,8 +534,8 @@ def friends_query(netID):
                     name = cursor.fetchall()
                     print(name)
                     data[i].append(name[0][0])
-                print("WITH NAMES")
-                print(data)
+                # print("WITH NAMES")
+                # print(data)
                 return [True, data]
 
     except Exception as ex:

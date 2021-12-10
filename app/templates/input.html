@@ -63,7 +63,7 @@
       <td><Input type = "text", id = "details" name = "details"></td>
       </tr>
       <tr>
-        <td align = "right"><label for="roomnum">Room Number:</label></td>
+        <td align = "right"><label for="roomnum"><font color = "RED">*</font>Room Number:</label></td>
         <td><Input type = "text" id = "roomnum" name = "roomnum"></td>
         </tr>
       <tr>
@@ -110,7 +110,10 @@
           document.getElementById("error").innerHTML = "no location";
           return false;
         }
-
+        if(document.getElementById("roomnum").value ==""){
+          document.getElementById("error").innerHTML = "no roomnum";
+          return false;
+        }
         if(document.getElementById("title").value ==""){
           document.getElementById("error").innerHTML = "no title";
           return false;

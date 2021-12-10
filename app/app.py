@@ -217,8 +217,7 @@ def details():
         end = str(int(end[:2]) - 12) + end[2:] + " PM"
     else:
         end = end + " AM"
-    time = start + " - " + end
-    html = render_template('details.html', details = details, time = time)
+    html = render_template('details.html', details = details, start = start, end = end)
     response = make_response(html)
     return response
 
@@ -237,6 +236,8 @@ def addinput():
     end = request.args.get('end')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
+    print("\n\n\n\n\n\nIs there going to be an end date? Let's find out!")
+    print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
     coords = coords.strip('{ }')
@@ -246,7 +247,7 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, privacy)
+    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, endDate, privacy)
     return redirect('/index')
 
 @app.route('/friendscreen', methods = ['GET'])

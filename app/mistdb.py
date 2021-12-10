@@ -927,6 +927,7 @@ def participants_query(event_id, netID):
     friends = friends_query(netID)
     try:
         if friends[0]:
+            friends = friends[1]
             with conn:
                 cursor = conn.cursor()
 

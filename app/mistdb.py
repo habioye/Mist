@@ -824,15 +824,28 @@ def search_query(search, netID ):
                                         userName
                                 FROM    userNames
                                 WHERE (userID LIKE %s
-                                OR  LOWER(userName) LIKE LOWER(%s))
-                                AND userID NOT IN (SELECT  friends.friendID
-                                                FROM    friends
-                                                WHERE   friends.userID LIKE %s) '''
+                                OR  LOWER(userName) LIKE LOWER(%s))'''
+                                # AND userID NOT IN (SELECT  friends.friendID
+                                #                 FROM    friends
+                                #                 WHERE   friends.userID LIKE %s) '''
 
-                cursor.execute(stmt_str, (search, search, netID))
+                cursor.execute(stmt_str, (search, search))
                 names = cursor.fetchall()
 
-                return [True, names]
+                stmt_str = '''  SELECT  friends.friendID
+                                FROM    friends
+                                WHERE   friends.userID LIKE %s'''
+                cursor.execute(stmt_str, (netID,))
+                friends = cursor.fetchall()
+
+                data = []
+
+                for name in names:
+                    for friend in friends:
+                        if handle_plus(name[0]) != handle_plus(friend[0]):
+                            data.append(name)
+
+                return [True, data]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

@@ -499,7 +499,7 @@ def remove_friendrequest(requester, requestee):
                                 WHERE       requester = %s
                                 AND         requestee = %s'''
 
-                cursor.execute(stmt_str, (user_a, user_b))
+                cursor.execute(stmt_str, (requester, requestee))
 
                 return True
 

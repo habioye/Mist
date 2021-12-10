@@ -220,12 +220,14 @@ def details():
         start = str(int(start[:2]) - 12) + start[2:] + ' PM'
     else:
         start = start + " AM"
-    end = str(details[0][4])
-    end = end[:5]
-    if(int(end[:2]) > 12):
-        end = str(int(end[:2]) - 12) + end[2:] + " PM"
-    else:
-        end = end + " AM"
+    if end is not None:
+        end = str(details[0][4])
+        end = end[:5]
+        if(int(end[:2]) > 12):
+            end = str(int(end[:2]) - 12) + end[2:] + " PM"
+        else:
+            end = end + " AM"
+        start = start + " - " + end
 
     participants = mistdb.participants_query(eventid, username)
     if participants[0]:
@@ -450,7 +452,7 @@ def calinfo():
 
 
     calstring = divcalstringmaker(today)
-  
+
     month_name = month_full(int(month))
 
     html = render_template("calform.html",month = month_name, year = year,days= calstring)
@@ -549,8 +551,8 @@ def caldayinfo():
     #         eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
     #         eventstring += str(eventinformation[1]) + "</a>"
     # eventstring += "</div>"
-    
-    
+
+
     day = request.args.get("day")
     month = request.args.get("month")
     year = request.args.get("year")
@@ -590,8 +592,8 @@ def eventstringmaker(day,month,year):
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
             eventstring +="</div>"
     return eventstring
-      
-      
+
+
 
 
 

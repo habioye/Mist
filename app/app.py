@@ -786,6 +786,12 @@ def firsttimeuser():
         if len(user_data[1]) == 0 and firstname is not None and lastname is not None:
             mistdb.add_user(netid, firstname + ' ' + lastname)
             abort(redir('https://mist-princeton.herokuapp.com/'))
+    else:
+        if len(user_data[1]) == 0 and firstname is not None and lastname is not None:
+            mistdb.edit_name(netid, firstname + ' ' + lastname)
+            abort(redir('https://mist-princeton.herokuapp.com/'))
+
+
 
     html = render_template("firsttimeuser.html", netid = netid)
     response = make_response(html)

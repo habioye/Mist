@@ -62,11 +62,11 @@
         <center>
           <h1>Current Friends</h1>
           <div class = "container-fluid">
-                <p id = 'Friendresults'></p>
+                <p id = 'friendresults'></p>
         </div>
           <h1>Friend Requests</h1>
         <div class = "container-fluid">
-              <p id = 'Friendrequests'></p>
+              <p id = 'friendrequests'></p>
       </div>
 
 
@@ -94,11 +94,13 @@
       }
       function handleFriends(response)
       {
-        $('#Friendresults').html(response);
+        $('#friendresults').html(response);
+        getRequests();
+
       }
       function handleRequests(response)
       {
-        $('#Friendrequests').html(response);
+        $('#friendrequests').html(response);
       }
 
 
@@ -168,7 +170,6 @@
          {
             $('#searchBar').on('input', getResults);
             getFriends();
-            getRequests();
          }
 
          $('document').ready(setup);

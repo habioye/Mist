@@ -157,6 +157,8 @@ def main():
    # print("jank")
    # print(ncalstringmaker(11,2021))
    # print(calstringmaker(5,2021))
+   hello = mistcalendar.mistCalendar(1,2022)
+   print(hello.peek_previous_month_length())
    print(calinfo(12,2021))
    # now = date.today()
    # print(now.month)

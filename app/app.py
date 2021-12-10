@@ -270,6 +270,17 @@ def getfriends():
     response = make_response(html)
     return response
 
+@app.route('/getrequests', methods = ['GET'])
+def getrequests():
+    #userid = request.args.get('search')
+    userid = authenticate()
+    package = mistdb.friends_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
+    html = render_template('friendlist.html', friends = friendslist)
+    response = make_response(html)
+    return response
 @app.route('/searchfriends', methods = ['GET'])
 def searchfriends():
     username = authenticate()

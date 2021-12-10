@@ -290,10 +290,18 @@ def searchfriends():
 def requestfriend():
     username = authenticate()
     netid = request.args.get('netid')
-    print("add friendship " + str(username) + str(netid))
-    mistdb.add_friendship(username, netid)
+    print("request friendship " + str(username) + str(netid))
+    mistdb.add_friendrequest(username, netid)
     return redirect('/friendscreen')
 
+@app.route("/addfriend", methods = ['GET']){
+    username = authenticate()
+    netid = request.args.get('netid')
+    print("add friendship " + str(username) + str(netid))
+    mistdb.add_friendship(username, netid)
+    mistdb.add_friendrequest(username, netid)
+    return redirect('/friendscreen')
+}
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
     username = authenticate()
@@ -525,13 +533,13 @@ def calendar():
     #     else:
     #         print(details[1])
 
-    
+
     html = render_template("calendar.html")
 
     response = make_response(html)
 
     return response
-    
+
 @app.route('/calinfo', methods=['GET'])
 def calinfo():
     month = request.args.get('month')
@@ -564,16 +572,16 @@ def calinfo():
 
     #calstring = calstringmaker(today)
     # uses a div implementation for the calendar.
-    
-    
-    
-    
-    
+
+
+
+
+
     #calstring = divcalstringmaker(today)
     calstring = "<p> calendar</p>"
-    
-    
-    
+
+
+
     # while currcount <= daycount:
     #     if weekcount == 0:
     #         calstring += "<tr>"

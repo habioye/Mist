@@ -13,6 +13,13 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+                        }
+    </style>
    </head>
 
 
@@ -60,26 +67,30 @@
 
 
         <center>
-          <h1>Current Friends</h1>
+          <div class = "col-sm-3"greyborder>
+              <input class = "form-control" type="text" id="searchBar" placeholder = "Search for Friends">
+          </div>
           <div class = "container-fluid">
-                <p id = 'friendresults'></p>
-        </div>
-          <h1>Friend Requests</h1>
-        <div class = "container-fluid">
-              <p id = 'friendrequests'></p>
-      </div>
+                <p id = 'searchresults'></p>
+          </div>
+          <div class = "grid-container">
 
-
-            <div class = "col-sm-3"greyborder>
-                <input class = "form-control" type="text" id="searchBar" placeholder = "Search for Friends">
+            <div class = "grid-child">
+                <h1>Your Pending Requests</h1>
             </div>
+
+          <div class = "grid-child">
+              <h1>Friend Requests</h1>
+              <p id = 'friendrequests'></p>
+          </div>
+        </div>
+    <h1>Current Friends</h1>
+    <p id = 'friendresults'></p>
+
          </center>
-         <br>
           </div>
 
-    <div class = "container-fluid">
-          <p id = 'searchresults'></p>
-  </div>
+
 
 
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
@@ -101,6 +112,9 @@
       function handleRequests(response)
       {
         $('#friendrequests').html(response);
+      }
+      function handlePending(response){
+        $('#pendingrequests').html(response);
       }
 
 
@@ -166,6 +180,26 @@
                      }
                   );
                }
+               function getPending()
+                  {
+                    var user = {{userid|tojson}};
+                     let userid = String(user);
+
+                     userid =  encodeURIComponent(userid);
+
+                     let url = '/getrequests'
+
+                     if (request != null)
+                        request.abort();
+
+                     request = $.ajax(
+                        {
+                           type: 'GET',
+                           url: url,
+                           success: handlePending
+                        }
+                     );
+                  }
          function setup()
          {
             $('#searchBar').on('input', getResults);

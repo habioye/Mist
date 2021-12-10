@@ -217,8 +217,7 @@ def details():
         end = str(int(end[:2]) - 12) + end[2:] + " PM"
     else:
         end = end + " AM"
-    time = start + " - " + end
-    html = render_template('details.html', details = details, time = time)
+    html = render_template('details.html', details = details, start = start, end = end)
     response = make_response(html)
     return response
 
@@ -237,8 +236,10 @@ def addinput():
     end = request.args.get('end')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
+    print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
+    endDate = request.args.get('')
     coords = coords.strip('{ }')
     coords = coords.split(',')
     x = coords[0].strip('"lat":')
@@ -246,13 +247,13 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, privacy)
+    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, endDate, privacy)
     return redirect('/index')
 
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
     username = authenticate()
-    username = '%' + username + '%'
+    username = username
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response
@@ -524,10 +525,19 @@ def calendar():
     #     else:
     #         print(details[1])
 
+    
+    html = render_template("calendar.html")
+
+    response = make_response(html)
+
+    return response
+    
+@app.route('/calinfo', methods=['GET'])
+def calinfo():
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None and year is None:
-        today = mistcalendar.mistCalendar(None, None)
+        today = mistcalendar.mistCalendar("None", "None")
     elif month is None or year is None:
         print("ValueError: inconsistent input to calendar",file= stderr)
         html = render_template("error.html", error_type="Value Error", error_message="inconsistent input to calendar")
@@ -560,7 +570,7 @@ def calendar():
     
     
     #calstring = divcalstringmaker(today)
-    calstring = "<div> test</div>"
+    calstring = "<p> calendar</p>"
     
     
     
@@ -673,7 +683,7 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
-    eventstring = "<div> test</div>"
+    eventstring = "<p> events</p>"
     # day = int(request.args.get('day'))
     # month = int(request.args.get('month'))
     # year = int(request.args.get('year'))

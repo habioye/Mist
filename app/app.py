@@ -270,6 +270,17 @@ def getfriends():
     response = make_response(html)
     return response
 
+@app.route('/getrequests', methods = ['GET'])
+def getrequests():
+    #userid = request.args.get('search')
+    userid = authenticate()
+    package = mistdb.requests_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
+    html = render_template('friendrequests.html', friends = friendslist)
+    response = make_response(html)
+    return response
 @app.route('/searchfriends', methods = ['GET'])
 def searchfriends():
     username = authenticate()
@@ -294,14 +305,22 @@ def requestfriend():
     mistdb.add_friendrequest(username, netid)
     return redirect('/friendscreen')
 
-@app.route("/addfriend", methods = ['GET']){
+@app.route("/addfriend", methods = ['GET'])
+def addfriend():
     username = authenticate()
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
-    mistdb.add_friendrequest(username, netid)
+    mistdb.remove_friendrequest(username, netid)
     return redirect('/friendscreen')
-}
+
+@app.route("/removerequest", methods = ['GET'])
+def removerequest():
+    username = authenticate()
+    netid = request.args.get('netid')
+    mistdb.remove_friendrequest(username, netid)
+    return redirect('/friendscreen')
+
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
     username = authenticate()
@@ -578,7 +597,7 @@ def calinfo():
 
 
     #calstring = divcalstringmaker(today)
-    calstring = "<p> calendar</p>"
+    #calstring = "<p> calendar</p>"
 
 
 
@@ -599,8 +618,8 @@ def calinfo():
     # print(calstring)
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
-    
-    html = render_template(calstring)
+
+    html = render_template("calform.html", stuff="wowow")
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())

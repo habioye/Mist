@@ -64,6 +64,10 @@
           <div class = "container-fluid">
                 <p id = 'Friendresults'></p>
         </div>
+          <h1>Friend Requests</h1>
+        <div class = "container-fluid">
+              <p id = 'Friendrequests'></p>
+      </div>
 
 
             <div class = "col-sm-3"greyborder>
@@ -91,6 +95,10 @@
       function handleFriends(response)
       {
         $('#Friendresults').html(response);
+      }
+      function handleRequests(response)
+      {
+        $('#Friendrequests').html(response);
       }
 
 
@@ -136,10 +144,31 @@
                   }
                );
             }
+            function getRequests()
+               {
+                 var user = {{userid|tojson}};
+                  let userid = String(user);
+
+                  userid =  encodeURIComponent(userid);
+
+                  let url = '/getrequests'
+
+                  if (request != null)
+                     request.abort();
+
+                  request = $.ajax(
+                     {
+                        type: 'GET',
+                        url: url,
+                        success: handleRequests
+                     }
+                  );
+               }
          function setup()
          {
             $('#searchBar').on('input', getResults);
             getFriends()
+            getRequests()
          }
 
          $('document').ready(setup);

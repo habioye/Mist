@@ -524,9 +524,9 @@ def friends_query(netID):
                     person = list(person)
                     id = '%' + person[0] + '%'
                     cursor.execute(stmt_str, (id,))
-                    name = list(cursor.fetchall())
+                    name = cursor.fetchall()
                     print(name)
-                    person.append(name[0])
+                    person.append(name[0][0])
 
                 print(data)
                 return [True, data]

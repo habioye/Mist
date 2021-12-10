@@ -112,10 +112,7 @@
                 );
                 console.log("ajax 2");
               }
-              function prev_year() {
-                  year -= 1;
-                  getCalinfo()
-              }
+
               function prev_month() {
                   month = month - 1;
                   if(month == 0) {
@@ -133,10 +130,14 @@
                   }
                   getCalinfo()
               }
-              function next_year(){
-                  year += 1;
-                  getCalinfo()
-              }
+              document.querySelector(".prev").addEventListener("click", () => {
+                prev_month();
+              });
+              
+              document.querySelector(".next").addEventListener("click", () => {
+                next_month();
+              });
+              
 
             
             function setup() {

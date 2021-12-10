@@ -447,7 +447,7 @@ def calinfo():
 
 
 
-    calstring = divcalstringmaker(today)
+    calstring = divcalstringmaker(today, username)
 
     month_name = month_full(int(month))
 
@@ -463,7 +463,7 @@ def padd_next(padding, length):
     next_padding = ((padding + length) % 7)
     return next_padding
 
-def divcalstringmaker(today):
+def divcalstringmaker(today, username):
     padding_to = today.peek_previous_month_length()
     month_length = today.get_month_length()
     first_day = today.get_first_day()
@@ -471,6 +471,7 @@ def divcalstringmaker(today):
     padding_next = padd_next(padding,month_length)
     year = today.get_year()
     month = today.get_month()
+    day = today.get_day()
 
     calstring = "<div class=\"days\">"
     for i in range(padding + month_length):
@@ -481,14 +482,17 @@ def divcalstringmaker(today):
             calstring += "</div>"
         else:
             calc_day = i+1-padding
-            # if today.is_today(calc_day, month, year):
-            #     calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-            #     calstring += str(calc_day)
-            #     calstring += "</div>"
-            # else:
-            calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-            calstring += str(calc_day)
-            calstring += "</div>"
+            now = date(calc_day,month,year)
+            list = mistdb.date_query(username,now)
+            list = list[1]
+            if len(list) != 0:
+                calstring += "<div class =\"eventday\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+                calstring += str(calc_day)
+                calstring += "</div>"
+            else:
+                calstring += "<div class =\"day\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+                calstring += str(calc_day)
+                calstring += "</div>"
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

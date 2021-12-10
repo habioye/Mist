@@ -112,12 +112,17 @@
                 );
                 console.log("ajax 2");
               }
+              function prev_year() {
+                  year -= 1;
+                  getCalinfo()
+              }
               function prev_month() {
                   month = month - 1;
                   if(month == 0) {
                       month = 12;
                       year = year -1;
                   }
+                  getCalinfo()
               }
               function next_month() {
                   month = month + 1;
@@ -126,7 +131,14 @@
                     year += 1;
 
                   }
+                  getCalinfo()
               }
+              function next_year(){
+                  year += 1;
+                  getCalinfo()
+              }
+
+            
             function setup() {
                 getCalinfo();
                 get_events("today");

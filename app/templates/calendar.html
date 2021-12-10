@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="static/styles/style.css">
 
 
- 
-        
+
+
    </head>
    <body>
         <div>
@@ -36,22 +36,20 @@
                 </div>
             </div>
         </div>
-        <center><div class="header">
-        <h2>Calendar View</h2>
-        <h3>Good <span id="ampmSpan"></span> user.</h3>
-        </div></center>
+        <!-- <center><div class="header">
+
+        </div></center> -->
         <div class="container">
             <div id="calendar_info"></div>
             <div id="day_panel"></div>
         </div>
         <div class="footer">
-         Date and time: <span id="datetimeSpan"></span><br>
          Created by Hassan Abioye, Anthony Gartner, Benjamin Nadon, Nicholas Cabrera
         </div>
         <script src=
             "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script>
-        
+
         <script>
 
             'use strict';
@@ -90,19 +88,19 @@
 
             function get_events(day_id) {
 
-          
+
                 if (day_id == "today") {
                   var day = String(today.getDate());
                 }
                 else {
                   var day = String(day_id);
                 }
-          
+
                 let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);
-          
-                if (dayrequest != null) 
+
+                if (dayrequest != null)
                   dayrequest.abort();
-          
+
                 dayrequest = $.ajax(
                     {
                         type: 'GET',
@@ -130,9 +128,9 @@
                   }
                   getCalinfo()
               }
-              
 
-            
+
+
             function setup() {
                 getCalinfo();
                 get_events("today");

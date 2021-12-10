@@ -83,7 +83,7 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
             with closing(conn.cursor()) as cursor:
                 print("Adding event")
-                print(planner)
+                print(endDate)
                 # Use the lower 8 bytes of sha256 hashing to create an event ID
                 ei = hashlib.new('sha512_256')
                 event_string = title + planner

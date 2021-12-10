@@ -95,6 +95,8 @@
       function handleFriends(response)
       {
         $('#friendresults').html(response);
+        getRequests();
+
       }
       function handleRequests(response)
       {
@@ -168,7 +170,6 @@
          {
             $('#searchBar').on('input', getResults);
             getFriends();
-            // getRequests();
          }
 
          $('document').ready(setup);

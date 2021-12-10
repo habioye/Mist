@@ -326,6 +326,7 @@ def date_query(date, userID):
                                         startTime,
                                         endTime
                                 FROM    details
+                                        participants
                                 WHERE   details.eventDate = %s
                                 AND     details.eventID = participants.eventID
                                 AND     participants.userID LIKE %s

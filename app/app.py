@@ -482,7 +482,7 @@ def divcalstringmaker(today, username):
         else:
             calc_day = i+1-padding
             now = date(calc_day,month,year)
-            list = mistdb.date_query(username,now)
+            list = mistdb.date_query(now,username)
             list = list[1]
             if len(list) != 0:
                 calstring += "<div class =\"filleday\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"

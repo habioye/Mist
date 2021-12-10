@@ -26,10 +26,7 @@
     {% if participants != none %}
       <strong>Interested Friends:</strong>
       <table {border-spacing: 5px}>
-        <tr>
-          <th>Net ID</th>
-          <th>Name</th>
-        </tr>
+        
         {% for participant in participants %}
           <tr>
             <td>{{ participant[0] }}</td>

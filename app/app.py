@@ -555,8 +555,7 @@ def caldayinfo():
     month = request.args.get("month")
     year = request.args.get("year")
     month_name = month_full(int(month))
-    #date = month_name + " " + str(year)
-    date = "safety"
+    date = month_name + " " + str(year)
     #eventstring = eventstringmaker(day,month,year)
     html = render_template("eventform.html", date = date)
     response = make_response(html)

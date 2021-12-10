@@ -19,6 +19,7 @@ from re import sub
 from urllib.parse import quote
 from urllib.request import urlopen
 from app import mistcalendar
+import calendar
 from datetime import date
 import datetime
 
@@ -599,6 +600,23 @@ def calendar():
 
     return response
 
+def month_full(month):
+    months = ["Unknown",
+          "January",
+          "Febuary",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"]
+    name = months[month]
+    return name
+
 @app.route('/calinfo', methods=['GET'])
 def calinfo():
     month = request.args.get('month')
@@ -657,8 +675,9 @@ def calinfo():
     # print(calstring)
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
+    month_name = month_full(month)
 
-    html = render_template("calform.html",month = month, year = year,days= calstring)
+    html = render_template("calform.html",month = month_name, year = year,days= calstring)
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())

@@ -598,7 +598,6 @@ def calinfo():
 
 
 
-
     calstring = divcalstringmaker(today)
     #calstring = "<p> calendar</p>"
 
@@ -622,7 +621,7 @@ def calinfo():
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
 
-    html = render_template("calform.html", days= "calstring")
+    html = render_template("calform.html", days= "<p>calstring</p>")
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())
@@ -654,38 +653,39 @@ def divcalstringmaker(today):
             calstring += str(padding_to - (padding - i) + 1)
             calstring += "</div>"
         else:
-            calstring += "<div class =\"days\" id = \"" + str(i+1) + "\" onclick = \"getPanelDetails(this.id)\">"
-            if today.is_today(i + 1, month, year):
-                calstring += "<div class=\"today\">"
-                calstring += str(i + 1)
-                calstring += "</div>"
-            else:
-                calstring += str(i + 1)
-            date = dateformat(year, month, i+1)
-            events = mistdb.date_query(date)
-            # check if there is equal to false.
-            if events[0] is False:
-                calstring += "\n"
-                calstring += "A server error occurred. "
-                calstring += "Please contact the system administrator."
-            else:
-                for eventinformation in events[1]:
-                    calstring += "\n"
-                    calstring += "< div class=\"event\">"
-                    calstring += "<a href = eventinfo?eventID="
-                    event_id = eventinformation[0]
-                    eventstuff = mistdb.details_query(event_id)
-                    if eventstuff[0]:
-                        calstring += "\n"
-                        calstring += "<a href = eventinfo?eventID="
-                        calstring += str(eventinformation[0]) + "&eventName="
-                        calstring += str(eventinformation[1]) + "&eventLocation="
-                        calstring += str(eventinformation[2]) + "&startTime="
-                        calstring += str(eventinformation[3]) + "&endTime="
-                        calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-                        calstring += str(eventinformation[1]) + "</a>"
-                    calstring += "</div>"
-            calstring += "</div>"
+            calstring += "<div class =\"days\" id = \"" + str(i+1) + "</div>"
+            # + "\" onclick = \"getPanelDetails(this.id)\">"
+            # if today.is_today(i + 1, month, year):
+            #     calstring += "<div class=\"today\">"
+            #     calstring += str(i + 1)
+            #     calstring += "</div>"
+            # else:
+            #     calstring += str(i + 1)
+            # date = dateformat(year, month, i+1)
+            # events = mistdb.date_query(date)
+            # # check if there is equal to false.
+            # if events[0] is False:
+            #     calstring += "\n"
+            #     calstring += "A server error occurred. "
+            #     calstring += "Please contact the system administrator."
+            # else:
+            #     for eventinformation in events[1]:
+            #         calstring += "\n"
+            #         calstring += "< div class=\"event\">"
+            #         calstring += "<a href = eventinfo?eventID="
+            #         event_id = eventinformation[0]
+            #         eventstuff = mistdb.details_query(event_id)
+            #         if eventstuff[0]:
+            #             calstring += "\n"
+            #             calstring += "<a href = eventinfo?eventID="
+            #             calstring += str(eventinformation[0]) + "&eventName="
+            #             calstring += str(eventinformation[1]) + "&eventLocation="
+            #             calstring += str(eventinformation[2]) + "&startTime="
+            #             calstring += str(eventinformation[3]) + "&endTime="
+            #             calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+            #             calstring += str(eventinformation[1]) + "</a>"
+            #         calstring += "</div>"
+            # calstring += "</div>"
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

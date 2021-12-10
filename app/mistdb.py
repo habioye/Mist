@@ -937,7 +937,7 @@ def participants_query(event_id, netID):
                                     WHERE   eventID = %s
                                     ORDER BY    userID'''
 
-                    cursor.execute(stmt_str, (event_id))
+                    cursor.execute(stmt_str, (event_id,))
                     particpants = cursor.fetchall()
 
                     data = []

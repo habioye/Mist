@@ -895,6 +895,8 @@ def search_query(search, netID ):
                 data = []
                 for name in names:
                     is_friend = False
+                    if handle_plus(name[0]) == handle_plus(netID):
+                        is_friend = True
                     for friend in friends:
                         if handle_plus(name[0]) == handle_plus(friend[0]):
                             is_friend = True

@@ -2,7 +2,10 @@
 <html>
    <head>
         <title>Mist - Calendar View</title>
-
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <meta name="viewport"
         content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href=
@@ -22,8 +25,7 @@
 
    </head>
    <body>
-        <div>
-        <div class="col-9 grayborder" id="eventinfo"></div>
+        <!--<div class="col-9 grayborder" id="eventinfo"></div>
         </div>
         <div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
             <div class="row" style="background-color:rgb(255, 143, 0);">
@@ -35,7 +37,33 @@
                     <a href = "https://mist-princeton.herokuapp.com/calendar"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:right;"></a>
                 </div>
             </div>
-        </div>
+        </div>-->
+        <nav class="navbar navbar-expand-sm navbar-light fixed-top" style="background-color: rgb(255, 143, 0);">
+            <!-- Brand/logo -->
+            <a class="navbar-brand" href="index">
+            <img src="https://mist-asset.s3.us-east-2.amazonaws.com/temp+logo.ico" alt="logo" style="width:40px;">
+            </a>
+            <!-- Links -->
+            <ul class="navbar-nav">
+      
+              <!-- Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href = "#" id="navbardrop" data-toggle="dropdown" style = "font-size: 1.5vw;">
+                    Menu
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="index">Map</a>
+                    <a class="dropdown-item" href="calendar">Calendar</a>
+                    <a class="dropdown-item" href="inputpage?">Create Events</a>
+                    <a class="dropdown-item" href="friendscreen?">Friend Search</a>
+                    <a class="dropdown-item" href="firsttimeuser">Reset Name</a>
+                </div>
+              </li>
+            </ul>
+              <span class="navbar-text ml-auto" style = "font-size: 1.5vw;">
+                {{userid }} <a href = logout>logout</a>
+              </span>
+          </nav>
         <!-- <center><div class="header">
 
         </div></center> -->

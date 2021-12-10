@@ -30,7 +30,7 @@ let request = null;
 function getCalinfo()
 {
         // look at how you retrieve information
-        let url = '/calender';
+        let url = '/calendar';
 
         if (request != null)
         request.abort();

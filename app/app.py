@@ -12,7 +12,7 @@ from flask import render_template, session, abort
 from flask import redirect as redir
 from json import dumps
 # It seems this might break everything
-# from calender import Calender
+# from calendar import Calendar
 from werkzeug.utils import redirect
 from app import mistdb, templates
 from re import sub
@@ -437,7 +437,7 @@ def eventinfo():
 
 # creates a full calendar body based on using a table implementation
 # def calstringmaker(currcal):
-#     #currcal = mistcalendar.mistCalender(month,year)
+#     #currcal = mistcalendar.mistCalendar(month,year)
 #     month = currcal.get_month()
 #     year = currcal.get_year()
 #     daycount = currcal.get_month_length()
@@ -599,7 +599,10 @@ def calinfo():
     # print(calstring)
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
-    response = make_response(calstring)
+    
+    html = render_template(calstring)
+    response = make_response(html)
+
     # response.set_cookie('month', today.get_month())
     # response.set_cookie('year', today.get_year())
     return response

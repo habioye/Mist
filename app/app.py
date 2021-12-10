@@ -236,6 +236,7 @@ def addinput():
     end = request.args.get('end')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
+    print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
     endDate = request.args.get('')

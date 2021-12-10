@@ -127,9 +127,6 @@ def index():
         friendrequests = friendrequests[1]
         numrequests = len(friendrequests)
 
-
-
-
         startdate = request.args.get("start")
         enddate = request.args.get("end")
         option = request.args.get("option")
@@ -391,6 +388,7 @@ def dateformat(year, month, day):
 # gives event info when you click a link to an event.
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
+    username = authenticate()
     eventID = request.args.get('eventID')
     eventName = request.args.get('eventName')
     eventLocation = request.args.get('eventLocation')
@@ -432,6 +430,7 @@ def month_full(month):
 
 @app.route('/calinfo', methods=['GET'])
 def calinfo():
+    username = authenticate()
     month = request.args.get('month')
     year = request.args.get('year')
     if month is None and year is None:
@@ -456,7 +455,7 @@ def padding_from_first(first_day):
     return padding
 
 def padd_next(padding, length):
-    next_padding = 7 - ((padding + length) % 7)
+    next_padding = ((padding + length) % 7)
     return next_padding
 
 def divcalstringmaker(today):
@@ -495,6 +494,7 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
+    username = authenticate()
     day = request.args.get("day")
     month = request.args.get("month")
     year = request.args.get("year")
@@ -532,16 +532,17 @@ def eventstringmaker(day,month,year):
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
             eventstring += "<a href = eventinfo?username="
-            eventstring += str(username) + "&eventID="
-            eventstring += str(eventinformation[0]) + "&eventName="
-            eventstring += str(eventinformation[1]) + "&eventLocation="
-            eventstring += str(eventinformation[2]) + "&startTime="
-            eventstring += str(eventinformation[3]) + "&endTime="
-            eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+            eventstring += quote(str(username).strip()) + "&eventID="
+            eventstring += quote(str(eventinformation[0])) + "&eventName="
+            eventstring += quote(str(eventinformation[1])) + "&eventLocation="
+            eventstring += quote(str(eventinformation[2])) + "&startTime="
+            eventstring += quote(str(eventinformation[3])) + "&endTime="
+            eventstring += quote(str(eventinformation[4])) + "\" target = \"_blank\">"
             eventstring += str(eventinformation[1]) + "</a>"
             eventstring += "</span>"
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
             eventstring +="</div>"
+    print(eventstring)
     return eventstring
 
 
@@ -552,8 +553,6 @@ def eventstringmaker(day,month,year):
 def signup():
     username = authenticate()
     eventID = request.args.get('eventid')
-    print("EVENT ID!")
-    print(eventID)
     mistdb.add_participant(eventID, username)
 
     return redirect('/index')

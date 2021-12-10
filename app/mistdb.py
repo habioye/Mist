@@ -945,7 +945,7 @@ def participants_query(event_id, netID):
 
                     for friend in friends:
                         for participant in particpants:
-                            if handle_plus(participant[0]) == friend[0]:
+                            if handle_plus(participant[0]) == handle_plus(friend[0]):
                                 data.append(friend)
 
                     return [True, data]

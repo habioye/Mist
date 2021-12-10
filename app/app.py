@@ -597,7 +597,7 @@ def calinfo():
 
 
     #calstring = divcalstringmaker(today)
-    calstring = "<p> calendar</p>"
+    #calstring = "<p> calendar</p>"
 
 
 

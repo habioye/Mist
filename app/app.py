@@ -484,11 +484,11 @@ def divcalstringmaker(today):
         else:
             calc_day = i+1-padding
             if today.is_today(calc_day, month, year):
-                calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"getPanelDetails(this.id)\">"
+                calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
                 calstring += str(calc_day)
                 calstring += "</div>"
             else:
-                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"getPanelDetails(this.id)\">"
+                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
                 calstring += str(calc_day)
             # date = dateformat(year, month, i+1)
             # events = mistdb.date_query(date)

@@ -316,14 +316,14 @@ def addfriend():
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
-    mistdb.remove_friendrequest(username, netid)
+    mistdb.remove_friendrequest(netid, username)
     return redirect('/friendscreen')
 
 @app.route("/removerequest", methods = ['GET'])
 def removerequest():
     username = authenticate()
     netid = request.args.get('netid')
-    mistdb.remove_friendrequest(username, netid)
+    mistdb.remove_friendrequest(netid, username)
     return redirect('/friendscreen')
 
 @app.route("/removefriend", methods = ['GET'])

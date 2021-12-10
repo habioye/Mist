@@ -483,12 +483,12 @@ def divcalstringmaker(today):
             calstring += "</div>"
         else:
             calc_day = i+1-padding
-            calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"getPanelDetails(this.id)\">"
             if today.is_today(calc_day, month, year):
-                calstring += "<div class=\"today\">"
+                calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"getPanelDetails(this.id)\">"
                 calstring += str(calc_day)
                 calstring += "</div>"
             else:
+                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"getPanelDetails(this.id)\">"
                 calstring += str(calc_day)
             # date = dateformat(year, month, i+1)
             # events = mistdb.date_query(date)
@@ -549,12 +549,45 @@ def caldayinfo():
     #         eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
     #         eventstring += str(eventinformation[1]) + "</a>"
     # eventstring += "</div>"
+    day = request.args.get("days")
+    month = request.args.get("month")
+    year = request.args.get("year")
+    month_name = month_full(month)
+    date = str(month_name) + " " + str(year)
+    eventstring = eventstringmaker(day,month,year)
+    render_template("eventfform", date = date, events = eventstring)
     return eventstring
 
 
+def eventstringmaker(day,month,year):
 
+    date = dateformat(year, month, day)
+    events = mistdb.date_query(date)
 
-
+    if events[0] is False:
+        eventstring = "\n"
+        eventstring += "A server error occurred. "
+        eventstring += "Please contact the system administrator."
+        eventstring += "</div>"
+        return eventstring
+    else:
+        for eventinformation in events[1]:
+            eventstring = "\n"
+            eventstring +="<div class=\"items-body-content\">"
+            eventstring += "<span>"
+            eventstring += "<a href = eventinfo?eventID="
+            eventstring += str(eventinformation[0]) + "&eventName="
+            eventstring += str(eventinformation[1]) + "&eventLocation="
+            eventstring += str(eventinformation[2]) + "&startTime="
+            eventstring += str(eventinformation[3]) + "&endTime="
+            eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
+            eventstring += str(eventinformation[1]) + "</a>"
+            eventstring += "</span>"
+            eventstring += "<i class=\"fa fa-angle-right\"></i>"
+            eventstring +="</div>"
+    return eventstring
+      
+      
 
 
 

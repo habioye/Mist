@@ -97,7 +97,7 @@ html {
   padding: 0.2rem;
 }
 
-.day {
+.days div {
   font-size: 1.4rem;
   margin: 0.3rem;
   width: 12%;
@@ -112,21 +112,7 @@ html {
 
   transition: background-color 0.2s;
 }
-.today {
-  font-size: 1.4rem;
-  margin: 0.3rem;
-  width: 12%;
-  height: 5rem;
-  box-sizing: border-box;
-  background-color: #58bae4;
-  margin: 5px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: background-color 0.2s;
-}
 
 .days div:hover:not(.today) {
   background-color: #262626;
@@ -140,7 +126,7 @@ html {
 }
 
 .today {
-  background-color: #167e56;
+  background-color: #ce12df;
 }
 
 .event {

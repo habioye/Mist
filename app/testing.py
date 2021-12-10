@@ -38,7 +38,7 @@ from datetime import date
     
 
 # def ncalstringmaker(month, year):
-#     currcal = mistcalender.mistCalender(month,year)
+#     currcal = mistcalendar.mistCalendar(month,year)
 #     daycount = currcal.get_month_length()
 #     firstday = currcal.get_first_day()
 #     firstday = firstday % 7

@@ -240,7 +240,6 @@ def addinput():
     print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
-    endDate = request.args.get('')
     coords = coords.strip('{ }')
     coords = coords.split(',')
     x = coords[0].strip('"lat":')

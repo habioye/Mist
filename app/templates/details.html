@@ -22,6 +22,21 @@
     <br>
     <strong>Details:</strong> {{details[0][6]}}
     <br>
+    {% if participants != none %}
+      <strong>Interested Friends:</strong>
+      <table>
+        <tr>
+          <th>Net ID</th>
+          <th>Name</th>
+        </tr>
+        {% for participant in participants %}
+          <tr>
+            <td>{{ participant[0] }}</td>
+            <td>{{ participant[1] }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
     <a href = "signup?eventid = {{details[0][0]}}"> Sign up </a>
     <br>
     <a href = "calendar?eventid = {{details[0][0]}}"> Add to Calendar </a>

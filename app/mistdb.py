@@ -9,6 +9,7 @@ from sys import stderr, exit
 from contextlib import closing
 from datetime import datetime, timezone, timedelta
 import os
+import re
 import psycopg2
 import hashlib
 
@@ -18,8 +19,8 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 #---------------------------------------------------------------------
 
-def pair (num1, num2):
-    return int((((float(num1) + float(num2)) * (float(num1) + float(num2) + 1))/2) + float(num2))
+def handle_plus (string):
+    return re.sub(r'\W+', '', string)
 
 #---------------------------------------------------------------------
 
@@ -495,13 +496,14 @@ def remove_friendship(user_a, user_b):
 # failure.
 
 def friends_query(netID):
-    netID = '%' + netID + '%'
+    netID = '%' + handle_plus(netID) + '%'
     try:
         with conn:
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-
+                print("NET ID")
+                print(netID)
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID LIKE %s
@@ -519,15 +521,17 @@ def friends_query(netID):
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
+                print("FRIENDS LIST")
+                print(data)
                 data = list(data)
                 for i in range(len(data)):
                     data[i] = list(data[i])
-                    id = '%' + data[i][0] + '%'
+                    id = '%' + handle_plus(data[i][0]) + '%'
                     cursor.execute(stmt_str, (id,))
                     name = cursor.fetchall()
                     print(name)
                     data[i].append(name[0][0])
-
+                print("WITH NAMES")
                 print(data)
                 return [True, data]
 

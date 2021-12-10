@@ -672,7 +672,7 @@ def calinfo():
     #html = render_template("calendar.html", calendarinfo=calstring)
     #month_name = month_full(month)
 
-    html = render_template("calform.html",month = month, year = year,days= calstring)
+    html = render_template("calform.html",month = "December", year = year,days= calstring)
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())

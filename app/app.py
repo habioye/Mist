@@ -300,8 +300,10 @@ def addfriend():
     netid = request.args.get('netid')
     print("add friendship " + str(username) + str(netid))
     mistdb.add_friendship(username, netid)
-    mistdb.add_friendrequest(username, netid)
+    mistdb.remove_friendrequest(username, netid)
     return redirect('/friendscreen')
+
+
 
 @app.route("/removefriend", methods = ['GET'])
 def removefriend():
@@ -600,7 +602,7 @@ def calinfo():
     # print(calstring)
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
-    
+
     html = render_template("calform.html", stuff="wowow")
     response = make_response(html)
 

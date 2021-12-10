@@ -64,17 +64,17 @@
                 $('#day_panel').html(response);
             }
 
-            let request = null;
+            let calrequest = null;
+            let dayrequest = null;
 
             function getCalinfo()
             {
                     // look at how you retrieve information
-                    let url = '/calinfo';
+                    let url = '/calinfo?month=' + String(month) + '&year=' + String(year);
+                    if (calrequest != null)
+                    calrequest.abort();
 
-                    if (request != null)
-                    request.abort();
-
-                    request = $.ajax(
+                    calrequest = $.ajax(
                     {
                         type: 'GET',
                         url: url,
@@ -90,15 +90,15 @@
                   day = String(today.getDate());
                 }
                 else {
-                  day = String(clicked_id);
+                  day = String(day_id);
                 }
           
                 let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);
           
-                if (ev_request != null) 
-                  ev_request.abort();
+                if (dayrequest != null) 
+                  dayrequest.abort();
           
-                ev_request = $.ajax(
+                dayrequest = $.ajax(
                     {
                         type: 'GET',
                         url: url,

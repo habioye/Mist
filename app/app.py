@@ -226,8 +226,9 @@ def details():
         end = end + " AM"
 
     participants = mistdb.participants_query(eventid, username)
-    if len(participants) == 0:
-        participants = None
+    if participants[0]:
+        if len(participants[1]) == 0:
+            participants = None
     html = render_template('details.html', details = details, start = start, end = end, participants = participants)
     response = make_response(html)
     return response
@@ -766,6 +767,8 @@ def caldayinfo():
 def signup():
     username = authenticate()
     eventID = request.args.get('eventid')
+    print("EVENT ID!")
+    print(eventID)
     mistdb.add_participant(eventID, username)
 
     return redirect('/index')

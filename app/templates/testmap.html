@@ -241,8 +241,9 @@
         let start = urlParams.get("start");
         let end = urlParams.get("end");
 
-        document.getElementById("startdate").value = start;
-        document.getElementById("enddate").value = end;
+        if(start !== null){document.getElementById("start").value = start;}
+
+        if(end!== null){document.getElementById("end").value = end;}
 
         if(option == "friends"){
           document.getElementById("friends").checked = true;
@@ -361,7 +362,7 @@
 
 
       {% if master != None %}
-      <table>
+      <!--<table>
         <tr>
           <th align="left">Event ID</th>
           <th align="left">Title</th>
@@ -380,7 +381,7 @@
       {% endif %}
       <hr>
       Created by Benjamin Nadon, Anthony Gartner, Hassan Abioye, and Nicholas Cabrera </a>.
-      <hr>
+      <hr>-->
 
    </body>
 </html>

@@ -235,9 +235,16 @@ def details():
         participants = participants[1]
         if len(participants) == 0:
             participants = None
-    html = render_template('details.html', details = details, start = start, end = end, participants = participants)
+    html = render_template('details.html', details = details, start = start, username = username, participants = participants)
     response = make_response(html)
     return response
+
+@app.route('/deleteevent')
+def delete():
+    username = authenticate()
+    eventid = request.args.get('eventid')
+    mistdb.remove_by_id(str(eventid))
+    return redirect('/index')
 
 @app.route('/addinput')
 def addinput():
@@ -504,8 +511,11 @@ def caldayinfo():
 
 
 def eventstringmaker(day,month,year):
+    username = authenticate()
 
     date = dateformat(year, month, day)
+    print('DATE')
+    print(date)
     events = mistdb.date_query(date)
     eventstring = ""
 
@@ -524,7 +534,8 @@ def eventstringmaker(day,month,year):
             eventstring += "\n"
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
-            eventstring += "<a href = eventinfo?eventID="
+            eventstring += "<a href = eventinfo?username="
+            eventstring += str(username) + "&eventID="
             eventstring += str(eventinformation[0]) + "&eventName="
             eventstring += str(eventinformation[1]) + "&eventLocation="
             eventstring += str(eventinformation[2]) + "&startTime="
@@ -534,6 +545,7 @@ def eventstringmaker(day,month,year):
             eventstring += "</span>"
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
             eventstring +="</div>"
+    print(eventstring)
     return eventstring
 
 
@@ -544,8 +556,6 @@ def eventstringmaker(day,month,year):
 def signup():
     username = authenticate()
     eventID = request.args.get('eventid')
-    print("EVENT ID!")
-    print(eventID)
     mistdb.add_participant(eventID, username)
 
     return redirect('/index')

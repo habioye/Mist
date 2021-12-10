@@ -767,6 +767,8 @@ def caldayinfo():
 def signup():
     username = authenticate()
     eventID = request.args.get('eventid')
+    print("EVENT ID!")
+    print(eventID)
     mistdb.add_participant(eventID, username)
 
     return redirect('/index')

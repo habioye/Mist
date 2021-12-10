@@ -495,6 +495,7 @@ def remove_friendship(user_a, user_b):
 # failure.
 
 def friends_query(netID):
+    netID = '%' + netID + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -525,7 +526,7 @@ def friends_query(netID):
                     id = '%' + person[0] + '%'
                     cursor.execute(stmt_str, (id,))
                     name = list(cursor.fetchall())
-                    person.push(name[0])
+                    person.append(name[0])
 
                 return [True, data]
 

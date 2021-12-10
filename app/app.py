@@ -205,7 +205,7 @@ def input():
 
 @app.route('/details', methods = ['GET'])
 def details():
-    # username = authenticate()
+    username = authenticate()
     eventid = request.args.get('eventid')
     # print(eventid)
     package = mistdb.details_query(str(eventid))
@@ -224,7 +224,9 @@ def details():
         end = str(int(end[:2]) - 12) + end[2:] + " PM"
     else:
         end = end + " AM"
-    html = render_template('details.html', details = details, start = start, end = end)
+
+    participants = mistdb.participants_query(eventid, username)
+    html = render_template('details.html', details = details, start = start, end = end, participants = participants)
     response = make_response(html)
     return response
 
@@ -243,8 +245,6 @@ def addinput():
     end = request.args.get('end')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
-    print("\n\n\n\n\n\nIs there going to be an end date? Let's find out!")
-    print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
     coords = coords.strip('{ }')
@@ -758,7 +758,13 @@ def caldayinfo():
 
 
 
+@app.route('/signup', methods=['GET'])
+def signup():
+    username = authenticate()
+    eventID = request.args.get('eventid')
+    mistdb.add_participant(eventID, username)
 
+    return redirect('/index')
 
 
 @app.route('/firsttimeuser', methods=['GET'])

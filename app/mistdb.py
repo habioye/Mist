@@ -838,12 +838,23 @@ def search_query(search, netID ):
                 cursor.execute(stmt_str, (netID,))
                 friends = cursor.fetchall()
 
-                data = []
+                stmt_str = '''  SELECT  requestee
+                                FROM    requests
+                                WHERE   requester LIKE %s'''
+                cursor.execute(stmt_str, (netID,))
+                requests = cursor.fetchall()
 
+                data = []
                 for name in names:
+                    is_friend = False
                     for friend in friends:
-                        if handle_plus(name[0]) != handle_plus(friend[0]):
-                            data.append(name)
+                        if handle_plus(name[0]) == handle_plus(friend[0]):
+                            is_friend = True
+                    for request in requests:
+                        if handle_plus(name[0]) == handle_plus(request[0]):
+                            is_friend = True
+                    if not is_friend:
+                        data.append(name)
 
                 return [True, data]
 

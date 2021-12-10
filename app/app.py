@@ -252,7 +252,7 @@ def addinput():
 @app.route('/friendscreen', methods = ['GET'])
 def friendscreen():
     username = authenticate()
-    username = '%' + username + '%'
+    username = username
     html = render_template('friendscreen.html', userid = username)
     response = make_response(html)
     return response

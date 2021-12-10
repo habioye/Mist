@@ -495,6 +495,7 @@ def remove_friendship(user_a, user_b):
 # failure.
 
 def friends_query(netID):
+    netID = '%' + netID + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -519,14 +520,15 @@ def friends_query(netID):
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
                 data = list(data)
-                print(data)
                 for person in data:
                     person = list(person)
                     id = '%' + person[0] + '%'
                     cursor.execute(stmt_str, (id,))
                     name = list(cursor.fetchall())
-                    person.push(name[0])
+                    print(name)
+                    person.append(name[0])
 
+                print(data)
                 return [True, data]
 
     except Exception as ex:

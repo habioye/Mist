@@ -535,6 +535,7 @@ def eventstringmaker(day,month,year):
             eventstring += "</span>"
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
             eventstring +="</div>"
+    print(eventstring)
     return eventstring
 
 
@@ -545,8 +546,6 @@ def eventstringmaker(day,month,year):
 def signup():
     username = authenticate()
     eventID = request.args.get('eventid')
-    print("EVENT ID!")
-    print(eventID)
     mistdb.add_participant(eventID, username)
 
     return redirect('/index')

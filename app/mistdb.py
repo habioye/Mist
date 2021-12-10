@@ -440,27 +440,28 @@ def edit_name(netID, name):
 # an error message on failure.
 
 def add_friendship(user_a, user_b):
-    try:
-        with conn:
-            cursor = conn.cursor()
+    if handle_plus(user_a) != handle_plus(user_b):
+        try:
+            with conn:
+                cursor = conn.cursor()
 
-            with closing(conn.cursor()) as cursor:
+                with closing(conn.cursor()) as cursor:
 
-                stmt_str = '''INSERT INTO friends (userID, friendID)
-                    VALUES (%s, %s)'''
+                    stmt_str = '''INSERT INTO friends (userID, friendID)
+                        VALUES (%s, %s)'''
 
-                cursor.execute(stmt_str, (user_a, user_b))
-                cursor.execute(stmt_str, (user_b, user_a))
+                    cursor.execute(stmt_str, (user_a, user_b))
+                    cursor.execute(stmt_str, (user_b, user_a))
 
-                return True
+                    return True
 
-    except Exception as ex:
-        error_msg = "A server error occurred. "
-        error_msg +="Please contact the system administrator."
-        print(ex, file=stderr, end=" ")
-        print(error_msg, file=stderr)
-        result = [False, error_msg]
-        return result
+        except Exception as ex:
+            error_msg = "A server error occurred. "
+            error_msg +="Please contact the system administrator."
+            print(ex, file=stderr, end=" ")
+            print(error_msg, file=stderr)
+            result = [False, error_msg]
+            return result
 
 
 # Remove the friendship relationship between two users. Returns True

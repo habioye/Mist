@@ -838,7 +838,8 @@ def add_participant(event_id, participant):
 # Remove a participant from a specified eventID. Return True on Success, False and error
 # message on failure.
 
-def remove_particpant(event_id, participant):
+def remove_participant(event_id, participant):
+    participant = '%' + handle_plus(participant) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -847,7 +848,7 @@ def remove_particpant(event_id, participant):
 
                 stmt_str = '''  DELETE FROM participants
                                 WHERE       eventID = %s
-                                AND         userID = %s'''
+                                AND         userID LIKE %s'''
 
                 cursor.execute(stmt_str, (event_id, participant))
                 return True
@@ -921,7 +922,7 @@ def search_query(search, netID ):
 # Return True and a list of participants that are the user's friends
 # and their names on Success, False and error message on failure.
 
-def particpants_query(event_id, netID):
+def participants_query(event_id, netID):
     netID = '%' + handle_plus(netID) + '%'
     friends = friends_query(netID)
     try:

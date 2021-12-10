@@ -217,8 +217,7 @@ def details():
         end = str(int(end[:2]) - 12) + end[2:] + " PM"
     else:
         end = end + " AM"
-    time = start + " - " + end
-    html = render_template('details.html', details = details, time = time)
+    html = render_template('details.html', details = details, start = start, end = end)
     response = make_response(html)
     return response
 

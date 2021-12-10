@@ -206,6 +206,7 @@ def map_query(start, end):
 
 #queries for only private friend events
 def private_query(start, end, friendid):
+    friendid = '%' + handle_plus(friendid) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -220,7 +221,7 @@ def private_query(start, end, friendid):
                                 FROM    details
                                 WHERE   (eventDate BETWEEN %s AND %s)
                                 AND     eventPrivacy = 'PRIVATE'
-                                AND     plannerID = %s
+                                AND     plannerID LIKE %s
                                 ORDER BY    eventLocation,
                                             eventName'''
                 cursor.execute(stmt_str, (start, end, friendid))
@@ -273,6 +274,7 @@ def public_query(start, end):
 # error message on failure.
 
 def cal_query(userID):
+    userID = '%' + handle_plus(userID) + '%'
     try:
         with conn:
             cursor = conn.cursor()
@@ -286,7 +288,7 @@ def cal_query(userID):
                                         eventDate
                                 FROM    details
                                 WHERE   details.eventID = participants.eventID
-                                AND     participants.userID = %s
+                                AND     participants.userID LIKE %s
                                 ORDER BY    eventDate,
                                             startTime,
                                             eventName'''
@@ -503,8 +505,8 @@ def friends_query(netID):
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                print("NET ID")
-                print(netID)
+                # print("NET ID")
+                # print(netID)
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID LIKE %s
@@ -522,8 +524,8 @@ def friends_query(netID):
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
-                print("FRIENDS LIST")
-                print(data)
+                # print("FRIENDS LIST")
+                # print(data)
                 data = list(data)
                 for i in range(len(data)):
                     data[i] = list(data[i])
@@ -532,8 +534,8 @@ def friends_query(netID):
                     name = cursor.fetchall()
                     print(name)
                     data[i].append(name[0][0])
-                print("WITH NAMES")
-                print(data)
+                # print("WITH NAMES")
+                # print(data)
                 return [True, data]
 
     except Exception as ex:

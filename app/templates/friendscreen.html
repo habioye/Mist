@@ -64,6 +64,7 @@
           <div class = "container-fluid">
                 <p id = 'Friendresults'></p>
         </div>
+          <h1>Friend Requests</h1>
         <div class = "container-fluid">
               <p id = 'Friendrequests'></p>
       </div>
@@ -95,7 +96,7 @@
       {
         $('#Friendresults').html(response);
       }
-      function handleRequestss(response)
+      function handleRequests(response)
       {
         $('#Friendrequests').html(response);
       }
@@ -166,8 +167,8 @@
          function setup()
          {
             $('#searchBar').on('input', getResults);
-            getFriends()
-            getRequests()
+            getFriends();
+            getRequests();
          }
 
          $('document').ready(setup);

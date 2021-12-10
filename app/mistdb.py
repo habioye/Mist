@@ -563,7 +563,7 @@ def friends_query(netID):
                 stmt_str = '''  SELECT  userName
                                 FROM    userNames
                                 WHERE   userID LIKE %s'''
-                
+
                 data = list(data)
                 for i in range(len(data)):
                     data[i] = list(data[i])
@@ -641,7 +641,7 @@ def pending_query(netID):
                 stmt_str = '''  SELECT  requests.requestee
                                 FROM    requests
                                 WHERE   requests.requester LIKE %s
-                                ORDER BY    requester'''
+                                ORDER BY    requestee'''
                 # stmt_str = '''  SELECT  friends.friendID,
                 #                         userNames.userName
                 #                 FROM    friends,
@@ -675,7 +675,7 @@ def pending_query(netID):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
-        
+
 # Add a textual permission to a user. Returns True if successful, false
 # and an error message if failure.
 
@@ -895,6 +895,8 @@ def search_query(search, netID ):
                 data = []
                 for name in names:
                     is_friend = False
+                    if handle_plus(name[0]) == handle_plus(netID):
+                        is_friend = True
                     for friend in friends:
                         if handle_plus(name[0]) == handle_plus(friend[0]):
                             is_friend = True
@@ -943,7 +945,7 @@ def particpants_query(event_id, netID):
                         for participant in particpants:
                             if handle_plus(participant[0]) == friend[0]:
                                 data.append(friend)
-                    
+
                     return [True, data]
 
     except Exception as ex:

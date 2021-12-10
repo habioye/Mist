@@ -401,23 +401,7 @@ def eventinfo():
 @app.route('/calendar', methods=['GET'])
 def calendar():
     username = authenticate()
-    # package = mistdb.map_query("00:00:00-05:00", "23:59:59-05:00")
-    # if(package[0] == False):
-    #     print(package[1])
-    # else:
-    #     package = package[1]
-    #
-    #data = []
-    # for event in package:
-    #     details = mistdb.details_query(event[0])
-    #     if details[0]:
-    #         data.push(details[1])
-    #     else:
-    #         print(details[1])
-
-
     html = render_template("calendar.html")
-
     response = make_response(html)
 
     return response
@@ -509,8 +493,8 @@ def caldayinfo():
     year = request.args.get("year")
     month_name = month_full(int(month))
     date = month_name + " " + str(day)
-    #eventstring = eventstringmaker(day,month,year)
-    eventstring = "super"
+    eventstring = eventstringmaker(day,month,year)
+    # eventstring = "super"
     html = render_template("eventform.html", date = date, events = eventstring)
     response = make_response(html)
     return response
@@ -520,17 +504,21 @@ def eventstringmaker(day,month,year):
 
     date = dateformat(year, month, day)
     events = mistdb.date_query(date)
+    eventstring = ""
+
 
     if events[0] is False:
-        eventstring = "\n"
+        eventstring += "\n"
         eventstring = "<div>"
         eventstring += "A server error occurred. "
         eventstring += "Please contact the system administrator."
         eventstring += "</div>"
         return eventstring
     else:
-        for eventinformation in events[1]:
-            eventstring = "\n"
+        events = events[1]
+        print(events)
+        for eventinformation in events:
+            eventstring += "\n"
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
             eventstring += "<a href = eventinfo?eventID="

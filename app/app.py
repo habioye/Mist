@@ -236,6 +236,8 @@ def addinput():
     end = request.args.get('end')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
+    print("\n\n\n\n\n\nIs there going to be an end date? Let's find out!")
+    print(endDate)
     coords = str(request.args.get('coords'))
     details = request.args.get('details')
     coords = coords.strip('{ }')
@@ -621,7 +623,7 @@ def calinfo():
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
 
-    html = render_template("calform.html", days= "<p>calstring</p>")
+    html = render_template("calform.html", days= "<div><p>calstring</p></div>")
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())
@@ -730,13 +732,7 @@ def caldayinfo():
 
 
 
-@app.route('/signup', methods=['GET'])
-def signup():
-    username = authenticate()
-    eventID = request.args.get('eventid')
-    mistdb.add_participant(eventID, username)
 
-    return redirect('/index')
 
 @app.route('/firsttimeuser', methods=['GET'])
 def firsttimeuser():

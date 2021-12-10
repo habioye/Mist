@@ -835,7 +835,7 @@ def search_query(search, netID ):
                 stmt_str = '''  SELECT  friends.friendID
                                 FROM    friends
                                 WHERE   friends.userID LIKE %s'''
-                cursor.execute(stmt_str, (netID))
+                cursor.execute(stmt_str, (netID,))
                 friends = cursor.fetchall()
 
                 data = []

@@ -76,7 +76,7 @@ def add_event_proto(title, x_coord, y_coord):
 # and hashes the coordinates into an eventID. Hashing might need to be changed
 # to be more complex to ensure unique IDs, but seems statistically improbable.
 
-def add_event(title, location, start, end, date, details, planner, x_coord, y_coord, number, privacy):
+def add_event(title, location, start, end, date, details, planner, x_coord, y_coord, number, endDate, privacy):
     try:
         with conn:
             cursor = conn.cursor()
@@ -94,9 +94,9 @@ def add_event(title, location, start, end, date, details, planner, x_coord, y_co
 
                 stmt_str = '''INSERT INTO details (eventID, eventName, eventLocation,
                     startTime, endTime, eventDate, details, plannerID, coordinates,
-                    roomNumber, eventPrivacy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '( %s , %s )'::point, %s, %s)'''
+                    roomNumber, endDate, eventPrivacy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '( %s , %s )'::point, %s, %s, %s)'''
                 cursor.execute(stmt_str, (event_id, title, location, start,
-                    end, date, details, planner, float(x_coord), float(y_coord), number, privacy))
+                    end, date, details, planner, float(x_coord), float(y_coord), number, endDate, privacy))
 
                 return True
     except Exception as ex:

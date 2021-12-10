@@ -458,7 +458,7 @@ def calinfo():
     return response
 
 def padding_from_first(first_day):
-    padding = first_day % 6
+    padding = first_day % 7
     return padding
 
 def padd_next(padding, length):

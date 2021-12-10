@@ -263,6 +263,7 @@
            position: { lat: parseFloat(coords[1]), lng:parseFloat(coords[0]) },
            map: map,
            title:String(element[1]),
+           label: {color: '#00aaff', fontWeight: 'bold', fontSize: '14px', text:String(element[1])}
          });
          markers.push(marker);
          let eventid = encodeURIComponent(element[0])
@@ -286,7 +287,6 @@
         })
         var mcOptions = {zoomOnClick: false, minimumClusterSize: 2};
         const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, mcOptions });
-        markerCluster.setZoomOnClick(false);
         google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
           var markers = cluster.getMarkers();
           console.log(markers);

@@ -576,7 +576,7 @@ def friends_query(netID):
                     id = '%' + handle_plus(data[i][0]) + '%'
                     cursor.execute(stmt_str, (id,))
                     name = cursor.fetchall()
-                    print(name)
+                    # print(name)
                     data[i].append(name[0][0])
                 # print("WITH NAMES")
                 # print(data)
@@ -624,7 +624,6 @@ def requests_query(netID):
                     id = '%' + handle_plus(data[i][0]) + '%'
                     cursor.execute(stmt_str, (id,))
                     name = cursor.fetchall()
-                    print(name)
                     data[i].append(name[0][0])
                 # print("WITH NAMES")
                 # print(data)

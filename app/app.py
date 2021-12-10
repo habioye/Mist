@@ -600,7 +600,6 @@ def calinfo():
 
 
 
-
     calstring = divcalstringmaker(today)
     #calstring = "<p> calendar</p>"
 
@@ -624,7 +623,7 @@ def calinfo():
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
 
-    html = render_template("calform.html", days= "<[>calstring</p>")
+    html = render_template("calform.html", days= "<p>calstring</p>")
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())

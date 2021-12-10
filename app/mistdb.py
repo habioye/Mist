@@ -628,6 +628,54 @@ def requests_query(netID):
         print(error_msg, file=stderr)
         result = [False, error_msg]
         return result
+
+def pending_query(netID):
+    netID = '%' + handle_plus(netID) + '%'
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+                # print("NET ID")
+                # print(netID)
+                stmt_str = '''  SELECT  requests.requestee
+                                FROM    requests
+                                WHERE   requests.requester LIKE %s
+                                ORDER BY    requester'''
+                # stmt_str = '''  SELECT  friends.friendID,
+                #                         userNames.userName
+                #                 FROM    friends,
+                #                         userNames
+                #                 WHERE   friends.userID LIKE %s
+                #                 AND     friends.friendID = userNames.userID
+                #                 ORDER BY    userName'''
+                cursor.execute(stmt_str, (netID,))
+                data = cursor.fetchall()
+
+                stmt_str = '''  SELECT  userName
+                                FROM    userNames
+                                WHERE   userID LIKE %s'''
+                # print("FRIENDS LIST")
+                # print(data)
+                data = list(data)
+                for i in range(len(data)):
+                    data[i] = list(data[i])
+                    id = '%' + handle_plus(data[i][0]) + '%'
+                    cursor.execute(stmt_str, (id,))
+                    name = cursor.fetchall()
+                    data[i].append(name[0][0])
+                # print("WITH NAMES")
+                # print(data)
+                return [True, data]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+        
 # Add a textual permission to a user. Returns True if successful, false
 # and an error message if failure.
 

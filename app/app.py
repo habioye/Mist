@@ -120,7 +120,14 @@ def logout():
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
+
         username = authenticate()
+        friendrequests = mistdb.requests_query(username)
+        friendrequests = friendrequests[1]
+        numrequests = len(friendrequests)
+
+
+
 
         startdate = request.args.get("start")
         enddate = request.args.get("end")
@@ -181,7 +188,7 @@ def index():
         master = mistdb.map_query(startdate,enddate)
         master = master[1]
 
-        html = render_template("testmap.html", eventData = points, userData = names, master = master)
+        html = render_template("testmap.html", eventData = points, userData = names, num = numrequests, master = master)
 
         response = make_response(html)
 
@@ -286,6 +293,18 @@ def getrequests():
     html = render_template('friendrequests.html', friends = friendslist)
     response = make_response(html)
     return response
+
+@app.route('/getpending', methods = ['GET'])
+def getpending():
+    userid = authenticate()
+    package = mistdb.pending_query(userid)
+    if package[0] is False:
+        print(package[1])
+    friendslist = package[1]
+    html = render_template('pendingrequests.html', friends = friendslist)
+    response = make_response(html)
+    return response
+
 @app.route('/searchfriends', methods = ['GET'])
 def searchfriends():
     username = authenticate()
@@ -324,6 +343,13 @@ def removerequest():
     username = authenticate()
     netid = request.args.get('netid')
     mistdb.remove_friendrequest(netid, username)
+    return redirect('/friendscreen')
+
+@app.route("/cancelrequest", methods = ['GET'])
+def removerequest():
+    username = authenticate()
+    netid = request.args.get('netid')
+    mistdb.remove_friendrequest(username, username)
     return redirect('/friendscreen')
 
 @app.route("/removefriend", methods = ['GET'])
@@ -623,7 +649,7 @@ def calinfo():
     #calstring = altcalstring(today)
     #html = render_template("calendar.html", calendarinfo=calstring)
 
-    html = render_template("calform.html", days= "<div><p>calstring</p></div>")
+    html = render_template("calform.html", days= calstring)
     response = make_response(html)
 
     # response.set_cookie('month', today.get_month())

@@ -227,7 +227,8 @@ def details():
 
     participants = mistdb.participants_query(eventid, username)
     if participants[0]:
-        if len(participants[1]) == 0:
+        participants = participants[1]
+        if len(participants) == 0:
             participants = None
     html = render_template('details.html', details = details, start = start, end = end, participants = participants)
     response = make_response(html)

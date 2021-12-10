@@ -493,30 +493,6 @@ def divcalstringmaker(today):
             else:
                 calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
                 calstring += str(calc_day)
-            # date = dateformat(year, month, i+1)
-            # events = mistdb.date_query(date)
-            # # check if there is equal to false.
-            # if events[0] is False:
-            #     calstring += "\n"
-            #     calstring += "A server error occurred. "
-            #     calstring += "Please contact the system administrator."
-            # else:
-            #     for eventinformation in events[1]:
-            #         calstring += "\n"
-            #         calstring += "< div class=\"event\">"
-            #         calstring += "<a href = eventinfo?eventID="
-            #         event_id = eventinformation[0]
-            #         eventstuff = mistdb.details_query(event_id)
-            #         if eventstuff[0]:
-            #             calstring += "\n"
-            #             calstring += "<a href = eventinfo?eventID="
-            #             calstring += str(eventinformation[0]) + "&eventName="
-            #             calstring += str(eventinformation[1]) + "&eventLocation="
-            #             calstring += str(eventinformation[2]) + "&startTime="
-            #             calstring += str(eventinformation[3]) + "&endTime="
-            #             calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-            #             calstring += str(eventinformation[1]) + "</a>"
-            #         calstring += "</div>"
                 calstring += "</div>"
 
     for j in range(padding_next):
@@ -528,32 +504,6 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
-
-    # day = int(request.args.get('day'))
-    # month = int(request.args.get('month'))
-    # year = int(request.args.get('year'))
-    # date = dateformat(year, month, day)
-    # events = mistdb.date_query(date)
-    # eventstring = "<div>"
-    # if events[0] is False:
-    #     eventstring += "\n"
-    #     eventstring += "A server error occurred. "
-    #     eventstring += "Please contact the system administrator."
-    #     eventstring += "</div>"
-    #     return eventstring
-    # else:
-    #     for eventinformation in events[1]:
-    #         eventstring += "\n"
-    #         eventstring += "<a href = eventinfo?eventID="
-    #         eventstring += str(eventinformation[0]) + "&eventName="
-    #         eventstring += str(eventinformation[1]) + "&eventLocation="
-    #         eventstring += str(eventinformation[2]) + "&startTime="
-    #         eventstring += str(eventinformation[3]) + "&endTime="
-    #         eventstring += str(eventinformation[4]) + "\" target = \"_blank\">"
-    #         eventstring += str(eventinformation[1]) + "</a>"
-    # eventstring += "</div>"
-
-
     day = request.args.get("day")
     month = request.args.get("month")
     year = request.args.get("year")
@@ -573,6 +523,7 @@ def eventstringmaker(day,month,year):
 
     if events[0] is False:
         eventstring = "\n"
+        eventstring = "<div>"
         eventstring += "A server error occurred. "
         eventstring += "Please contact the system administrator."
         eventstring += "</div>"

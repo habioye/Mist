@@ -69,8 +69,7 @@
             function getCalinfo()
             {
                     // look at how you retrieve information
-                    let url = '/calinfo';
-
+                    let url = '/calinfo?month=' + String(month) + '&year=' + String(year);
                     if (request != null)
                     request.abort();
 
@@ -90,7 +89,7 @@
                   day = String(today.getDate());
                 }
                 else {
-                  day = String(clicked_id);
+                  day = String(day_id);
                 }
           
                 let url = "/caldayinfo?day=" + day + "&month=" + String(month) + "&year=" + String(year);

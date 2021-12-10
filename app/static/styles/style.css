@@ -97,22 +97,7 @@ html {
   padding: 0.2rem;
 }
 
-.day {
-  font-size: 1.4rem;
-  margin: 0.3rem;
-  width: 12%;
-  height: 5rem;
-  box-sizing: border-box;
-  background-color: #58bae4;
-  margin: 5px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: background-color 0.2s;
-}
-.today {
+.days div {
   font-size: 1.4rem;
   margin: 0.3rem;
   width: 12%;

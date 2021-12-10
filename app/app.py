@@ -486,14 +486,14 @@ def divcalstringmaker(today):
             calstring += "</div>"
         else:
             calc_day = i+1-padding
-            if today.is_today(calc_day, month, year):
-                calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-                calstring += str(calc_day)
-                calstring += "</div>"
-            else:
-                calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
-                calstring += str(calc_day)
-                calstring += "</div>"
+            # if today.is_today(calc_day, month, year):
+            #     calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+            #     calstring += str(calc_day)
+            #     calstring += "</div>"
+            # else:
+            calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+            calstring += str(calc_day)
+            calstring += "</div>"
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

@@ -447,7 +447,7 @@ def calinfo():
 
 
 
-    calstring = divcalstringmaker(today, username)
+    calstring = divcalstringmaker(today)
 
     month_name = month_full(int(month))
 
@@ -463,7 +463,7 @@ def padd_next(padding, length):
     next_padding = ((padding + length) % 7)
     return next_padding
 
-def divcalstringmaker(today, username):
+def divcalstringmaker(today):
     padding_to = today.peek_previous_month_length()
     month_length = today.get_month_length()
     first_day = today.get_first_day()
@@ -481,6 +481,7 @@ def divcalstringmaker(today, username):
             calstring += "</div>"
         else:
             calc_day = i+1-padding
+<<<<<<< HEAD
             now = date(calc_day,month,year)
             list = mistdb.date_query(now,username)
             list = list[1]
@@ -492,6 +493,16 @@ def divcalstringmaker(today, username):
                 calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
                 calstring += str(calc_day)
                 calstring += "</div>"
+=======
+            # if today.is_today(calc_day, month, year):
+            #     calstring += "<div class =\"today\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+            #     calstring += str(calc_day)
+            #     calstring += "</div>"
+            # else:
+            calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+            calstring += str(calc_day)
+            calstring += "</div>"
+>>>>>>> parent of f004d8f (Update app.py)
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

@@ -698,7 +698,7 @@ def divcalstringmaker(today):
 
 @app.route('/caldayinfo', methods=['GET'])
 def caldayinfo():
-    eventstring = "<p> events</p>"
+    eventstring = "<div> events</div>"
     # day = int(request.args.get('day'))
     # month = int(request.args.get('month'))
     # year = int(request.args.get('year'))

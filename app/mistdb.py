@@ -320,11 +320,11 @@ def date_query(date, userID):
             cursor = conn.cursor()
 
             with closing(conn.cursor()) as cursor:
-                stmt_str = '''  SELECT  eventID,
-                                        eventName,
-                                        eventLocation,
-                                        startTime,
-                                        endTime
+                stmt_str = '''  SELECT  details.eventID,
+                                        details.eventName,
+                                        details.eventLocation,
+                                        details.startTime,
+                                        details.endTime
                                 FROM    details,
                                         participants
                                 WHERE   details.eventDate = %s

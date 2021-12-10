@@ -790,7 +790,6 @@ def firsttimeuser():
         else:
             mistdb.edit_name(netid, firstname + ' ' + lastname)
             abort(redir('https://mist-princeton.herokuapp.com/'))
-            return redirect('/index')
 
 
 

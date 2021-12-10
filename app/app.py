@@ -127,9 +127,6 @@ def index():
         friendrequests = friendrequests[1]
         numrequests = len(friendrequests)
 
-
-
-
         startdate = request.args.get("start")
         enddate = request.args.get("end")
         option = request.args.get("option")

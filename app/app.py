@@ -514,7 +514,7 @@ def divcalstringmaker(today):
             #             calstring += str(eventinformation[4]) + "\" target = \"_blank\">"
             #             calstring += str(eventinformation[1]) + "</a>"
             #         calstring += "</div>"
-            calstring += "</div>"
+                calstring += "</div>"
 
     for j in range(padding_next):
         calstring += "<div class=\"next-date\">"

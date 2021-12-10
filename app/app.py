@@ -532,7 +532,7 @@ def eventstringmaker(day,month,year):
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
             eventstring += "<a href = eventinfo?username="
-            eventstring += str(username) + "&eventID="
+            eventstring += str(username).strip() + "&eventID="
             eventstring += str(eventinformation[0]) + "&eventName="
             eventstring += str(eventinformation[1]) + "&eventLocation="
             eventstring += str(eventinformation[2]) + "&startTime="

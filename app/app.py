@@ -544,12 +544,12 @@ def eventstringmaker(day,month,year):
             eventstring += "<a href = eventinfo?eventID=" + quote(str(eventinformation[0]))
             eventstring += "&eventName=" + quote(str(eventinformation[1]))
             eventstring += "&eventLocation=" + quote(str(eventinformation[2]))
-            eventstring += "&startTime=" + quote(str(eventinformation[3]))
-            eventstring += "&endTime=" + quote(str(eventinformation[4]))
             eventstring += "&eventDate=" + quote(str(eventinformation[5]))
+            eventstring += "&startTime=" + quote(str(eventinformation[3]))
+            eventstring += "&endDate=" + quote(str(eventinformation[8]))
+            eventstring += "&endTime=" + quote(str(eventinformation[4]))
             eventstring += "&details=" + quote(str(eventinformation[6]))
             eventstring += "&roomNumber=" + quote(str(eventinformation[7]))
-            eventstring += "&endDate=" + quote(str(eventinformation[8]))
             eventstring += "\" target = \"_blank\">"
             eventstring += str(eventinformation[1]) + "</a>"
             eventstring += "</span>"

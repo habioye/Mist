@@ -389,14 +389,19 @@ def dateformat(year, month, day):
 @app.route('/eventinfo', methods = ['GET'])
 def eventinfo():
     username = authenticate()
+
     eventID = request.args.get('eventID')
     eventName = request.args.get('eventName')
     eventLocation = request.args.get('eventLocation')
     startTime = request.args.get('startTime')
     endTime = request.args.get('endTime')
+    eventDate = request.args.get('eventDate')
+    details = request.args.get('details')
+    roomNumber = request.args.get('roomNumber')
+    endDate = request.args.get('endDate')
+    
 
-
-    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime)
+    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime, eventDate = eventDate, details = details, roomNumber = roomNumber, endDate = endDate)
     response = make_response(html)
     return response
     # check when there is no such eventinfo
@@ -525,23 +530,27 @@ def eventstringmaker(day,month,year):
         eventstring += "</div>"
         return eventstring
     else:
+        eventstring += "\n"
         events = events[1]
         print(events)
         for eventinformation in events:
             eventstring += "\n"
             eventstring +="<div class=\"items-body-content\">"
             eventstring += "<span>"
-            eventstring += "<a href = eventinfo?username="
-            eventstring += quote(str(username).strip()) + "&eventID="
-            eventstring += quote(str(eventinformation[0])) + "&eventName="
-            eventstring += quote(str(eventinformation[1])) + "&eventLocation="
-            eventstring += quote(str(eventinformation[2])) + "&startTime="
-            eventstring += quote(str(eventinformation[3])) + "&endTime="
-            eventstring += quote(str(eventinformation[4])) + "\" target = \"_blank\">"
+            eventstring += "<a href = eventinfo?eventID=" + quote(str(eventinformation[0]))
+            eventstring += "&eventName=" + quote(str(eventinformation[1]))
+            eventstring += "&eventLocation=" + quote(str(eventinformation[2]))
+            eventstring += "&startTime=" + quote(str(eventinformation[3]))
+            eventstring += "&endTime=" + quote(str(eventinformation[4]))
+            eventstring += "&eventDate=" + quote(str(eventinformation[5]))
+            eventstring += "&details=" + quote(str(eventinformation[6]))
+            eventstring += "&roomNumber=" + quote(str(eventinformation[7]))
+            eventstring += "&endDate=" + quote(str(eventinformation[8]))
+            eventstring += "\" target = \"_blank\">"
             eventstring += str(eventinformation[1]) + "</a>"
             eventstring += "</span>"
             eventstring += "<i class=\"fa fa-angle-right\"></i>"
-            eventstring +="</div>"
+            eventstring += "</div>"
     print(eventstring)
     return eventstring
 

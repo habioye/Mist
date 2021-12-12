@@ -931,24 +931,25 @@ def search_query(search, netID ):
 # and their names on Success, False and error message on failure.
 def is_participant(eventID, netID):
     netID = '%' + handle_plus(netID) + '%'
-    with conn:
-        cursor = conn.cursor()
+    try:
+        with conn:
+            cursor = conn.cursor()
 
-        with closing(conn.cursor()) as cursor:
+            with closing(conn.cursor()) as cursor:
 
-            stmt_str = '''  SELECT  userID
-                            FROM    participants
-                            WHERE   eventID = %s
-                            AND     userID LIKE %s
-                            ORDER BY    userID'''
+                stmt_str = '''  SELECT  userID
+                                FROM    participants
+                                WHERE   eventID = %s
+                                AND     userID LIKE %s
+                                ORDER BY    userID'''
 
-            cursor.execute(stmt_str, (event_id, netID))
-            particpants = cursor.fetchall()
+                cursor.execute(stmt_str, (event_id, netID))
+                particpants = cursor.fetchall()
 
-            if(len(participants) == 0):
-                return [True, True]
-            else:
-                return[True, False]
+                if(len(participants) == 0):
+                    return [True, True]
+                else:
+                    return[True, False]
 
     except Exception as ex:
         error_msg = "A server error occurred. "

@@ -34,8 +34,9 @@
         {% endfor %}
       </table>
     {% endif %}
+    {%if showbutton%}
     <a href = "signup?eventid={{details[0][0]}}"> sign up </a>
-
+    {%endif%}
     {% if username == details[0][7]%}
     <a href = "deleteevent?eventid={{details[0][0]}}"> delete event </a>
     {% endif %}

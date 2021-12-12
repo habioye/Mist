@@ -228,11 +228,12 @@ def details():
         start = start + " - " + end
 
     participants = mistdb.participants_query(eventid, username)
+    showbutton = mistdb.is_participant(eventid, username)
     if participants[0]:
         participants = participants[1]
         if len(participants) == 0:
             participants = None
-    html = render_template('details.html', details = details, start = start, username = username, participants = participants)
+    html = render_template('details.html', details = details, start = start, username = username, participants = participants, showbutton=showbutton)
     response = make_response(html)
     return response
 
@@ -399,7 +400,7 @@ def eventinfo():
     details = request.args.get('details')
     roomNumber = request.args.get('roomNumber')
     endDate = request.args.get('endDate')
-    
+
 
     html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime, eventDate = eventDate, details = details, roomNumber = roomNumber, endDate = endDate)
     response = make_response(html)

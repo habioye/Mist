@@ -929,6 +929,37 @@ def search_query(search, netID ):
 # Query the participants on a specified eventID, for a specified user.
 # Return True and a list of participants that are the user's friends
 # and their names on Success, False and error message on failure.
+def is_participant(eventID, netID):
+    netID = '%' + handle_plus(netID) + '%'
+    try:
+        with conn:
+            cursor = conn.cursor()
+
+            with closing(conn.cursor()) as cursor:
+
+                stmt_str = '''  SELECT  userID
+                                FROM    participants
+                                WHERE   eventID = %s
+                                AND     userID LIKE %s
+                                ORDER BY    userID'''
+
+                cursor.execute(stmt_str, (event_id, netID))
+                particpants = cursor.fetchall()
+
+                if(len(participants) == 0):
+                    return [True, True]
+                else:
+                    return[True, False]
+
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
+
+
 
 def participants_query(event_id, netID):
     netID = '%' + handle_plus(netID) + '%'

@@ -950,13 +950,13 @@ def is_participant(eventID, netID):
             else:
                 return[True, False]
 
-except Exception as ex:
-    error_msg = "A server error occurred. "
-    error_msg +="Please contact the system administrator."
-    print(ex, file=stderr, end=" ")
-    print(error_msg, file=stderr)
-    result = [False, error_msg]
-    return result
+    except Exception as ex:
+        error_msg = "A server error occurred. "
+        error_msg +="Please contact the system administrator."
+        print(ex, file=stderr, end=" ")
+        print(error_msg, file=stderr)
+        result = [False, error_msg]
+        return result
 
 
 

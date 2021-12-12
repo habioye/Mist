@@ -951,12 +951,12 @@ def is_participant(eventID, netID):
                 return[True, False]
 
 except Exception as ex:
-error_msg = "A server error occurred. "
-error_msg +="Please contact the system administrator."
-print(ex, file=stderr, end=" ")
-print(error_msg, file=stderr)
-result = [False, error_msg]
-return result
+    error_msg = "A server error occurred. "
+    error_msg +="Please contact the system administrator."
+    print(ex, file=stderr, end=" ")
+    print(error_msg, file=stderr)
+    result = [False, error_msg]
+    return result
 
 
 

@@ -13,7 +13,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    </head>
-   <body>
+   <body style ="background-color: #656565; color: white">
     <nav class="navbar navbar-expand-sm navbar-light fixed-top" style="background-color: rgb(255, 143, 0);">
         <!-- Brand/logo -->
         <a class="navbar-brand" href="#">
@@ -28,10 +28,11 @@
                 Menu
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="index">Map</a>
-                <a class="dropdown-item" href="calendar">Calendar</a>
-                <a class="dropdown-item" href="inputpage">Create Events</a>
-                <a class="dropdown-item" href="friendscreen">Friend Search</a>
+              <a class="dropdown-item" href="index">Map</a>
+              <a class="dropdown-item" href="calendar">Calendar</a>
+              <a class="dropdown-item" href="inputpage?">Create Events</a>
+              <a class="dropdown-item" href="friendscreen?">Friend Search</a>
+              <a class="dropdown-item" href="firsttimeuser">Reset Name</a>
             </div>
           </li>
         </ul>
@@ -41,18 +42,7 @@
           </span>
 
       </nav>
-      <!--<div class ="container-fluid" style ="background-color:rgb(255, 143, 0);">
-         <div class="row" style="background-color:rgb(255, 143, 0);">
-             <div class = "col-3" display: inline-block; style = "display:inline-block;padding:0;margin:0;">
-                 <a href = "https://mist-princeton.herokuapp.com/"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+map+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:left;"></a>
-             </div>
-             <div class = "col-6 align-middle" display: inline-block;><center><h1 class="align-middle" style="font-size:4vw;float:center;display:inline;">Welcome to Mist!</h1></center></div>
-             <div class = "col-3"display: inline-block; style = "display:inline-block;padding:0;">
-                 <a href = "https://mist-princeton.herokuapp.com/calendar"><img src="https://mist-asset.s3.us-east-2.amazonaws.com/mist+day+v2.png"  class="responsive" style = "max-width:30%;height:auto;float:right;"></a>
-             </div>
-         </div>
-     </div>-->
-      <div style ="padding-top: 80px;">
+      <div style ="padding-top: 80px; padding-left: 20px;">
       <b>Event Id:</b> {{eventID}}<br>
       <b>Event Name:</b> {{eventName}}<br>
       <b>Event Location:</b> {{eventLocation}}<br>

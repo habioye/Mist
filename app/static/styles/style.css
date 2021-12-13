@@ -23,7 +23,7 @@ html {
 }
 
 .container {
-  width: 100%;
+  width: 100vw;
   background-color: #ffffff;
   color: #fff;
   display: flex;

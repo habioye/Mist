@@ -461,7 +461,7 @@ def padding_from_first(first_day):
     return padding
 
 def padd_next(padding, length):
-    next_padding = ((padding + length) % 7)
+    next_padding = 7 - ((padding + length) % 7)
     return next_padding
 
 def divcalstringmaker(today):

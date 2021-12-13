@@ -57,9 +57,6 @@
   </div>-->
   <div class="main" style="padding-top:60px; padding-left: 20px;background-color:#656565;">
       <center><h1 style="color:white">Event Creation</h1></center>
-      <form  action = "index" method = "get">
-      <input type="submit", id = "back" value = "Return to Map">
-      </form>
       <p id = "error" style="color:red;">
       </p>
       <form onsubmit = "return checkInput()"action = "addinput" method = "get">
@@ -102,13 +99,9 @@
       <tr>
       <td align = "right"><font color = "RED">*</font><label for="Coords" style="color:white">Coordinates:</label></td>
       <td><Input type = "text" id = "coords" name = "coords" value = '{  "lat":LATITUDE,  "lng":LONGITUDE }' readonly style="width: 220px;"></td>
-      </tr>
-
-      <tr>
-      <td></td>
       <td><input type="button", onclick = "initMap()" value = "Add coordinates from map" style="width: 220px;"></td>
       </tr>
-      <tr>
+      <!--<tr>
         <td></td>
         <td style="color:white">OR</td>
       </tr>
@@ -121,7 +114,7 @@
         <option value="Friend">Friend Center</option>
         <option value="Jewish">Center For Jewish Life</option>
       </select></td>
-      </tr>
+      </tr>-->
       <tr>
       <td></td>
       <td><input type="submit", id = "submit" value = "Create" style="width: 220px;"></td>

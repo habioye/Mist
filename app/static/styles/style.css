@@ -23,7 +23,7 @@ html {
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
   background-color: #ffffff;
   color: #fff;
   display: flex;
@@ -32,7 +32,7 @@ html {
 }
 
 .calendar {
-  width: 60vw;
+  width: 80rem;
   height: 60rem;
   background-color: #b8b8b8;
 
@@ -216,6 +216,3 @@ html {
     transform: translate(3px);
   }
 }
-
-
-

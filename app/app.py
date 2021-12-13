@@ -412,7 +412,7 @@ def eventinfo():
 @app.route('/calendar', methods=['GET'])
 def calendar():
     username = authenticate()
-    html = render_template("calendar.html")
+    html = render_template("calendar.html", username = username)
     response = make_response(html)
 
     return response

@@ -943,8 +943,8 @@ def is_participant(eventID, netID):
                                 AND     userID LIKE %s
                                 ORDER BY    userID'''
 
-                cursor.execute(stmt_str, (event_id, netID))
-                particpants = cursor.fetchall()
+                cursor.execute(stmt_str, (eventID, netID))
+                participants = cursor.fetchall()
 
                 if(len(participants) == 0):
                     return [True, True]

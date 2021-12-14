@@ -187,7 +187,8 @@ def index():
         master = master[1]
         names.append(username)
 
-        html = render_template("testmap.html", eventData = points, userData = names, num = numrequests, master = master)
+        html = render_template("testmap.html", eventData = points, userData = names, 
+                               num = numrequests, master = master)
 
         response = make_response(html)
 
@@ -233,7 +234,9 @@ def details():
         participants = participants[1]
         if len(participants) == 0:
             participants = None
-    html = render_template('details.html', details = details, start = start, username = username, participants = participants, showbutton=showbutton)
+    html = render_template('details.html', details = details, start = start, 
+                           username = username, participants = participants, 
+                           showbutton=showbutton)
     response = make_response(html)
     return response
 
@@ -268,7 +271,8 @@ def addinput():
     y = y.strip(' "lng":')
     roomNum = request.args.get('roomnum')
 
-    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, roomNum, endDate, privacy)
+    mistdb.add_event(title, loc, start, end, startDate, details, username, y, x, 
+                     roomNum, endDate, privacy)
     return redirect('/index')
 
 @app.route('/friendscreen', methods = ['GET'])
@@ -402,7 +406,10 @@ def eventinfo():
     endDate = request.args.get('endDate')
 
 
-    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, eventLocation = eventLocation, startTime = startTime, endTime = endTime, eventDate = eventDate, details = details, roomNumber = roomNumber, endDate = endDate)
+    html = render_template('eventinfo.html', eventID = eventID, eventName = eventName, 
+                           eventLocation = eventLocation, startTime = startTime, 
+                           endTime = endTime, eventDate = eventDate, details = details, 
+                           roomNumber = roomNumber, endDate = endDate)
     response = make_response(html)
     return response
     # check when there is no such eventinfo
@@ -484,7 +491,8 @@ def divcalstringmaker(today):
             #     calstring += str(calc_day)
             #     calstring += "</div>"
             # else:
-            calstring += "<div class =\"days\" id = \"" + str(calc_day) + "\" onclick = \"get_events(this.id)\">"
+            calstring += "<div class =\"days\" id = \"" + str(calc_day)
+            calstring += "\" onclick = \"get_events(this.id)\">"
             calstring += str(calc_day)
             calstring += "</div>"
 

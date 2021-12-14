@@ -121,7 +121,7 @@ def _test():
     print(cal.get_month())
     print(cal.get_year())
     print(cal.get_first_day())
-    print(cal.get_day())
+
     
     
     print("month switching")

@@ -445,9 +445,6 @@ def calinfo():
         today = mistcalendar.mistCalendar(month,year)
 
 
-
-
-
     calstring = divcalstringmaker(today)
 
     month_name = month_full(int(month))

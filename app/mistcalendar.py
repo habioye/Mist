@@ -24,11 +24,10 @@ class mistCalendar:
             if month == "None" or year == "None":
                 self.month = today.month
                 self.year = today.year
-                self.day = today.day
+
             else:
                 self.month = int(month)
                 self.year = int(year)
-                self.day = today.day
 
             if self.month < 1 or self.month > 12:
                 raise ValueError("month must be between 1 and 12")
@@ -64,8 +63,6 @@ class mistCalendar:
     def get_first_day(self):
         return self.first_day
         
-    def get_day(self):
-        return self.day
         
     def get_month(self):
         return self.month

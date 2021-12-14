@@ -943,8 +943,8 @@ def is_participant(eventID, netID):
                                 AND     userID LIKE %s
                                 ORDER BY    userID'''
 
-                cursor.execute(stmt_str, (event_id, netID))
-                particpants = cursor.fetchall()
+                cursor.execute(stmt_str, (eventID, netID))
+                participants = cursor.fetchall()
 
                 if(len(participants) == 0):
                     return [True, True]
@@ -1058,7 +1058,7 @@ def remove_tag(event_id, tag):
 # Query the tags on a specified eventID. Return True and a list of tags on Success,
 # False and error message on failure.
 
-def tags_query(tag):
+def tags_query(eventID):
     try:
         with conn:
             cursor = conn.cursor()
@@ -1070,7 +1070,7 @@ def tags_query(tag):
                                 WHERE   eventID = %s
                                 ORDER BY    tag'''
 
-                cursor.execute(stmt_str, (tag,))
+                cursor.execute(stmt_str, (eventID,))
                 data = cursor.fetchall()
 
                 return [True, data]

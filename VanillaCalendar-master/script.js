@@ -132,3 +132,16 @@ function initButtons() {
 
 initButtons();
 load();
+
+// My code adds event listeners to a calendar for the function of saving, canceling, deleting, and closing. It also generates a calendar based on the current date and what month you navigate to.  The HTML document(https://github.com/habioye/Mist/blob/hassancalender/VanillaCalendar-master/index.html) uses the functionality from JavaScript.
+// OpenModal(): Determines if there are events in a day and displays the events for the day.
+// load(): 
+// Render calendar based on the current date. It displays a month view of the calendar.
+// CloseModal():
+// Closes the view for the events for the day.
+// saveEvent():
+// Saves the event from personal calendar.
+// deleteEvent():
+// Deletes the event from the personal calendar.
+// initButtons():
+// Adds Event Listeners for the bottoms in the HTML page.
